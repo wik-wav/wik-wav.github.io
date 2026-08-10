@@ -6,7 +6,7 @@ Statyczne, wielostronicowe portfolio przygotowane dla przyszłej witryny GitHub 
 
 Trasy:
 
-- `index.html` — profil i wybrane prace;
+- `index.html` — profil;
 - `portfolio/index.html` — galeria z filtrami i podglądem;
 - `projects/index.html` — indeks jedenastu projektów;
 - `projects/latentne/index.html`;
@@ -51,7 +51,7 @@ Static, multi-page portfolio prepared for a future GitHub Pages site. The home p
 
 Routes:
 
-- `index.html` — profile and selected work;
+- `index.html` — profile;
 - `portfolio/index.html` — gallery with filters and preview;
 - `projects/index.html` — index of eleven projects;
 - `projects/latentne/index.html`;

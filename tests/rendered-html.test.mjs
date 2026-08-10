@@ -159,7 +159,7 @@ test("requires intrinsic dimensions and specific bilingual local-image alternati
   assert.match(core, /fetchpriority="high"/);
   assert.match(core, /loading="\$\{eager \? "eager" : "lazy"\}" decoding="async"/);
   assert.match(await read("assets/js/project-detail.js"), /fetchPriority: "high"/);
-  assert.doesNotMatch((await read("assets/js/home.js")) + (await read("assets/js/portfolio.js")) + (await read("assets/js/projects.js")), /fetchPriority/);
+  assert.doesNotMatch((await read("assets/js/portfolio.js")) + (await read("assets/js/projects.js")), /fetchPriority/);
 });
 
 test("renders the exact bilingual home headline as two persistent lines", async () => {
@@ -175,7 +175,13 @@ test("renders the exact bilingual home headline as two persistent lines", async 
     assert.match(html, /data-pl="Projektowanie poprzez protokół" data-en="Design in protocol"/);
     assert.equal((html.match(/class="home-hero-heading-line"/g) || []).length, 2);
     for (const retired of retiredHeadlines) assert.ok(!html.includes(retired));
+    assert.doesNotMatch(html, /data-od-id="selected-work-section"|data-featured-work|data-pl="WYBRANE PRACE"/);
+    assert.doesNotMatch(html, /profil i wybrane prace|profile and selected work/i);
   }
+  assert.doesNotMatch(source, /assets\/js\/home\.js/);
+  assert.match(source, /01 \/ <span data-pl="DYSCYPLINY"/);
+  assert.match(source, /02 \/ <span data-pl="WYBRANE PRACE DYPLOMOWE"/);
+  await assert.rejects(() => access(path.join(root, "assets/js/home.js")), { code: "ENOENT" });
   assert.match(css, /\.home-hero-heading-line\s*\{\s*display:\s*block;\s*\}/);
 });
 
@@ -434,7 +440,7 @@ test("renders precise media-level AI provenance without false labels", async () 
   assert.match(core, /role="note"/);
   assert.match(core, /disclosureMode === "detail"/);
   assert.match(core, /makeMedia, makeVideo, makeWorkMedia/);
-  const callSites = (await Promise.all(["assets/js/home.js", "assets/js/portfolio.js", "assets/js/projects.js", "assets/js/project-detail.js"].map(read))).join("\n");
+  const callSites = (await Promise.all(["assets/js/portfolio.js", "assets/js/projects.js", "assets/js/project-detail.js"].map(read))).join("\n");
   assert.match(callSites, /P\.makeMedia/);
   assert.match(callSites, /P\.makeWorkMedia/);
   const readme = await read("README.md");
@@ -585,7 +591,7 @@ test("allows only the two verified privacy-enhanced YouTube videos", async () =>
 
 test("removes retired routes and visitor-irrelevant copy", async () => {
   const retired = ["exhi" + "bitions", "coper" + "nicus", "ide" + "ami", "voice-" + "synthesis"];
-  const sourceFiles = ["index.html", "portfolio/index.html", "projects/index.html", "assets/js/data.js", "assets/js/core.js", "assets/js/home.js", "assets/js/projects.js", "assets/js/project-detail.js", "assets/js/portfolio.js"];
+  const sourceFiles = ["index.html", "portfolio/index.html", "projects/index.html", "assets/js/data.js", "assets/js/core.js", "assets/js/projects.js", "assets/js/project-detail.js", "assets/js/portfolio.js"];
   const source = (await Promise.all(sourceFiles.map(read))).join("\n").toLowerCase();
   for (const value of retired) assert.ok(!source.includes(value), `${value} is absent from public source`);
   await assert.rejects(access(path.join(root, "projects", retired[0])));

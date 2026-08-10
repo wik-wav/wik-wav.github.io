@@ -11,7 +11,7 @@ const project = (title: string, descriptionPL: string, descriptionEN: string, im
 });
 
 export const routeMetadata: Record<string, RouteMeta> = {
-  "/": { titlePL: "Wiktor Sielaszuk — profil i wybrane prace", titleEN: "Wiktor Sielaszuk — profile and selected work", descriptionPL: "Portfolio Wiktora Sielaszuka: projektowanie, sztuka, systemy wizualne i wybrane prace.", descriptionEN: "Wiktor Sielaszuk’s portfolio: design, art, visual systems, and selected work." },
+  "/": { titlePL: "Wiktor Sielaszuk — profil", titleEN: "Wiktor Sielaszuk — profile", descriptionPL: "Profil Wiktora Sielaszuka: projektowanie, sztuka, systemy wizualne i badania.", descriptionEN: "Wiktor Sielaszuk’s profile: design, art, visual systems, and research." },
   "/portfolio/": { titlePL: "Wszystkie prace — Wiktor Sielaszuk", titleEN: "All work — Wiktor Sielaszuk", descriptionPL: "Wszystkie publiczne prace Wiktora Sielaszuka z filtrowaniem według projektu, roku, medium i typu.", descriptionEN: "All public work by Wiktor Sielaszuk, filterable by project, year, medium, and type." },
   "/projects/": { titlePL: "Projekty — Wiktor Sielaszuk", titleEN: "Projects — Wiktor Sielaszuk", descriptionPL: "Wybrane projekty Wiktora Sielaszuka z opisami założeń, procesu, roli i mediów.", descriptionEN: "Selected projects by Wiktor Sielaszuk with context on concept, process, role, and media." },
   "/projects/latentne/": project("Latentne", "Cykl 12 cyfrowych wydruków z 2026 roku badający ludzką intencję i sprawczość w sztuce generatywnej.", "A 2026 series of 12 digital prints examining human intention and agency in generative art.", "/assets/media/degree/latentne-01-graph-of-babel.webp", "2026"),
