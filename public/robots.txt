@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wik-wav.github.io/sitemap.xml

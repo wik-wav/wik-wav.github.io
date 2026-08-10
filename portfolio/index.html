@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Wybrane, filtrowalne prace Wiktora Sielaszuka." data-content-pl="Wybrane, filtrowalne prace Wiktora Sielaszuka." data-content-en="Selected, filterable work by Wiktor Sielaszuk.">
+  <title data-pl="Portfolio — Wiktor Sielaszuk" data-en="Portfolio — Wiktor Sielaszuk">Portfolio — Wiktor Sielaszuk</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <script type="module" src="../assets/js/data.js"></script>
+  <script type="module" src="../assets/js/core.js"></script>
+  <script type="module" src="../assets/js/portfolio.js"></script>
+</head>
+<body data-base=".." data-page="portfolio">
+  <div data-site-header></div>
+  <main id="main" class="page-shell">
+    <header class="portfolio-head" data-od-id="portfolio-heading-region">
+      <div><p class="section-code">P.01 / <span data-pl="ARCHIWUM PRAC" data-en="WORK ARCHIVE">ARCHIWUM PRAC</span></p><h1 data-pl="Portfolio" data-en="Portfolio">Portfolio</h1></div>
+      <p class="lead" data-pl="Wybrane prace z filtrowaniem według projektu, roku, medium i typu." data-en="Selected work, filterable by project, year, medium, and type.">Wybrane prace z filtrowaniem według projektu, roku, medium i typu.</p>
+    </header>
+    <nav class="mode-tabs" aria-label="Widok portfolio" data-aria-pl="Widok portfolio" data-aria-en="Portfolio view" data-od-id="portfolio-mode-tabs">
+      <a class="mode-tab" href="./index.html" aria-current="page" data-pl="Wszystkie prace" data-en="All work">Wszystkie prace</a>
+      <a class="mode-tab" href="../projects/index.html" data-projects-mode-link data-pl="Projekty" data-en="Projects">Projekty</a>
+    </nav>
+    <aside class="collection-shortcut" data-od-id="character-art-shortcut">
+      <div><p class="section-code">C.01 / <span data-pl="KOLEKCJA" data-en="COLLECTION">KOLEKCJA</span></p><p data-pl="Ilustracje postaci i plansze projektowe w jednym widoku." data-en="Character illustrations and design sheets in one view.">Ilustracje postaci i plansze projektowe w jednym widoku.</p></div>
+      <button type="button" aria-pressed="false" data-character-art-shortcut data-pl="Postaci - ilustracje" data-en="Character Art">Postaci - ilustracje</button>
+    </aside>
+    <section class="display-toolbar" aria-label="Ustawienia widoku" data-aria-pl="Ustawienia widoku" data-aria-en="Display settings" data-od-id="portfolio-display-controls">
+      <div class="display-controls" data-display-controls></div>
+    </section>
+    <section class="filter-zone" aria-labelledby="filter-heading" data-od-id="gallery-filters">
+      <h2 id="filter-heading" class="filter-label" data-pl="Filtry galerii" data-en="Gallery filters">Filtry galerii</h2>
+      <div class="filter-bar" data-filters></div>
+      <div class="selection-summary" data-selection-summary aria-live="polite"></div>
+    </section>
+    <div class="results-meta"><span class="result-count" data-result-count tabindex="-1" aria-live="polite"></span><span class="muted" data-pl="W obrębie kategorii działa LUB; między kategoriami działa ORAZ." data-en="Within a facet, filters use OR; across facets, they use AND.">W obrębie kategorii działa LUB; między kategoriami działa ORAZ.</span></div>
+    <section class="gallery-grid" data-gallery aria-label="Galeria prac" data-aria-pl="Galeria prac" data-aria-en="Work gallery" data-od-id="all-work-gallery"></section>
+    <div class="pagination" data-pagination data-od-id="work-pagination"></div>
+    <section class="zero-state" data-zero-state data-od-id="zero-results-state">
+      <p class="section-code">00 / <span data-pl="BRAK WYNIKÓW" data-en="NO RESULTS">BRAK WYNIKÓW</span></p>
+      <h2 data-pl="Brak prac dla tej kombinacji." data-en="No work matches this combination.">Brak prac dla tej kombinacji.</h2>
+      <p class="lead" data-pl="Usuń jeden lub więcej filtrów albo wyczyść zestaw i zacznij od nowa." data-en="Remove one or more filters, or clear the set and start again.">Usuń jeden lub więcej filtrów albo wyczyść zestaw i zacznij od nowa.</p>
+      <p><button class="cta secondary" type="button" data-zero-clear data-pl="Wyczyść filtry" data-en="Clear filters">Wyczyść filtry</button></p>
+    </section>
+  </main>
+  <div class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lightbox-title" data-lightbox data-od-id="work-lightbox">
+    <div class="lightbox-head"><span class="meta">WIKTOR SIELASZUK / PORTFOLIO</span><button class="lightbox-close" type="button" data-lightbox-close data-pl="Zamknij" data-en="Close">Zamknij</button></div>
+    <div class="lightbox-stage">
+      <button class="lightbox-nav" type="button" data-lightbox-prev aria-label="Poprzednia praca" data-aria-pl="Poprzednia praca" data-aria-en="Previous work">←</button>
+      <div data-lightbox-media></div>
+      <button class="lightbox-nav" type="button" data-lightbox-next aria-label="Następna praca" data-aria-pl="Następna praca" data-aria-en="Next work">→</button>
+    </div>
+    <div class="lightbox-foot">
+      <div class="lightbox-copy"><h2 id="lightbox-title" data-lightbox-title></h2><p data-lightbox-caption></p><div class="sequence-links" data-lightbox-links></div></div>
+      <span class="lightbox-counter" data-lightbox-counter></span>
+    </div>
+  </div>
+  <div data-site-footer></div>
+</body>
+</html>

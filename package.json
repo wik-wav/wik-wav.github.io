@@ -1,0 +1,16 @@
+{
+  "name": "wiktor-sielaszuk-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "media:dimensions": "node scripts/generate-media-dimensions.mjs",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "npm run media:dimensions && vite build && node --test tests/rendered-html.test.mjs"
+  },
+  "devDependencies": {
+    "vite": "^8.2.1"
+  }
+}
