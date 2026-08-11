@@ -487,6 +487,29 @@ window.PORTFOLIO_DATA = (() => {
     featured: index === 0
   }));
 
+paraWorks.push(work({
+    id: "para-analog-on-05-video",
+    project: "para-analog-on",
+    year: "2026",
+    medium: "digital",
+    types: ["motion", "video"],
+    mediaType: "video",
+    cover: degree("para-analog-on-01-w.webp", "16/9"),
+    video: {
+      provider: "youtube",
+      id: "Ek-TSGs-sKs",
+      poster: degree("para-analog-on-01-w.webp", "16/9")
+    },
+    titlePL: "Para-analog-on — wideo",
+    titleEN: "Para-analog-on — video",
+    summaryPL: "Dokumentacja wideo projektu Para-analog-on.",
+    summaryEN: "Video documentation of the Para-analog-on project.",
+    altPL: "Kadr zastępczy wideo.",
+    altEN: "Video poster fallback.",
+    captionPL: "Para-analog-on, dokumentacja wideo, 2026.",
+    captionEN: "Para-analog-on, video documentation, 2026."
+  }));
+
   const gaijinPosterSpecs = [
     ["nyuu-min", "入眠 / Nyū Min / Enter Sleep", "gaijins-three-visions-01-nyuu-min.webp", "Ciemny plakat z japońskimi znakami 入眠 i warstwową, fraktalną kompozycją.", "Dark poster with the Japanese characters 入眠 and a layered fractal composition."],
     ["fuyuu", "浮遊 / Fuyū / Float Play", "gaijins-three-visions-02-fuyuu.webp", "Jasny plakat z dużymi znakami 浮遊 i lekkimi, unoszącymi się formami.", "Pale poster with large 浮遊 characters and light, floating forms."],
