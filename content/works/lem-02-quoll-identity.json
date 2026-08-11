@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 23,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/lem-v4-utau-quoll-transparent.webp",
+      "ratio": "1/2",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa forma Quoll postaci Lem: cętkowany antropomorficzny niełaz o masywnej sylwetce.",
+      "altEN": "Full-body Lem Quoll form: a spotted anthropomorphic quoll with a stocky build.",
+      "hasTransparency": true,
+      "viewerBackground": "light",
+      "transparencyMode": "force-transparent"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/lem-v4-utau-quoll-transparent.webp",
+      "ratio": "1/2",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa forma Quoll postaci Lem: cętkowany antropomorficzny niełaz o masywnej sylwetce.",
+      "altEN": "Full-body Lem Quoll form: a spotted anthropomorphic quoll with a stocky build.",
+      "hasTransparency": true,
+      "viewerBackground": "light",
+      "transparencyMode": "force-transparent"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-02-quoll-identity",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/lem-v4-utau-quoll-transparent.webp",
+    "ratio": "1/2",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowa forma Quoll postaci Lem: cętkowany antropomorficzny niełaz o masywnej sylwetce.",
+    "altEN": "Full-body Lem Quoll form: a spotted anthropomorphic quoll with a stocky build.",
+    "hasTransparency": true,
+    "viewerBackground": "light",
+    "transparencyMode": "force-transparent",
+    "focalPoint": {
+      "x": 0.484,
+      "y": 0.161
+    }
+  },
+  "titlePL": "Lem V4 — Quoll",
+  "titleEN": "Lem V4 — Quoll",
+  "summaryPL": "Forma Quoll rozwijająca wspólną identyfikację V4/V4Bi.",
+  "summaryEN": "The Quoll form extending the shared V4/V4Bi identity.",
+  "altPL": "Pełnopostaciowa forma Quoll postaci Lem: cętkowany antropomorficzny niełaz o masywnej sylwetce.",
+  "altEN": "Full-body Lem Quoll form: a spotted anthropomorphic quoll with a stocky build.",
+  "captionPL": "Forma Quoll — warianty wokalne Main i Head Voice.",
+  "captionEN": "Quoll form—Main and Head Voice vocal variants.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

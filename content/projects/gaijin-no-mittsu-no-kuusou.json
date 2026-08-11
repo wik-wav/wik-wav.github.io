@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "recordType": "project",
+  "order": 3,
+  "published": true,
+  "draft": false,
+  "pageCode": "P.05",
+  "pageLabelPL": "PROJEKT KURATORSKI",
+  "pageLabelEN": "CURATED PROJECT",
+  "id": "gaijin-no-mittsu-no-kuusou",
+  "detailMediaSize": "standard",
+  "heroLineHeightPL": 1.11,
+  "heroLineHeightEN": 1.3,
+  "titlePL": "外人の三つの空想 / A Gaijin’s Three Visions",
+  "titleEN": "外人の三つの空想 / A Gaijin’s Three Visions",
+  "summaryPL": "Licencjacka praca artystyczna: autorski tryptyk audiowizualny z muzyką, wideo i trzema plakatami.",
+  "summaryEN": "Bachelor’s artistic work: an original audiovisual triptych combining music, video, and three posters.",
+  "overviewPL": "Trzy części wizualizują wizje hipnagogiczne, doświadczenie paraliżu sennego i lewitacji oraz syndrom eksplodującej głowy. Muzyka i obraz powstały z użyciem syntezatorów analogowych, syntezowanego śpiewu i grafiki fraktalnej.",
+  "overviewEN": "Its three parts visualise hypnagogic visions, sleep paralysis and levitation, and exploding head syndrome. The sound and image use analogue synthesisers, synthesised vocals, and fractal graphics.",
+  "yearPL": "2024",
+  "yearEN": "2024",
+  "disciplinesPL": "plakat, wideo, muzyka, grafika fraktalna",
+  "disciplinesEN": "poster, video, music, fractal graphics",
+  "formatPL": "tryptyk audiowizualny i trzy plakaty 100 × 70 cm",
+  "formatEN": "audiovisual triptych and three 100 × 70 cm posters",
+  "rolePL": "koncepcja, muzyka, wideo, plakaty",
+  "roleEN": "concept, music, video, posters",
+  "processHeadingPL": "Muzyka, synteza głosu i obraz fraktalny.",
+  "processHeadingEN": "Music, voice synthesis, and fractal imagery.",
+  "processPL": "Oryginalna muzyka, syntezowane wokale i fraktalne wizualizacje tworzą trzy powiązane interpretacje granicznych stanów snu.",
+  "processEN": "Original music, synthesised vocals, and fractal visualisations form three connected interpretations of liminal sleep states.",
+  "creditsPL": "Praca licencjacka zrealizowana pod kierunkiem dr. hab. Antoniego Grzybka, prof. UWM.",
+  "creditsEN": "Bachelor’s artistic work supervised by Dr hab. Antoni Grzybek, Prof. UWM.",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/gaijins-three-visions-02-fuyuu.webp",
+    "ratio": "16/8",
+    "fit": "contain",
+    "altPL": "Licencjacka praca artystyczna: autorski tryptyk audiowizualny z muzyką, wideo i trzema plakatami.",
+    "altEN": "Bachelor’s artistic work: an original audiovisual triptych combining music, video, and three posters.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  "hero": {
+    "kind": "group",
+    "items": [
+      {
+        "kind": "image",
+        "src": "assets/media/degree/gaijins-three-visions-01-nyuu-min.webp",
+        "ratio": "7/10",
+        "fit": "contain",
+        "altPL": "Plakat Nyū Min / Enter Sleep z tryptyku A Gaijin’s Three Visions.",
+        "altEN": "Nyū Min / Enter Sleep poster from A Gaijin’s Three Visions.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      },
+      {
+        "kind": "image",
+        "src": "assets/media/degree/gaijins-three-visions-02-fuyuu.webp",
+        "ratio": "7/10",
+        "fit": "contain",
+        "altPL": "Plakat Fuyū / Float Play z tryptyku A Gaijin’s Three Visions.",
+        "altEN": "Fuyū / Float Play poster from A Gaijin’s Three Visions.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      },
+      {
+        "kind": "image",
+        "src": "assets/media/degree/gaijins-three-visions-03-nai-atsu.webp",
+        "ratio": "7/10",
+        "fit": "contain",
+        "altPL": "Plakat Nai Atsu / Internal Pressure z tryptyku A Gaijin’s Three Visions.",
+        "altEN": "Nai Atsu / Internal Pressure poster from A Gaijin’s Three Visions.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      }
+    ],
+    "ratio": "2/1"
+  },
+  "thumbnail": {
+    "kind": "image",
+    "src": "assets/media/degree/gaijins-three-visions-02-fuyuu.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Licencjacka praca artystyczna: autorski tryptyk audiowizualny z muzyką, wideo i trzema plakatami.",
+    "altEN": "Bachelor’s artistic work: an original audiovisual triptych combining music, video, and three posters.",
+    "hasTransparency": false,
+    "objectPosition": "50% 0%",
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0
+    },
+    "transparencyMode": "auto"
+  },
+  "related": [
+    "latentne",
+    "para-analog-on"
+  ],
+  "detailSequenceIds": [
+    "gaijins-three-visions-01-nyuu-min",
+    "gaijins-three-visions-02-fuyuu",
+    "gaijins-three-visions-03-nai-atsu",
+    "gaijins-three-visions-04-video",
+    "gaijins-three-visions-05-bandcamp"
+  ],
+  "seo": {
+    "titlePL": "外人の三つの空想 / A Gaijin’s Three Visions — Wiktor Sielaszuk",
+    "titleEN": "外人の三つの空想 / A Gaijin’s Three Visions — Wiktor Sielaszuk",
+    "descriptionPL": "Licencjacka praca artystyczna: autorski tryptyk audiowizualny z muzyką, wideo i trzema plakatami.",
+    "descriptionEN": "Bachelor’s artistic work: an original audiovisual triptych combining music, video, and three posters.",
+    "image": "assets/media/degree/gaijins-three-visions-02-fuyuu.webp",
+    "imageAltPL": "Licencjacka praca artystyczna: autorski tryptyk audiowizualny z muzyką, wideo i trzema plakatami.",
+    "imageAltEN": "Bachelor’s artistic work: an original audiovisual triptych combining music, video, and three posters."
+  },
+  "statementPL": "",
+  "statementEN": ""
+}

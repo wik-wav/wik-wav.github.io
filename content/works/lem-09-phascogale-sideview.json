@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 30,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/lem-phascogale-sideview.webp",
+      "ratio": "2/3",
+      "fit": "contain",
+      "altPL": "Profilowe popiersie formy Phascogale postaci Lem, zwrócone w lewo, z dużymi okrągłymi uszami, pomarańczowym kucykiem i krótką bluzą.",
+      "altEN": "Left-facing profile bust of Lem’s Phascogale form with large round ears, an orange ponytail, and a cropped hoodie.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/lem-phascogale-sideview.webp",
+      "ratio": "2/3",
+      "fit": "contain",
+      "altPL": "Profilowe popiersie formy Phascogale postaci Lem, zwrócone w lewo, z dużymi okrągłymi uszami, pomarańczowym kucykiem i krótką bluzą.",
+      "altEN": "Left-facing profile bust of Lem’s Phascogale form with large round ears, an orange ponytail, and a cropped hoodie.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-09-phascogale-sideview",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/lem-phascogale-sideview.webp",
+    "ratio": "2/3",
+    "fit": "contain",
+    "altPL": "Profilowe popiersie formy Phascogale postaci Lem, zwrócone w lewo, z dużymi okrągłymi uszami, pomarańczowym kucykiem i krótką bluzą.",
+    "altEN": "Left-facing profile bust of Lem’s Phascogale form with large round ears, an orange ponytail, and a cropped hoodie.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.511,
+      "y": 0.318
+    }
+  },
+  "titlePL": "Phascogale — profil",
+  "titleEN": "Phascogale — side view",
+  "summaryPL": "Profil porządkujący proporcje i cechy formy Phascogale.",
+  "summaryEN": "Side view defining the proportions and features of the Phascogale form.",
+  "altPL": "Profilowe popiersie formy Phascogale postaci Lem, zwrócone w lewo, z dużymi okrągłymi uszami, pomarańczowym kucykiem i krótką bluzą.",
+  "altEN": "Left-facing profile bust of Lem’s Phascogale form with large round ears, an orange ponytail, and a cropped hoodie.",
+  "captionPL": "Widok boczny formy Phascogale.",
+  "captionEN": "Phascogale form side view.",
+  "projectGroup": "lem-sideviews",
+  "projectGroupLabelPL": "Widoki boczne",
+  "projectGroupLabelEN": "Side views",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

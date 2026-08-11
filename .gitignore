@@ -41,6 +41,8 @@ yarn-error.log*
 /.file-versions/
 /.od-skills/
 /.openai/
+.portfolio-studio.json
+studio-preview/
 *.artifact.json
 .sites-dev.*
 *.log

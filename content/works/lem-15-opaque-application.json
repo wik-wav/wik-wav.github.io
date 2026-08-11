@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 35,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/lem-clairecat-opaque-cover.webp",
+      "ratio": "1/1",
+      "fit": "cover",
+      "altPL": "Monochromatyczna ilustracja postaci Lem w formie Weasel, poprawiającej okulary przeciwsłoneczne, w kolczastym kołnierzu i kwiatowym topie.",
+      "altEN": "Monochrome illustration of Lem’s Weasel form adjusting sunglasses, wearing a spiked collar and a floral top.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/lem-clairecat-opaque-cover.webp",
+      "ratio": "1/1",
+      "fit": "cover",
+      "altPL": "Monochromatyczna ilustracja postaci Lem w formie Weasel, poprawiającej okulary przeciwsłoneczne, w kolczastym kołnierzu i kwiatowym topie.",
+      "altEN": "Monochrome illustration of Lem’s Weasel form adjusting sunglasses, wearing a spiked collar and a floral top.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-15-opaque-application",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/lem-clairecat-opaque-cover.webp",
+    "ratio": "1/1",
+    "fit": "cover",
+    "altPL": "Monochromatyczna ilustracja postaci Lem w formie Weasel, poprawiającej okulary przeciwsłoneczne, w kolczastym kołnierzu i kwiatowym topie.",
+    "altEN": "Monochrome illustration of Lem’s Weasel form adjusting sunglasses, wearing a spiked collar and a floral top.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.41,
+      "y": 0.381
+    }
+  },
+  "titlePL": "Opaque — przykład zastosowania",
+  "titleEN": "Opaque — application example",
+  "summaryPL": "Przykład wykorzystania systemu postaci w pracy współtworzonej.",
+  "summaryEN": "An example of the character system used in a collaborative work.",
+  "altPL": "Monochromatyczna ilustracja postaci Lem w formie Weasel, poprawiającej okulary przeciwsłoneczne, w kolczastym kołnierzu i kwiatowym topie.",
+  "altEN": "Monochrome illustration of Lem’s Weasel form adjusting sunglasses, wearing a spiked collar and a floral top.",
+  "captionPL": "Przykład zastosowania systemu postaci w pracy współtworzonej.",
+  "captionEN": "Example of the character system applied in a collaborative work.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

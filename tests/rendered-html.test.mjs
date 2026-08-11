@@ -5,8 +5,9 @@ import test from "node:test";
 import vm from "node:vm";
 
 const root = path.resolve(import.meta.dirname, "..");
-const projectSlugs = ["latentne", "para-analog-on", "gaijin-no-mittsu-no-kuusou", "lem", "lozenge-t", "book-cover", "windows-zine", "cover-art", "small-design-projects", "character-art", "dissonance-perspective"];
-const pages = ["index.html", "portfolio/index.html", "projects/index.html", ...projectSlugs.map(slug => `projects/${slug}/index.html`)];
+const generatedManifest = JSON.parse(await readFile(path.join(root, "generated/site-manifest.json"), "utf8"));
+const pages = generatedManifest.routes.map(route => route.file);
+const projectSlugs = generatedManifest.routes.filter(route => route.recordType).map(route => route.name);
 const read = relative => readFile(path.join(root, relative), "utf8");
 
 async function loadData() {
@@ -22,17 +23,17 @@ function collectMedia(asset, target) {
   if (asset.kind === "group") asset.items.forEach(item => collectMedia(item, target));
 }
 
-test("keeps index.html primary and registers exactly fourteen routes", async () => {
+test("keeps index.html primary and registers every generated route", async () => {
   const { projects, works } = await loadData();
   const publicWorks = works.filter(item => !item.draft && item.galleryVisible !== false);
   assert.equal(pages[0], "index.html");
-  assert.equal(pages.length, 14);
-  assert.equal(projects.length, 11);
-  assert.equal(publicWorks.length, 61);
+  assert.equal(pages.length, 3 + projects.length);
+  assert.equal(publicWorks.length, works.filter(item => !item.draft && item.galleryVisible !== false).length);
   for (const page of pages) await access(path.join(root, page));
 
   const vite = await read("vite.config.ts");
-  for (const page of pages) assert.match(vite, new RegExp(page.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.match(vite, /generated\/site-manifest\.json/);
+  assert.match(vite, /generatedManifest\.routes\.map/);
   assert.match(vite, /copy-static-media/);
   assert.doesNotMatch(vite, /__dirname/);
   assert.match(vite, /\.\/seo-metadata\.ts/);
@@ -50,11 +51,60 @@ test("keeps every page bilingual and connected to shared chrome", async () => {
   }
 
   const core = await read("assets/js/core.js");
-  assert.match(core, /localStorage\.getItem\("portfolio:lang"\)/);
-  assert.match(core, /localStorage\.setItem\("portfolio:lang"/);
+  assert.match(core, /window\.localStorage\.getItem\(key\)/);
+  assert.match(core, /window\.localStorage\.setItem\(key, value\)/);
+  assert.match(core, /catch \{ return null; \}/);
   assert.match(core, /document\.documentElement\.lang = state\.lang/);
   assert.match(core, /data-lang="pl"/);
   assert.match(core, /data-lang="en"/);
+});
+
+test("keeps the Open Design raw preview dependency graph flat and directly addressable", async () => {
+  const sharedOrder = ["media-dimensions.js", "site-data.js", "data.js", "typography.js", "core.js"];
+  for (const page of pages) {
+    const html = await read(page);
+    const scriptSources = [...html.matchAll(/<script type="module" src="([^"]+)"><\/script>/g)].map(match => match[1]);
+    const names = scriptSources.map(source => source.split("/").at(-1));
+    let previous = -1;
+    for (const name of sharedOrder) {
+      const index = names.indexOf(name);
+      assert.ok(index > previous, `${page} loads ${name} directly and in dependency order`);
+      previous = index;
+    }
+    if (page !== "index.html") {
+      const viewer = names.indexOf("viewer.js");
+      assert.ok(viewer > previous, `${page} loads viewer.js directly after core.js`);
+      assert.ok(viewer < names.length - 1, `${page} loads its page controller after viewer.js`);
+    }
+  }
+
+  for (const file of ["typography.js", "core.js", "viewer.js", "portfolio.js", "projects.js", "project-detail.js"]) {
+    assert.doesNotMatch(await read(`assets/js/${file}`), /^\s*import\s/m, `${file} has no nested browser imports`);
+  }
+});
+
+test("applies one shared, display-only typography pass across every route", async () => {
+  const typography = await read("assets/js/typography.js");
+  const core = await read("assets/js/core.js");
+  const css = await read("assets/css/site.css");
+
+  for (const page of pages) assert.match(await read(page), /assets\/js\/typography\.js/);
+  assert.match(core, /function initTypography\(\)/);
+  assert.match(core, /window\.PortfolioTypography\.start\(\)/);
+  assert.match(core, /location\.pathname\.includes\("\/studio-preview\/"\)/);
+  assert.match(core, /script\.src = url\("assets\/js\/typography\.js"\)/);
+  assert.match(typography, /new MutationObserver\(schedule\)/);
+  assert.match(typography, /observer\.observe\(document\.body, \{ subtree: true, childList: true, characterData: true \}\)/);
+  assert.match(typography, /node\.data = next/);
+  assert.doesNotMatch(typography, /setAttribute|innerHTML\s*=/);
+  assert.match(typography, /\.pabaka-specimen/);
+  assert.match(typography, /\.pabaka-grid/);
+  assert.match(typography, /\[data-no-typography\]/);
+  assert.match(css, /:where\(h1, h2, h3, h4, h5, h6, \.display\)\s*\{[^}]*text-wrap:\s*balance;[^}]*hyphens:\s*none;/);
+  assert.match(css, /:where\(p, li, dt, dd, figcaption, blockquote, summary, \.lead, \.work-project-link\)\s*\{[^}]*text-wrap:\s*pretty;[^}]*widows:\s*2;[^}]*orphans:\s*2;/);
+  assert.match(css, /\.pabaka-specimen\s*\{[^}]*text-wrap:\s*wrap;/);
+  assert.doesNotMatch(css, /\.portfolio-head > \.lead\s*\{[^}]*overflow-wrap:\s*anywhere/);
+  assert.doesNotMatch(css, /\.project-row p, \.project-row \.tag\s*\{[^}]*overflow-wrap:\s*anywhere/);
 });
 
 test("builds complete route-specific production SEO for all fourteen canonical pages", async () => {
@@ -71,7 +121,11 @@ test("builds complete route-specific production SEO for all fourteen canonical p
     assert.ok(!descriptions.has(description), `${page} description is unique`);
     titles.add(title); descriptions.add(description);
     assert.match(output, new RegExp(`<link rel="canonical" href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}">`));
-    for (const marker of ['name="robots" content="index,follow,max-image-preview:large"', 'property="og:title"', 'property="og:description"', 'property="og:url"', 'property="og:image" content="https://wik-wav.github.io/og-social.png"', 'property="og:image:width" content="1200"', 'property="og:image:height" content="630"', 'property="og:site_name"', 'property="og:locale" content="pl_PL"', 'property="og:locale:alternate" content="en_GB"', 'name="twitter:card" content="summary_large_image"', 'name="twitter:image:alt"', 'rel="manifest" href="/site.webmanifest"']) assert.ok(output.includes(marker), `${page} has ${marker}`);
+    for (const marker of ['name="robots" content="index,follow,max-image-preview:large"', 'property="og:title"', 'property="og:description"', 'property="og:url"', 'property="og:image" content="https://wik-wav.github.io/', 'property="og:site_name"', 'property="og:locale" content="pl_PL"', 'property="og:locale:alternate" content="en_GB"', 'name="twitter:card" content="summary_large_image"', 'name="twitter:image:alt"', 'rel="manifest" href="/site.webmanifest"']) assert.ok(output.includes(marker), `${page} has ${marker}`);
+    const imageTag = output.match(/<meta property="og:image"[^>]+>/)?.[0] || "";
+    const hasDefaultSocialImage = imageTag.includes("/og-social.png");
+    assert.equal(output.includes('property="og:image:width" content="1200"'), hasDefaultSocialImage, `${page} only declares dimensions for the 1200x630 social image`);
+    assert.equal(output.includes('property="og:image:height" content="630"'), hasDefaultSocialImage, `${page} only declares dimensions for the 1200x630 social image`);
     assert.match(output, /data-content-pl="[^"]+" data-content-en="[^"]+"/);
     assert.doesNotMatch(output.match(/<(?:link rel="canonical"|meta property="og:url")[^>]+>/g)?.join("\n") || "", /[?&](?:page|size|per|project|type|medium|year|collection|work)=/);
     const json = output.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
@@ -166,14 +220,20 @@ test("renders the exact bilingual home headline as two persistent lines", async 
   const source = await read("index.html");
   const css = await read("assets/css/site.css");
   const output = await read("dist/index.html");
+  const site = JSON.parse(await read("content/site.json"));
   const retiredHeadlines = [
     ["Projektuję", "systemy,", "które", "potrafią", "mówić", "wieloma", "głosami."].join(" "),
     ["I", "design", "systems", "that", "can", "speak", "in", "many", "voices."].join(" ")
   ];
+  assert.equal(site.home.heroLines.length, 2);
+  assert.equal(site.home.heroLineHeight, 1.02);
   for (const html of [source, output]) {
-    assert.match(html, /data-pl="Tożsamość w sztuce" data-en="Identity in art"/);
-    assert.match(html, /data-pl="Projektowanie poprzez protokół" data-en="Design in protocol"/);
+    for (const line of site.home.heroLines) {
+      assert.ok(html.includes(`data-pl="${line.pl}" data-en="${line.en}"`), "generated home headline follows the authored bilingual content");
+    }
     assert.equal((html.match(/class="home-hero-heading-line"/g) || []).length, 2);
+    assert.match(html, /class="home-hero-heading" style="--home-hero-line-height:1\.02"/);
+    assert.match(html, /<\/span><span class="home-hero-heading-line"/);
     for (const retired of retiredHeadlines) assert.ok(!html.includes(retired));
     assert.doesNotMatch(html, /data-od-id="selected-work-section"|data-featured-work|data-pl="WYBRANE PRACE"/);
     assert.doesNotMatch(html, /profil i wybrane prace|profile and selected work/i);
@@ -182,16 +242,69 @@ test("renders the exact bilingual home headline as two persistent lines", async 
   assert.match(source, /01 \/ <span data-pl="DYSCYPLINY"/);
   assert.match(source, /02 \/ <span data-pl="WYBRANE PRACE DYPLOMOWE"/);
   await assert.rejects(() => access(path.join(root, "assets/js/home.js")), { code: "ENOENT" });
-  assert.match(css, /\.home-hero-heading-line\s*\{\s*display:\s*block;\s*\}/);
+  assert.match(css, /\.home-hero-heading\s*\{[^}]*line-height:\s*var\(--home-hero-line-height, 1\.02\);[^}]*white-space:\s*normal/);
+  assert.match(css, /\.home-hero-heading-line\s*\{[^}]*display:\s*block;[^}]*white-space:\s*pre-line/);
+  assert.match(source, /<body[^>]*data-page="home"/);
+  assert.match(css, /@media\s*\(min-width:\s*981px\)[\s\S]*body\[data-page="home"\]\s+\.hero\s*\{\s*padding-top:\s*clamp\(60px,\s*5vw,\s*80px\);\s*\}/);
+  assert.match(css, /body\[data-page="home"\]\s+\.hero-copy\s*\{\s*align-self:\s*start;\s*\}/);
 });
 
-test("loads Exo 2 for body copy without changing display or mono typography", async () => {
+test("uses semantic, responsive hooks for the three degree projects", async () => {
+  const source = await read("index.html");
+  const output = await read("dist/index.html");
+  const css = await read("assets/css/site.css");
+  for (const html of [source, output]) {
+    assert.match(html, /class="project-list degree-project-list"/);
+    assert.equal((html.match(/class="project-row degree-project-row"/g) || []).length, 3);
+    assert.equal((html.match(/class="degree-project-title"/g) || []).length, 3);
+    assert.equal((html.match(/class="degree-project-summary"/g) || []).length, 3);
+    assert.match(html, /data-project-id="gaijin-no-mittsu-no-kuusou"/);
+  }
+  assert.doesNotMatch(css, /\[data-od-id="degree-(?:work-section|link-gaijin)"\]/);
+});
+
+test("lets each project control its main heading line spacing independently by language", async () => {
+  const latentne = await read("projects/latentne/index.html");
+  const lem = await read("projects/lem/index.html");
+  const gaijin = await read("projects/gaijin-no-mittsu-no-kuusou/index.html");
+  const css = await read("assets/css/site.css");
+  const core = await read("assets/js/core.js");
+  const projectSchema = JSON.parse(await read("content/schemas/project.schema.json"));
+  const collectionSchema = JSON.parse(await read("content/schemas/collection.schema.json"));
+  assert.match(latentne, /class="page-shell project-hero" style="--project-hero-line-height-pl:1\.12;--project-hero-line-height-en:1\.12"/);
+  assert.match(lem, /class="page-shell project-hero" style="--project-hero-line-height-pl:1\.4;--project-hero-line-height-en:1\.4"/);
+  assert.match(gaijin, /class="page-shell project-hero" style="--project-hero-line-height-pl:1\.3;--project-hero-line-height-en:1\.3"/);
+  assert.match(css, /\.project-hero h1\s*\{[^}]*line-height:\s*var\(--project-hero-line-height-pl,\s*1\.12\)/);
+  assert.match(css, /html\[lang="en"\] \.project-hero h1\s*\{[^}]*line-height:\s*var\(--project-hero-line-height-en,\s*var\(--project-hero-line-height-pl,\s*1\.12\)\)/);
+  assert.match(core, /portfolio-preview-heading-spacing/);
+  assert.match(core, /--project-hero-line-height-pl/);
+  assert.match(core, /--project-hero-line-height-en/);
+  assert.match(core, /location\.pathname\.includes\("\/studio-preview\/"\)/);
+  assert.match(core, /event\.origin !== referrerOrigin/);
+  assert.doesNotMatch(css, /body\[data-project="gaijin-no-mittsu-no-kuusou"\] h1\s*\{[^}]*line-height:/);
+  for (const schema of [projectSchema, collectionSchema]) {
+    assert.deepEqual(schema.properties.heroLineHeightPL, { type: "number", minimum: 0.8, maximum: 1.4, default: 1.12 });
+    assert.deepEqual(schema.properties.heroLineHeightEN, { type: "number", minimum: 0.8, maximum: 1.4, default: 1.12 });
+    assert.equal(schema.properties.heroLineHeight, undefined);
+  }
+});
+
+test("loads Exo 2 for Latin copy and self-hosts Zen Kaku Gothic New for Japanese glyphs", async () => {
   const css = await read("assets/css/site.css");
   assert.equal((css.match(/@import\s+url\(/g) || []).length, 1);
   assert.match(css, /family=Exo\+2:wght@400;500;600&family=Merriweather:opsz,wght@18\.\.144,400;18\.\.144,600&display=swap/);
-  assert.match(css, /--font-body:\s*"Exo 2", "Segoe UI", system-ui, -apple-system, sans-serif;/);
-  assert.match(css, /--font-display:\s*"Merriweather", Georgia, serif;/);
-  assert.match(css, /--font-mono:\s*"Cascadia Mono", "SFMono-Regular", Consolas, monospace;/);
+  assert.match(css, /--font-body:\s*"Exo 2", "Zen Kaku Gothic New", "Segoe UI", system-ui, -apple-system, sans-serif;/);
+  assert.match(css, /--font-display:\s*"Merriweather", "Zen Kaku Gothic New", Georgia, serif;/);
+  assert.match(css, /--font-mono:\s*"Cascadia Mono", "Zen Kaku Gothic New", "SFMono-Regular", Consolas, monospace;/);
+  const core = await read("assets/js/core.js");
+  assert.doesNotMatch(core, /@fontsource|from\s+["'](?![./])/);
+  for (const weight of [400, 500, 700]) {
+    const file = `zen-kaku-gothic-new-japanese-${weight}-normal.woff2`;
+    assert.match(css, new RegExp(`@font-face\\s*\\{[\\s\\S]*?font-family:\\s*"Zen Kaku Gothic New";[\\s\\S]*?${file.replaceAll(".", "\\.")}[\\s\\S]*?font-weight:\\s*${weight};`));
+    await access(path.join(root, "assets/fonts/zen-kaku-gothic-new", file));
+    assert.ok((await readdir(path.join(root, "dist/assets"))).some(name => name.startsWith(file.replace(".woff2", "-")) && name.endsWith(".woff2")));
+  }
+  await access(path.join(root, "assets/fonts/zen-kaku-gothic-new/OFL.txt"));
   assert.doesNotMatch(css, /--font-body:[^;]*Aptos/);
   assert.match(css, /@font-face\s*\{[\s\S]*?font-family:\s*"Asaxi Merriweather 24pt";[\s\S]*?font-weight:\s*500;[\s\S]*?font-style:\s*normal;[\s\S]*?font-display:\s*swap;/);
   assert.match(css, /font-synthesis:\s*none/);
@@ -256,7 +369,7 @@ test("uses tailored process headings and intentional project hero media", async 
   assert.match(core, /data-group-count=/);
 });
 
-test("top-aligns only portrait project thumbnails through the shared media renderer", async () => {
+test("honors authored focal points while top-aligning portrait project thumbnails", async () => {
   const { projects } = await loadData();
   for (const id of ["para-analog-on", "gaijin-no-mittsu-no-kuusou", "character-art"]) {
     assert.equal(projects.find(item => item.id === id).thumbnail.objectPosition, "50% 0%", `${id} portrait thumbnail aligns from the top`);
@@ -265,14 +378,16 @@ test("top-aligns only portrait project thumbnails through the shared media rende
     assert.equal(projects.find(item => item.id === id).thumbnail.objectPosition, undefined, `${id} keeps the centered CSS fallback`);
   }
   const lem = projects.find(item => item.id === "lem");
-  assert.equal(lem.thumbnail.objectPosition, undefined);
-  assert.equal(lem.thumbnail.fit, "contain");
+  const authoredLem = JSON.parse(await read("content/projects/lem.json"));
+  const percent = value => `${Number((value * 100).toFixed(3))}%`;
+  assert.equal(lem.thumbnail.objectPosition, `${percent(authoredLem.thumbnail.focalPoint.x)} ${percent(authoredLem.thumbnail.focalPoint.y)}`);
+  assert.equal(lem.thumbnail.fit, authoredLem.thumbnail.fit);
   assert.equal(lem.thumbnail.noPadding, true);
 
   const data = await read("assets/js/data.js");
   const core = await read("assets/js/core.js");
   const css = await read("assets/css/site.css");
-  assert.match(data, /sourceWidth < sourceHeight/);
+  assert.match(await read("scripts/lib/generate.mjs"), /compileMedia/);
   assert.match(core, /--object-position:\$\{esc\(media\.objectPosition\)\}/);
   assert.match(css, /object-position:\s*var\(--object-position,\s*50% 50%\)/);
 });
@@ -280,7 +395,9 @@ test("top-aligns only portrait project thumbnails through the shared media rende
 test("contains every degree image work plus the bachelor video", async () => {
   const { works } = await loadData();
   assert.equal(works.filter(item => item.project === "latentne").length, 12);
-  assert.equal(works.filter(item => item.project === "para-analog-on").length, 4);
+  const para = works.filter(item => item.project === "para-analog-on");
+  assert.equal(para.length, 5);
+  assert.equal(para.filter(item => item.mediaType === "video").length, 1);
   const bachelor = works.filter(item => item.project === "gaijin-no-mittsu-no-kuusou");
   assert.equal(bachelor.length, 4);
   assert.equal(bachelor.filter(item => item.mediaType === "video").length, 1);
@@ -291,17 +408,20 @@ test("shows every surviving Lem work in the gallery and keeps the authored detai
   const { projects, works, source } = await loadData();
   const project = projects.find(item => item.id === "lem");
   const lemWorks = works.filter(item => item.project === "lem");
-  assert.equal(lemWorks.length, 18);
+  const authoredProject = JSON.parse(await read("content/projects/lem.json"));
+  const authoredWorkFiles = (await readdir(path.join(root, "content/works"))).filter(file => file.endsWith(".json"));
+  const authoredWorks = await Promise.all(authoredWorkFiles.map(async file => JSON.parse(await read(`content/works/${file}`))));
+  const expectedLemWorks = authoredWorks.filter(item => item.project === "lem" && item.published === true && item.draft !== true).sort((a, b) => a.order - b.order);
+  assert.deepEqual(Array.from(lemWorks, item => item.id), expectedLemWorks.map(item => item.id));
   assert.ok(lemWorks.every(item => item.galleryVisible === true && !item.draft));
   assert.ok(lemWorks.some(item => item.year === "2024"));
-  assert.ok(lemWorks.some(item => item.year == null));
-  const hiddenOnDetail = lemWorks.filter(item => item.projectPageVisible === false);
-  assert.deepEqual(Array.from(hiddenOnDetail, item => item.id), ["lem-04-civet-illustration", "lem-05-quoll-illustration", "lem-06-phascogale-illustration"]);
+  assert.ok(lemWorks.some(item => !item.year));
+  assert.ok(["lem-04-civet-illustration", "lem-05-quoll-illustration", "lem-06-phascogale-illustration"].every(id => !lemWorks.some(item => item.id === id)));
   const sideviews = lemWorks.filter(item => item.projectGroup === "lem-sideviews");
   assert.deepEqual(Array.from(sideviews, item => item.id), ["lem-07-civet-sideview", "lem-08-quoll-sideview", "lem-09-phascogale-sideview"]);
   assert.ok(sideviews.every(item => item.projectGroupLabelPL === "Widoki boczne"));
   assert.ok(sideviews.every(item => item.projectGroupLabelEN === "Side views"));
-  assert.ok(["lem-02-quoll-identity", "lem-03-phascogale-identity", "lem-04-civet-illustration", "lem-06-phascogale-illustration", "lem-07-civet-sideview", "lem-08-quoll-sideview", "lem-10-mongoose-transparent", "lem-14-phascogale-camera"].every(id => lemWorks.find(item => item.id === id)?.galleryVisible === true));
+  assert.ok(["lem-02-quoll-identity", "lem-03-phascogale-identity", "lem-07-civet-sideview", "lem-08-quoll-sideview", "lem-10-mongoose-transparent", "lem-14-phascogale-camera", "feat-lem-v4bi-audio"].every(id => lemWorks.find(item => item.id === id)?.galleryVisible === true));
   assert.ok(lemWorks.some(item => item.id === "lem-12-v3-weasel-illustration"));
   assert.ok(!lemWorks.some(item => item.id === "lem-13-v3-weasel-transparent"));
   assert.ok(!lemWorks.some(item => item.id === "lem-16-icon"));
@@ -322,8 +442,9 @@ test("shows every surviving Lem work in the gallery and keeps the authored detai
   assert.equal(project.hero.noPadding, true);
   assert.equal(project.thumbnail.src, "assets/media/lem/lem-three-forms-thumbnail.webp");
   assert.equal(project.thumbnail.ratio, "4/3");
-  assert.equal(project.thumbnail.fit, "contain");
+  assert.equal(project.thumbnail.fit, authoredProject.thumbnail.fit);
   assert.equal(project.thumbnail.noPadding, true);
+  assert.deepEqual(Array.from(project.detailSequenceIds), authoredProject.detailSequenceIds);
   for (const relative of [project.hero.src, project.thumbnail.src]) {
     await access(path.join(root, relative));
     await access(path.join(root, "dist", relative));
@@ -526,13 +647,16 @@ test("models Character Art as one collection without duplicate media records", a
   const { projects, works } = await loadData();
   const project = projects.find(item => item.id === "character-art");
   const characterWorks = works.filter(item => item.collections?.includes("character-art"));
-  assert.equal(characterWorks.length, 10);
-  assert.equal(new Set(characterWorks.map(item => item.id)).size, 10);
-  assert.equal(new Set(characterWorks.map(item => item.cover.src)).size, 10);
-  assert.equal(characterWorks.filter(item => item.project === "lem").length, 4);
-  assert.equal(characterWorks.at(-1).medium, "traditional");
-  assert.ok(characterWorks.slice(0, 9).every(item => item.medium === "digital"));
-  assert.ok(characterWorks.slice(6, 9).every(item => item.types.includes("character-design")));
+  const authoredWorkFiles = (await readdir(path.join(root, "content/works"))).filter(file => file.endsWith(".json"));
+  const authoredWorks = await Promise.all(authoredWorkFiles.map(async file => JSON.parse(await read(`content/works/${file}`))));
+  const expectedCharacterWorks = authoredWorks.filter(item => item.collections?.includes("character-art") && item.published === true && item.draft !== true).sort((a, b) => a.order - b.order);
+  assert.deepEqual(Array.from(characterWorks, item => item.id), expectedCharacterWorks.map(item => item.id));
+  assert.equal(new Set(characterWorks.map(item => item.id)).size, characterWorks.length);
+  assert.equal(new Set(characterWorks.map(item => item.cover.src)).size, characterWorks.length);
+  assert.equal(characterWorks.filter(item => item.project === "lem").length, 3);
+  assert.equal(characterWorks.find(item => item.id === "character-art-10-lem-sleeping").medium, "traditional");
+  assert.ok(characterWorks.filter(item => item.id !== "character-art-10-lem-sleeping").every(item => item.medium === "digital"));
+  assert.ok(characterWorks.filter(item => ["character-art-07-cami-reference-sheet", "character-art-08-lem-wardrobe-turnaround", "character-art-09-lem-base-turnaround"].includes(item.id)).every(item => item.types.includes("character-design")));
   assert.ok(characterWorks.filter(item => ["character-art-07-cami-reference-sheet", "character-art-08-lem-wardrobe-turnaround", "character-art-09-lem-base-turnaround"].includes(item.id)).every(item => item.cover.fit === "contain"));
   assert.equal(project.rolePL, "ilustracja i opracowanie plansz");
   assert.equal(project.titlePL, "Postaci - ilustracje");
@@ -547,10 +671,15 @@ test("models Character Art as one collection without duplicate media records", a
   assert.equal(sleeping.cover.altEN, sleeping.altEN);
   const portfolio = await read("assets/js/portfolio.js");
   const html = await read("portfolio/index.html");
-  assert.match(portfolio, /params\.get\("collection"\)/);
-  assert.match(portfolio, /item\.collections\?\.includes\(activeCollection\)/);
-  assert.match(html, /data-character-art-shortcut/);
-  assert.match(html, /data-pl="Postaci - ilustracje" data-en="Character Art"/);
+  const css = await read("assets/css/site.css");
+  assert.doesNotMatch(portfolio, /facetKeys = \[[^\]]*"collection"/);
+  assert.doesNotMatch(portfolio, /collection: \["Kolekcja", "Collection"\]/);
+  assert.match(portfolio, /params\.delete\("collection"\)/);
+  assert.match(portfolio, /collectionIdSet = new Set\(collectionIds\)/);
+  assert.doesNotMatch(portfolio, /collectionMatch/);
+  assert.doesNotMatch(html, /collection-shortcut|data-character-art-shortcut/);
+  assert.match(css, /\.filter-bar\s*\{[^}]*grid-template-columns:\s*repeat\(4,/);
+  assert.doesNotMatch(css, /\.collection-shortcut/);
   const core = await read("assets/js/core.js");
   assert.match(core, /"character-art": \["Postaci - ilustracje", "Character Art"\]/);
 });
@@ -576,16 +705,38 @@ test("adds one safe Dissonance video with still sequence, warning, and fallback"
   assert.doesNotMatch(core, /autoplay/);
 });
 
-test("allows only the two verified privacy-enhanced YouTube videos", async () => {
-  const { works } = await loadData();
-  const videos = works.filter(item => item.video?.provider || item.video?.id);
-  assert.equal(videos.length, 2);
-  assert.deepEqual(Array.from(videos, item => [item.video.provider, item.video.id]), [["youtube", "0qHNBdlIDoA"], ["youtube", "jRYRyH9USNQ"]]);
+test("renders verified YouTube, SoundCloud, and Bandcamp embeds with responsive audio sizes", async () => {
+  const { works, detailMedia } = await loadData();
+  const videos = [...works, ...detailMedia].filter(item => item.video?.provider || item.video?.id);
+  const youtube = videos.filter(item => item.video.provider === "youtube");
+  const soundcloud = videos.filter(item => item.video.provider === "soundcloud");
+  const bandcamp = videos.filter(item => item.video.provider === "bandcamp");
+  assert.deepEqual(Array.from(youtube, item => item.video.id), ["Ek-TSGs-sKs", "0qHNBdlIDoA", "jRYRyH9USNQ"]);
+  assert.deepEqual(Array.from(soundcloud, item => [item.id, item.video.url]), [["feat-lem-v4bi-audio", "https://soundcloud.com/wik_wav/feat-lem-v4bi"]]);
+  assert.deepEqual(Array.from(bandcamp, item => [item.id, item.video.id, item.video.bandcampType, item.video.embedSize]), [["gaijins-three-visions-05-bandcamp", "2617205445", "album", "expanded"]]);
 
   const core = await read("assets/js/core.js");
   assert.match(core, /youtube-nocookie\.com\/embed/);
   assert.match(core, /video\.provider === "youtube"/);
   assert.match(core, /video\.provider === "vimeo"/);
+  assert.match(core, /video\.provider === "soundcloud"/);
+  assert.match(core, /video\.provider === "bandcamp"/);
+  assert.match(core, /w\.soundcloud\.com\/player/);
+  assert.match(core, /bandcamp\.com\/EmbeddedPlayer\/v=2/);
+  assert.match(core, /is-audio-embed embed-provider-\$\{provider\} embed-size-\$\{embedSize\}/);
+  assert.match(core, /audio-embed-frame/);
+  const css = await read("assets/css/site.css");
+  for (const marker of [
+    ".embed-provider-soundcloud.embed-size-compact",
+    ".embed-provider-soundcloud.embed-size-standard",
+    ".embed-provider-soundcloud.embed-size-expanded",
+    ".embed-provider-bandcamp.embed-size-compact",
+    ".embed-provider-bandcamp.embed-size-standard",
+    ".embed-provider-bandcamp.embed-size-expanded"
+  ]) assert.ok(css.includes(marker), marker);
+  assert.match(css, /\.audio-embed-frame\s*\{[^}]*aspect-ratio:\s*auto;/);
+  assert.match(css, /\.media-viewer\.is-audio-embed \.viewer-artwork \.audio-embed-frame\s*\{[^}]*aspect-ratio:\s*auto;/);
+  assert.match(css, /\.video-block\.is-audio-embed\s*\{[^}]*width:\s*100%;[^}]*max-width:\s*none;/);
   assert.doesNotMatch(core, /autoplay/i);
 });
 
@@ -602,25 +753,274 @@ test("removes retired routes and visitor-irrelevant copy", async () => {
   assert.match(source, /linkedin\.com\/in\/wiktor-sielaszuk/);
 });
 
-test("keeps URL-backed AND/OR filters, hidden drafts, and accessible lightbox controls", async () => {
+test("keeps URL-backed AND/OR filters, hidden drafts, and shared accessible viewer controls", async () => {
   const portfolio = await read("assets/js/portfolio.js");
+  const viewer = await read("assets/js/viewer.js");
   assert.match(portfolio, /const facetKeys = \["project", "year", "medium", "type"\]/);
   assert.match(portfolio, /new URLSearchParams\(location\.search\)/);
   assert.match(portfolio, /params\.append\(key, value\)/);
   assert.match(portfolio, /projectMatch && yearMatch && mediumMatch && typeMatch/);
   assert.match(portfolio, /item\.types\.some\(type => selected\.type\.has\(type\)\)/);
   assert.match(portfolio, /!item\.draft && item\.galleryVisible !== false/);
-  assert.match(portfolio, /event\.key === "Escape"/);
-  assert.match(portfolio, /event\.key === "ArrowLeft"/);
-  assert.match(portfolio, /event\.key === "ArrowRight"/);
-  assert.match(portfolio, /event\.key === "Tab"/);
+  assert.doesNotMatch(portfolio, /^\s*import\s/m);
+  assert.match(viewer, /event\.key === "Escape"/);
+  assert.match(viewer, /event\.key === "ArrowLeft"/);
+  assert.match(viewer, /event\.key === "ArrowRight"/);
+  assert.match(viewer, /event\.key === "Tab"/);
+});
+
+test("integrates the authored Lem logo as a responsive hero lockup", async () => {
+  const html = await read("projects/lem/index.html");
+  const css = await read("assets/css/site.css");
+  const svg = await read("assets/media/lem/lem-jp-logo.svg");
+  assert.match(html, /class="lem-logo-lockup"[^>]*data-aria-pl="Logo Lem/);
+  assert.match(html, /src="\.\.\/\.\.\/assets\/media\/lem\/lem-jp-logo\.svg"[^>]*width="1622"[^>]*height="567"/);
+  assert.match(css, /\.lem-logo-lockup\s*\{[^}]*place-items:\s*center[^}]*border-block:\s*1px solid var\(--rule\)[^}]*background:\s*#fff/);
+  assert.match(css, /\.lem-logo-lockup img\s*\{[^}]*width:\s*min\(100%, 780px\)[^}]*height:\s*auto/);
+  assert.doesNotMatch(css, /\.lem-logo-lockup::before/);
+  assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.lem-logo-lockup\s*\{[^}]*min-height:\s*0/);
+  assert.match(svg, /viewBox="0 0 1622 567"/);
+  assert.doesNotMatch(svg, /<script\b|javascript:/i);
+});
+
+test("uses the lighter Fuyuu poster for Gaijin single-image previews", async () => {
+  const { projects } = await loadData();
+  const gaijin = projects.find(project => project.id === "gaijin-no-mittsu-no-kuusou");
+  assert.equal(gaijin.cover.src, "assets/media/degree/gaijins-three-visions-02-fuyuu.webp");
+  assert.equal(gaijin.thumbnail.src, "assets/media/degree/gaijins-three-visions-02-fuyuu.webp");
+  const seo = await read("seo-metadata.ts");
+  assert.match(seo, /gaijin-no-mittsu-no-kuusou[\s\S]*?gaijins-three-visions-02-fuyuu\.webp/);
+});
+
+test("assigns an allowed author-facing detail media size to every project", async () => {
+  const { projects } = await loadData();
+  const allowed = new Set(["compact", "standard", "large", "full"]);
+  assert.ok(projects.length > 0);
+  assert.ok(projects.every(project => allowed.has(project.detailMediaSize)));
+  assert.equal(projects.find(project => project.id === "lem")?.detailMediaSize, "compact");
+  assert.equal(projects.find(project => project.id === "character-art")?.detailMediaSize, "compact");
+  assert.equal(projects.find(project => project.id === "dissonance-perspective")?.detailMediaSize, "large");
+
+  const detail = await read("assets/js/project-detail.js");
+  assert.match(detail, /const detailMediaSizes = \["compact", "standard", "large", "full"\]/);
+  assert.match(detail, /detailMediaSizes\.includes\(item\?\.detailMediaSize\)/);
+  assert.match(detail, /detailMediaSizes\.includes\(project\.detailMediaSize\)/);
+});
+
+test("renders natural-ratio project sequences with viewport-aware limits and clickable images", async () => {
+  const detail = await read("assets/js/project-detail.js");
+  const css = await read("assets/css/site.css");
+  assert.match(detail, /item\.mediaType === "video"\) return P\.makeWorkMedia/);
+  assert.match(detail, /class="sequence-media-button"[^>]*data-open-sequence=/);
+  assert.match(detail, /P\.mediaDisclosure\(item\.cover/);
+  assert.match(detail, /const imageSequence = projectWorks\.filter\(item => item\.mediaType !== "video"\)/);
+  assert.match(detail, /detailHeightLimits\s*=\s*\{ compact: 70, standard: 76, large: 82, full: 86 \}/);
+  assert.match(detail, /--detail-width-from-height:/);
+  assert.match(css, /\.sequence-media-button[^}]*var\(--detail-width-from-height/);
+  assert.match(detail, /--detail-aspect:/);
+  assert.match(css, /\.sequence-media-natural \.media-frame:not\(\.video-frame\)[^}]*aspect-ratio:\s*var\(--detail-aspect, var\(--ratio\)\)/);
+  assert.match(css, /\.sequence-media-natural \.media-frame:not\(\.video-frame\) img[^}]*max-height:\s*var\(--detail-max-height\)[^}]*object-fit:\s*contain/s);
+  assert.match(css, /\.detail-media-size-compact[^}]*70svh/);
+  assert.match(css, /\.detail-media-size-full[^}]*86svh/);
+  assert.match(css, /\.sequence-media-button:focus-visible/);
+});
+
+test("uses one image-first viewer on Portfolio and project detail routes", async () => {
+  const portfolio = await read("assets/js/portfolio.js");
+  const detail = await read("assets/js/project-detail.js");
+  const viewer = await read("assets/js/viewer.js");
+  const portfolioHtml = await read("portfolio/index.html");
+  assert.match(portfolio, /window\.PortfolioViewer\.create/);
+  assert.match(detail, /window\.PortfolioViewer\.create/);
+  assert.match(portfolio, /activeWorkId = item\.id;\s*writeQuery\(\)/s);
+  assert.match(viewer, /data-viewer-close/);
+  assert.match(viewer, /!event\.target\.closest\("\[data-viewer-transform\]"\)/);
+  assert.match(viewer, /data-viewer-details[^-]/);
+  assert.match(viewer, /detailsVisible = !detailsVisible/);
+  assert.match(viewer, /let detailsVisible = false/);
+  assert.match(viewer, /if \(!wasOpen\) detailsVisible = false/);
+  assert.match(viewer, /event\.target === root \|\| event\.target === stage \|\| event\.target === canvas/);
+  assert.match(viewer, /opener\?\.isConnected \? opener : openerSelector/);
+  assert.doesNotMatch(portfolioHtml, /data-lightbox/);
+});
+
+test("offers persistent neutral backgrounds only for meaningfully transparent artwork", async () => {
+  const { projects, works } = await loadData();
+  const transparent = new Set();
+  const visit = media => {
+    if (!media) return;
+    if (media.hasTransparency === true && media.src) transparent.add(media.src);
+    if (media.kind === "group") media.items.forEach(visit);
+  };
+  for (const project of projects) [project.cover, project.hero, project.thumbnail].forEach(visit);
+  for (const work of works) {
+    visit(work.cover);
+    (work.gallery || []).forEach(visit);
+    visit(work.video?.poster);
+  }
+  assert.deepEqual([...transparent].sort(), [
+    "assets/media/lem/lem-shapeshifter-mongoose-transparent.webp",
+    "assets/media/lem/lem-three-forms-hero.webp",
+    "assets/media/lem/lem-three-forms-thumbnail.webp",
+    "assets/media/lem/lem-v4-utau-civet-transparent.webp",
+    "assets/media/lem/lem-v4-utau-phascogale-transparent.webp",
+    "assets/media/lem/lem-v4-utau-quoll-transparent.webp",
+    "assets/media/lem/lem-vccv-cvvc-mongoose-illustration.webp"
+  ]);
+  const data = await read("assets/js/data.js");
+  const core = await read("assets/js/core.js");
+  const viewer = await read("assets/js/viewer.js");
+  const css = await read("assets/css/site.css");
+  assert.match(await read("scripts/lib/content-store.mjs"), /TRANSPARENCY_MODES/);
+  assert.match(core, /function mediaHasTransparency/);
+  assert.match(viewer, /data-viewer-background-toggle/);
+  assert.match(viewer, /portfolio:viewer-background/);
+  assert.match(viewer, /backgroundButton\.hidden = !hasTransparentMedia/);
+  assert.doesNotMatch(viewer, /setAttribute\("aria-pressed"/);
+  assert.match(css, /data-viewer-background="light"/);
+  assert.match(css, /data-viewer-background="dark"/);
+  assert.match(css, /--viewer-art-surface/);
+  assert.match(css, /\.media-viewer\.has-transparent-media\s*\{[^}]*background:\s*var\(--viewer-art-surface\)/);
+});
+
+test("links each artwork to its primary project without nesting an anchor in the opener", async () => {
+  const portfolio = await read("assets/js/portfolio.js");
+  const viewer = await read("assets/js/viewer.js");
+  const core = await read("assets/js/core.js");
+  const css = await read("assets/css/site.css");
+  assert.match(core, /function projectHref/);
+  assert.match(core, /projectHref, labelFor/);
+  assert.match(portfolio, /showProjectLink: true/);
+  assert.match(portfolio, /<a class="work-link"[^>]*data-open-work=/);
+  assert.doesNotMatch(portfolio, /<button class="work-link"/);
+  assert.match(portfolio, /<\/a>\s*<div class="work-card-meta">\$\{projectLink\}<div class="work-taxonomy card-tags"[^>]*data-work-taxonomy/s);
+  assert.match(portfolio, /const projectLink = projectHref && projectName/);
+  assert.match(portfolio, /P\.projectHref\(item\.project\)/);
+  assert.match(portfolio, /class="work-project-link"[^>]*>\$\{P\.esc\(projectName\)\} <span aria-hidden="true">→<\/span>/);
+  assert.match(viewer, /data-viewer-project-link[^>]*>\$\{P\.esc\(P\.projectName\(item\.project\)\)\} <span aria-hidden="true">→<\/span>/);
+  assert.doesNotMatch(portfolio, /P\.t\("project\.view"\)/);
+  assert.doesNotMatch(viewer, /P\.t\("project\.view"\)/);
+  assert.doesNotMatch(portfolio, /P\.projectHref\(activeCollection\)/);
+  assert.match(viewer, /data-viewer-project-link/);
+  assert.match(css, /\.work-project-link[^}]*min-height:\s*44px/);
+  assert.doesNotMatch(portfolio, /class="work-project-link tag"/);
+  assert.match(css, /\.work-taxonomy\[hidden\]\s*\{\s*display:\s*none;/);
+});
+
+test("hides taxonomy tags by default and toggles them without rebuilding gallery cards", async () => {
+  const portfolio = await read("assets/js/portfolio.js");
+  const css = await read("assets/css/site.css");
+  assert.match(portfolio, /tagsVisible:\s*false/);
+  assert.match(portfolio, /name="work-tags"/);
+  assert.match(portfolio, /Pokaż tagi prac/);
+  assert.match(portfolio, /Show work tags/);
+  assert.match(portfolio, /portfolio:works:tags-visible/);
+  assert.match(portfolio, /params\.set\("tags",\s*display\.tagsVisible \? "1" : "0"\)/);
+  assert.match(portfolio, /data-work-taxonomy \$\{display\.tagsVisible \? "" : "hidden"\}/);
+  assert.match(portfolio, /function applyTaxonomyVisibility\(\)/);
+  const handler = portfolio.match(/if \(event\.target\.name === "work-tags"\) \{([\s\S]*?)\n\s*\}/)?.[1] || "";
+  assert.match(handler, /applyTaxonomyVisibility\(\)/);
+  assert.match(handler, /writeQuery\(\)/);
+  assert.doesNotMatch(handler, /update\(/);
+  assert.doesNotMatch(portfolio, /<div class="work-taxonomy[^>]*>\$\{projectLink\}/);
+  assert.match(css, /\.tags-toggle input:focus-visible \+ span/);
+});
+
+test("expands one local image gallery per project while retaining full project links", async () => {
+  const projects = await read("assets/js/projects.js");
+  const css = await read("assets/css/site.css");
+  assert.doesNotMatch(projects, /^\s*import\s/m);
+  assert.match(projects, /item\.project === project\.id \|\| item\.collections\?\.includes\(project\.id\)/);
+  assert.match(projects, /project\.detailSequenceIds/);
+  assert.match(projects, /item\.mediaType !== "video"/);
+  assert.match(projects, /let expandedProjectId = null/);
+  assert.match(projects, /data-toggle-project-gallery/);
+  assert.match(projects, /aria-expanded=/);
+  assert.match(projects, /aria-controls=/);
+  assert.match(projects, /class="project-inline-gallery"/);
+  assert.match(projects, /viewer\.open\(\{ items: projectItems/);
+  assert.match(projects, /<figcaption>\$\{P\.esc\(P\.text\(item\)\)\}\$\{P\.mediaDisclosure[\s\S]*?<\/figcaption>/);
+  assert.doesNotMatch(projects, /<a class="project-row"/);
+  assert.match(css, /\.project-gallery-toggle[^}]*min-height:\s*44px/);
+  assert.match(css, /\.project-inline-grid[^}]*repeat\(auto-fill/);
+  assert.match(css, /\.project-inline-image \.media-frame img\s*\{[^}]*object-fit:\s*cover;[^}]*object-position:\s*var\(--object-position,\s*50% 50%\);[^}]*padding:\s*0;/);
+  assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.project-inline-grid\s*\{\s*grid-template-columns:\s*repeat\(2/);
+  assert.match(css, /@media \(max-width: 390px\)[\s\S]*?\.project-inline-grid\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
+  assert.doesNotMatch(css, /\.project-row:hover\s*\{[^}]*padding/);
+});
+
+test("supports bounded keyboard and pointer zoom while preserving current project filters and badges", async () => {
+  const viewer = await read("assets/js/viewer.js");
+  const portfolio = await read("assets/js/portfolio.js");
+  const projectsSource = await read("assets/js/projects.js");
+  const core = await read("assets/js/core.js");
+  const css = await read("assets/css/site.css");
+  const { projects, works } = await loadData();
+  assert.match(viewer, /const ZOOM_MIN = 0\.5/);
+  assert.match(viewer, /const ZOOM_MAX = 5/);
+  assert.match(viewer, /event\.key === "\+" \|\| event\.key === "="/);
+  assert.match(viewer, /event\.key === "-"/);
+  assert.match(viewer, /event\.key === "0"/);
+  assert.match(viewer, /resetView\(\);/);
+  assert.match(viewer, /pointerdown/);
+  assert.match(viewer, /pointermove/);
+  assert.match(viewer, /setPointerCapture/);
+  assert.match(viewer, /Math\.hypot/);
+  assert.match(viewer, /canvas\.addEventListener\("wheel"/);
+  assert.match(viewer, /setZoom\([^\n]+clientX[^\n]+clientY/);
+  assert.match(viewer, /canvas\.addEventListener\("dragstart"/);
+  assert.match(viewer, /image\.draggable = false/);
+  assert.match(viewer, /event\.pointerType === "mouse" && event\.button !== 0/);
+  assert.match(viewer, /event\.type === "pointercancel"[^\n]+didPan = false/);
+  assert.match(viewer, /else if \(didPan\) setTimeout\(\(\) => \{ didPan = false; \}, 0\)/);
+  assert.match(viewer, /event\.preventDefault\(\)/);
+  assert.match(viewer, /function clampPan/);
+  assert.match(viewer, /ui-near-top/);
+  assert.match(viewer, /ui-near-left/);
+  assert.match(viewer, /ui-near-right/);
+  assert.match(css, /\.viewer-zoom-controls button[^}]*min-height:\s*44px/);
+  assert.match(css, /@media \(hover: hover\) and \(pointer: fine\) and \(min-width: 981px\)/);
+  assert.match(css, /\.viewer-zoom-controls::after[^}]*content:\s*"ZOOM"/);
+  assert.match(css, /\.viewer-zoom-controls::after[^}]*justify-items:\s*start/);
+  assert.match(css, /\.viewer-zoom-controls, \.media-viewer \.viewer-top-actions[^}]*clip-path:\s*inset\(calc\(100% - 18px\)/);
+  assert.match(css, /\.viewer-zoom-controls::after, \.media-viewer \.viewer-top-actions::after[^}]*pointer-events:\s*none/);
+  assert.match(css, /\.viewer-artwork \.media-frame:not\(\.video-frame\)[^}]*max-width:\s*95vw[^}]*max-height:\s*95svh/);
+  assert.match(viewer, /topActions\.dataset\.peekLabel = l\("close"\)/);
+  assert.match(viewer, /document\.activeElement === root \|\| !root\.contains\(document\.activeElement\)/);
+  assert.match(viewer, /focusTarget = document\.querySelector\("main"\)/);
+  assert.match(css, /\.viewer-top-actions::after[^}]*content:\s*attr\(data-peek-label\)/);
+  assert.match(css, /@media \(max-width: 360px\)[\s\S]*?\.viewer-top-actions button[^}]*font-size:\s*10px/);
+  assert.doesNotMatch(css, /\.viewer-(?:zoom-controls|top-actions)::after[^}]*background:\s*var\(--acid\)/);
+  assert.match(css, /\.viewer-artwork img[^}]*-webkit-user-drag:\s*none/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
+
+  assert.match(portfolio, /representedProjectIds/);
+  assert.doesNotMatch(portfolio, /synthetic/i);
+  const embedProjects = new Set(works.filter(work => work.mediaType === "video").map(work => work.project));
+  assert.deepEqual([...embedProjects], ["para-analog-on", "gaijin-no-mittsu-no-kuusou", "dissonance-perspective", "lem"]);
+  assert.match(projectsSource, /preferredMediaBadge/);
+  assert.ok([...embedProjects].every(id => projects.some(project => project.id === id)));
+  assert.match(core, /function initSmartHeader/);
+  assert.match(core, /downwardTravel/);
+  assert.match(css, /\[data-site-header\]\.is-hidden/);
 });
 
 test("uses uniform auto-fill gallery tracks without nth-child sizing or offsets", async () => {
   const css = await read("assets/css/site.css");
   assert.match(css, /\.gallery-grid\s*\{[^}]*repeat\(auto-fill,[^}]*--card-min/s);
   assert.match(css, /\.gallery-grid\[data-size=/);
+  assert.match(css, /\.gallery-grid\[data-size="small"\][^}]*--archive-title-size:\s*clamp\(17px,[^}]*20px\)/);
+  assert.match(css, /\.gallery-grid\[data-size="medium"\][^}]*--archive-title-size:\s*clamp\(18px,[^}]*22px\)/);
+  assert.match(css, /\.gallery-grid\[data-size="large"\][^}]*--archive-title-size:\s*clamp\(21px,[^}]*29px\)/);
   assert.match(css, /\.gallery-grid \.work-card\s*\{[^}]*grid-column:\s*auto;[^}]*margin-top:\s*0;[^}]*min-width:\s*0;/s);
+  assert.match(css, /\.gallery-grid \.work-title\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\) max-content;[^}]*color:\s*#686B70;[^}]*transition:\s*color/s);
+  assert.match(css, /\.gallery-grid \.work-title h3\s*\{[^}]*font-size:\s*var\(--archive-title-size\);[^}]*overflow-wrap:\s*break-word;/s);
+  assert.match(css, /\.gallery-grid \.work-index\s*\{[^}]*grid-column:\s*2;[^}]*min-width:\s*3ch;[^}]*text-align:\s*right;/s);
+  assert.match(css, /\.gallery-grid \.work-card:is\(:hover, :focus-within\) \.work-title,[\s\S]*?\.work-card:is\(:hover, :focus-within\) \.work-card-meta\s*\{\s*color:\s*var\(--ink\);/);
+  assert.doesNotMatch(css, /\.gallery-grid \.work-card:is\(:hover, :focus-within\)[^{]*\{[^}]*(?:transform|font-size|margin|padding):/);
+  assert.match(css, /@media \(hover: none\)[\s\S]*?\.gallery-grid \.work-title, \.gallery-grid \.work-card-meta\s*\{\s*color:\s*var\(--ink\);/);
+  assert.match(css, /\.gallery-grid \.media-frame\.is-contain:not\(\.has-transparency\) img\s*\{\s*padding:\s*0;\s*\}/);
+  assert.doesNotMatch(css, /\.gallery-grid \.media-frame\.is-contain\s*\{[^}]*background:\s*transparent/);
   assert.doesNotMatch(css, /\.gallery-grid[^\{]*nth-child/);
   assert.doesNotMatch(css, /\.gallery-grid \.work-card[^}]*!important/);
   assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.gallery-grid\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/);
@@ -652,6 +1052,28 @@ test("adds paired display controls and pagination to both archive views", async 
   assert.match(portfolio, /Works per page/);
   assert.match(projects, /Projekty na stronie/);
   assert.match(projects, /Projects per page/);
+});
+
+test("offers a persistent compact text-only Projects list view", async () => {
+  const projects = await read("assets/js/projects.js");
+  const css = await read("assets/css/site.css");
+  assert.match(projects,/const viewValues = \["visual", "list"\]/);
+  assert.match(projects,/display = \{ view: "visual", size: "medium", per: 6, page: 1 \}/);
+  assert.match(projects,/Widok projektów/);
+  assert.match(projects,/Project view/);
+  assert.match(projects,/name="project-view"/);
+  assert.match(projects,/params\.has\("view"\)/);
+  assert.match(projects,/params\.set\("view", display\.view\)/);
+  assert.match(projects,/portfolio:projects:view/);
+  assert.match(projects,/display\.view === "list"/);
+  assert.match(projects,/<ul class="project-name-list">/);
+  assert.match(projects,/<li><a class="project-name-link"/);
+  assert.match(projects,/display\.view === "visual" \? `<fieldset class="size-control">/);
+  assert.match(projects,/event\.target\.name === "project-view"[\s\S]*?expandedProjectId = null[\s\S]*?focusTarget: `input\[name="project-view"\]/);
+  assert.match(css,/\.project-name-list\s*\{[^}]*list-style:\s*none/);
+  assert.match(css,/\.project-name-link\s*\{[^}]*min-height:\s*48px[^}]*white-space:\s*pre-line[^}]*overflow-wrap:\s*break-word[^}]*word-break:\s*normal/);
+  assert.match(css,/\.project-name-link:focus-visible/);
+  assert.doesNotMatch(css,/\.project-name-link::(?:before|after)/);
 });
 
 test("validates size, per, and page state with query precedence and popstate", async () => {
@@ -704,7 +1126,7 @@ test("does not push history when the current numbered page is clicked", async ()
   const projects = await read("assets/js/projects.js");
   for (const source of [portfolio, projects]) {
     assert.match(source, /const targetPage = positivePage\(button\.dataset\.page\);\s*if \(targetPage === display\.page\) return;\s*display\.page = targetPage;/);
-    assert.match(source, /display\.page = targetPage;\s*(?:update|render)\(\{ historyMode: "push", focusTarget: "\[data-pagination-range\]" \}\)/);
+    assert.match(source, /display\.page = targetPage;\s*(?:expandedProjectId = null;\s*)?(?:update|render)\(\{ historyMode: "push", focusTarget: "\[data-pagination-range\]" \}\)/);
   }
 });
 
@@ -719,14 +1141,15 @@ test("carries only shared size between Portfolio and Projects", async () => {
   assert.match(projects, /portfolio:projects:per/);
 });
 
-test("paginates 61 public works and eleven projects at the requested defaults", async () => {
+test("paginates every public work and project without a brittle fixed work count", async () => {
   const { projects, works } = await loadData();
   const publicWorks = works.filter(item => !item.draft && item.galleryVisible !== false);
-  assert.equal(works.length, 61);
+  assert.ok(works.length > 0);
   assert.ok(works.every(item => !item.draft && item.galleryVisible === true));
-  assert.equal(publicWorks.length, 61);
-  assert.equal(Math.ceil(publicWorks.length / 12), 6);
-  assert.equal(publicWorks.slice(60, 72).length, 1);
+  assert.equal(publicWorks.length, works.length);
+  const workPages = Math.ceil(publicWorks.length / 12);
+  const finalWorkPage = publicWorks.slice((workPages - 1) * 12, workPages * 12);
+  assert.equal(finalWorkPage.length, publicWorks.length % 12 || 12);
   assert.equal(projects.length, 11);
   assert.equal(Math.ceil(projects.length / 3), 4);
 });
@@ -745,15 +1168,68 @@ test("resets pages on filtering or per-page changes while preserving repeated fa
   assert.match(projects, /data-works-mode-link/);
 });
 
+test("derives project filters and distinguishes audio embeds from video with video priority", async () => {
+  const { works, detailMedia = [] } = await loadData();
+  const portfolio = await read("assets/js/portfolio.js");
+  const projects = await read("assets/js/projects.js");
+  const projectDetail = await read("assets/js/project-detail.js");
+  const core = await read("assets/js/core.js");
+  const css = await read("assets/css/site.css");
+  const site = JSON.parse(await read("content/site.json"));
+  const providersFor = projectId => Array.from(new Set([...works, ...detailMedia]
+    .filter(item => item.project === projectId && item.mediaType === "video" && item.video?.provider)
+    .map(item => item.video.provider))).sort();
+
+  assert.deepEqual(providersFor("lem"), ["soundcloud"]);
+  assert.deepEqual(providersFor("gaijin-no-mittsu-no-kuusou"), ["bandcamp", "youtube"]);
+  assert.deepEqual(providersFor("para-analog-on"), ["youtube"]);
+  assert.deepEqual(providersFor("dissonance-perspective"), ["youtube"]);
+  assert.deepEqual(site.copy["media.audio"], { pl: "AUDIO", en: "AUDIO" });
+  assert.match(portfolio, /representedProjectIds = new Set\(works\.map\(item => item\.project\)\.filter\(Boolean\)\)/);
+  assert.match(portfolio, /projects\.filter\(project => !collectionIdSet\.has\(project\.id\) && representedProjectIds\.has\(project\.id\)\)/);
+  assert.doesNotMatch(portfolio, /value:\s*"independent"/);
+  assert.match(core, /const AUDIO_PROVIDERS = new Set\(\["soundcloud", "bandcamp"\]\)/);
+  assert.match(core, /function mediaBadgeForItem\(item\)/);
+  assert.match(core, /if \(badge === "video"\) return "video"/);
+  assert.match(core, /media-mark media-mark-\$\{mediaBadge\}/);
+  assert.match(projects, /P\.preferredMediaBadge\(projectWorks\)/);
+  assert.match(projects, /P\.makeMedia\(project\.thumbnail \|\| project\.cover, work, \{ mediaBadge \}\)/);
+  assert.match(projectDetail, /P\.preferredMediaBadge\(relatedWorks\)/);
+  assert.match(portfolio, /P\.mediaBadgeForItem\(item\)/);
+  assert.match(css, /\.media-mark\s*\{/);
+  assert.doesNotMatch(core, /video-mark|videoBadge/);
+});
+
+test("keeps the global header sticky and reveals it for focus, menus, and reduced motion", async () => {
+  const core = await read("assets/js/core.js");
+  const css = await read("assets/css/site.css");
+  assert.match(css, /\[data-site-header\]\s*\{[^}]*position:\s*sticky;[^}]*top:\s*0;/);
+  assert.match(css, /\[data-site-header\]\.is-hidden\s*\{[^}]*translateY/);
+  assert.match(core, /function initSmartHeader\(\)/);
+  assert.match(core, /requestAnimationFrame\(update\)/);
+  assert.match(core, /prefers-reduced-motion:\s*reduce/);
+  assert.match(core, /shell\.contains\(document\.activeElement\)/);
+  assert.match(core, /menuIsOpen\(\)/);
+});
+
 test("hardens responsive rows, related cards, groups, and controls", async () => {
   const css = await read("assets/css/site.css");
   assert.doesNotMatch(css, /body\s*\{[^}]*min-width:\s*320px/);
   assert.match(css, /\.project-row > \*, \.project-row-title, \.project-row-copy\s*\{\s*min-width:\s*0/);
   assert.match(css, /overflow-wrap:\s*anywhere/);
-  assert.match(css, /@media \(max-width: 980px\)[\s\S]*?\.related-grid\s*\{\s*grid-template-columns:\s*repeat\(2/);
-  assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.related-grid\s*\{\s*grid-template-columns:\s*1fr/);
+  assert.match(css, /\.project-row h2\s*\{[^}]*overflow-wrap:\s*normal;[^}]*text-wrap:\s*balance;/);
+  assert.doesNotMatch(css, /\.project-row h2,\s*\.project-row p/);
+  assert.match(css, /\.project-overview h2\s*\{[^}]*text-wrap:\s*balance/);
+  assert.match(css, /\.degree-project-row\s*\{[^}]*grid-template-columns:\s*72px minmax\(220px, 1fr\) minmax\(280px, 1fr\) 96px 56px/);
+  assert.match(css, /\.degree-project-title\s*\{[^}]*line-height:\s*1\.18;[^}]*overflow-wrap:\s*normal;[^}]*text-wrap:\s*balance/);
+  assert.match(css, /@media \(max-width: 980px\)[\s\S]*?\.related-grid\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
+  assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.related-grid\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
   assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.project-row-title\s*\{\s*grid-column:\s*2;/);
   assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.project-row-copy\s*\{\s*grid-column:\s*2 \/ 4;/);
+  assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.project-overview h2\s*\{\s*line-height:\s*1\.16;/);
+  assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.degree-project-row\s*\{[^}]*grid-template-columns:\s*38px minmax\(0, 1fr\) 44px/);
+  assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.degree-project-summary\s*\{\s*grid-column:\s*2 \/ -1;\s*grid-row:\s*2;/);
+  assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.degree-project-row \.project-arrow\s*\{\s*grid-column:\s*3;\s*grid-row:\s*1;/);
   assert.match(css, /\.sequence-group-grid\s*\{[^}]*repeat\(3/);
   assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.sequence-group-grid\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
   assert.match(css, /\.pagination-nav button\s*\{[^}]*min-height:\s*44px/);
@@ -767,7 +1243,43 @@ test("hardens responsive rows, related cards, groups, and controls", async () =>
   assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.project-row-cover\s*\{[^}]*width:\s*min\(100%, var\(--project-cover\)\)/);
   assert.match(css, /\.filter-group\s*\{\s*position:\s*relative;\s*\}/);
   assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.filter-menu\s*\{[^}]*position:\s*static/);
+  assert.match(css, /\.project-arrow\s*\{[^}]*min-width:\s*44px;[^}]*min-height:\s*44px;[^}]*place-items:\s*center/);
   assert.doesNotMatch(css, /overflow-x:\s*(?:hidden|clip)/);
+});
+
+test("keeps gallery filter menus inside the visual viewport", async () => {
+  const css = await read("assets/css/site.css");
+  const portfolio = await read("assets/js/portfolio.js");
+  assert.match(css, /\.filter-trigger\s*\{[^}]*padding:\s*0 20px 0 14px/);
+  assert.match(css, /\.filter-menu\s*\{[^}]*max-height:\s*var\(--filter-menu-max-height, min\(420px, 50svh\)\);[^}]*overflow-y:\s*auto;[^}]*overscroll-behavior:\s*contain;[^}]*scrollbar-gutter:\s*stable;/);
+  assert.match(css, /\.filter-menu\.opens-up\s*\{[^}]*top:\s*auto;[^}]*bottom:\s*calc\(100% \+ 6px\)/);
+  assert.match(portfolio, /const viewport = window\.visualViewport;/);
+  assert.match(portfolio, /const height = viewport\?\.height \?\? window\.innerHeight;/);
+  assert.match(portfolio, /const spaceBelow = Math\.max\(0, bounds\.bottom - triggerRect\.bottom - filterMenuGap\);/);
+  assert.match(portfolio, /menu\.classList\.toggle\("opens-up", opensUp\);/);
+  assert.match(portfolio, /menu\.style\.setProperty\("--filter-menu-max-height"/);
+  assert.match(portfolio, /window\.addEventListener\("resize", scheduleFilterMenuPosition\);/);
+  assert.match(portfolio, /window\.visualViewport\?\.addEventListener\("resize", scheduleFilterMenuPosition\);/);
+});
+
+test("renders related projects as compact, legible image bars", async () => {
+  const detail = await read("assets/js/project-detail.js");
+  const css = await read("assets/css/site.css");
+  assert.match(detail, /classList\.add\("related-projects-section"\)/);
+  assert.match(detail, /heading\.setAttribute\("role", "heading"\)/);
+  assert.match(detail, /related\.setAttribute\("aria-labelledby", heading\.id\)/);
+  assert.match(detail, /class="related-card-link"/);
+  assert.match(detail, /class="related-card-media"/);
+  assert.match(detail, /class="related-card-copy"/);
+  assert.match(detail, /P\.projectHref\(id\)/);
+  assert.match(css, /\.related-projects-section\s*\{[^}]*border-top:\s*2px solid var\(--ink\)/);
+  assert.match(css, /\.related-section-heading\s*\{[^}]*color:\s*var\(--ink\)[^}]*font-size:\s*clamp/);
+  assert.match(css, /\.related-grid\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/);
+  assert.match(css, /\.related-card-link\s*\{[^}]*min-height:\s*clamp\(164px,[^}]*overflow:\s*hidden/);
+  assert.match(css, /\.related-card-link::after\s*\{[^}]*linear-gradient\(90deg/);
+  assert.match(css, /\.related-card-media \.media-frame img\s*\{[^}]*object-fit:\s*cover[^}]*object-position:\s*var\(--object-position, 50% 0%\)/);
+  assert.match(css, /\.related-card-media \.media-disclosure\s*\{[^}]*position:\s*absolute[^}]*z-index:\s*3/);
+  assert.doesNotMatch(css, /\.related-card-link:hover[^}]*transform/);
 });
 
 test("stabilises portfolio headings across responsive layouts", async () => {

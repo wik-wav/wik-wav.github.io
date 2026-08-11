@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "id": "feat-lem-v4bi-audio",
+  "order": 69,
+  "published": true,
+  "draft": false,
+  "titlePL": "自身の画像 feat. Lem V4Bi — AUDIO",
+  "titleEN": "自身の画像 feat. Lem V4Bi — AUDIO",
+  "project": "lem",
+  "collections": [],
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "music",
+    "sound",
+    "vocal-synthesis"
+  ],
+  "mediaType": "video",
+  "galleryVisible": true,
+  "projectPageVisible": true,
+  "detailOnly": false,
+  "summaryPL": "Utwór audio wykorzystujący bibliotekę głosu Lem V4Bi.",
+  "summaryEN": "An audio work featuring the Lem V4Bi voicebank.",
+  "altPL": "Abstrakcyjna kwadratowa grafika z nakładającymi się łukami i świetlistymi płaszczyznami w zieleni, turkusie, różu i czerwieni.",
+  "altEN": "Abstract square artwork with overlapping arcs and luminous planes in green, turquoise, pink, and red.",
+  "captionPL": "„自身の画像 feat. Lem V4Bi” — utwór audio z wykorzystaniem biblioteki głosu Lem V4Bi.",
+  "captionEN": "“自身の画像 feat. Lem V4Bi” — an audio work featuring the Lem V4Bi voicebank.",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/library/image-of-itself-6f502f82.webp",
+    "ratio": "1080/1080",
+    "fit": "contain",
+    "altPL": "Abstrakcyjna kwadratowa grafika z nakładającymi się łukami i świetlistymi płaszczyznami w zieleni, turkusie, różu i czerwieni.",
+    "altEN": "Abstract square artwork with overlapping arcs and luminous planes in green, turquoise, pink, and red.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "viewerBackground": "light"
+  },
+  "gallery": [],
+  "video": {
+    "provider": "soundcloud",
+    "embedSize": "standard",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/library/image-of-itself-6f502f82.webp",
+      "ratio": "1080/1080",
+      "fit": "contain",
+      "altPL": "Abstrakcyjna kwadratowa grafika z nakładającymi się łukami i świetlistymi płaszczyznami w zieleni, turkusie, różu i czerwieni.",
+      "altEN": "Abstract square artwork with overlapping arcs and luminous planes in green, turquoise, pink, and red.",
+      "hasTransparency": false,
+      "transparencyMode": "auto",
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "viewerBackground": "light"
+    },
+    "url": "https://soundcloud.com/wik_wav/feat-lem-v4bi",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "detailMediaSize": "",
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

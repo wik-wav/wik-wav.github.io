@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 51,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/small-design-projects/voice-model-icon.webp",
+      "ratio": "1/1",
+      "fit": "contain",
+      "altPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
+      "altEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/small-design-projects/voice-model-icon.webp",
+      "ratio": "1/1",
+      "fit": "contain",
+      "altPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
+      "altEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "small-design-projects-voice-model-icon",
+  "project": "small-design-projects",
+  "year": null,
+  "medium": "digital",
+  "types": [
+    "design",
+    "icon-design",
+    "commissioned",
+    "voice-model"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/small-design-projects/voice-model-icon.webp",
+    "ratio": "1/1",
+    "fit": "contain",
+    "altPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
+    "altEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Ikona modelu głosowego",
+  "titleEN": "Voice Model Icon",
+  "summaryPL": "Ikona zaprojektowana na zamówienie jako znak modelu głosowego AI.",
+  "summaryEN": "A commissioned icon designed for an AI voice model.",
+  "altPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
+  "altEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif.",
+  "captionPL": "Geometryczny znak opracowany z myślą o czytelności w małej, kwadratowej skali.",
+  "captionEN": "A geometric mark developed for legibility at a small square scale.",
+  "detailOnly": false
+}

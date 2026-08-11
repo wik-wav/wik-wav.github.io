@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 63,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-mockup-01-hero.webp",
+      "ratio": "4/3",
+      "fit": "cover",
+      "altPL": "Mockup zina WIN / DOWS na szklanym stole, pokazujący okładkę i rozkładówkę.",
+      "altEN": "WIN / DOWS zine mockup on a glass table, showing the cover and an open spread.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-generated",
+        "shortPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+        "shortEN": "AI-generated image — zine visualisation.",
+        "detailPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+        "detailEN": "AI-generated image — zine visualisation."
+      },
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-mockup-01-hero.webp",
+      "ratio": "4/3",
+      "fit": "cover",
+      "altPL": "Mockup zina WIN / DOWS na szklanym stole, pokazujący okładkę i rozkładówkę.",
+      "altEN": "WIN / DOWS zine mockup on a glass table, showing the cover and an open spread.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-generated",
+        "shortPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+        "shortEN": "AI-generated image — zine visualisation.",
+        "detailPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+        "detailEN": "AI-generated image — zine visualisation."
+      },
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": false,
+  "projectPageVisible": true,
+  "mediaType": "image",
+  "types": [],
+  "medium": "digital",
+  "year": "",
+  "summaryPL": "Wizualizacja prezentacyjna zina.",
+  "summaryEN": "Presentation visualisation of the zine.",
+  "altPL": "Mockup zina WIN / DOWS na szklanym stole, pokazujący okładkę i rozkładówkę.",
+  "altEN": "WIN / DOWS zine mockup on a glass table, showing the cover and an open spread.",
+  "id": "windows-zine-mockup-01",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/windows-zine/windows-zine-mockup-01-hero.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Mockup zina WIN / DOWS na szklanym stole, pokazujący okładkę i rozkładówkę.",
+    "altEN": "WIN / DOWS zine mockup on a glass table, showing the cover and an open spread.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-generated",
+      "shortPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+      "shortEN": "AI-generated image — zine visualisation.",
+      "detailPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+      "detailEN": "AI-generated image — zine visualisation."
+    },
+    "transparencyMode": "auto"
+  },
+  "titlePL": "WIN / DOWS — wizualizacja 01",
+  "titleEN": "WIN / DOWS — visualisation 01",
+  "captionPL": "Wizualizacja prezentacyjna zina.",
+  "captionEN": "Presentation visualisation of the zine.",
+  "project": "windows-zine",
+  "detailOnly": true
+}

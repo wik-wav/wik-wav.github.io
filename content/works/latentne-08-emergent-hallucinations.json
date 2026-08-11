@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 8,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-08-emergent-hallucinations.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Kobaltowe pole z rozproszonymi czarnymi i różowymi fragmentami wokół ciemnego kwadratu.",
+      "altEN": "Cobalt field with scattered black and pink fragments around a dark square.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-08-emergent-hallucinations.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Kobaltowe pole z rozproszonymi czarnymi i różowymi fragmentami wokół ciemnego kwadratu.",
+      "altEN": "Cobalt field with scattered black and pink fragments around a dark square.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "latentne-08-emergent-hallucinations",
+  "project": "latentne",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/latentne-08-emergent-hallucinations.webp",
+    "ratio": "10/7",
+    "fit": "cover",
+    "altPL": "Kobaltowe pole z rozproszonymi czarnymi i różowymi fragmentami wokół ciemnego kwadratu.",
+    "altEN": "Cobalt field with scattered black and pink fragments around a dark square.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Emergent Hallucinations",
+  "titleEN": "Emergent Hallucinations",
+  "summaryPL": "Praca 8 z 12-częściowego cyklu „Latentne”.",
+  "summaryEN": "Work 8 from the 12-part Latentne series.",
+  "altPL": "Kobaltowe pole z rozproszonymi czarnymi i różowymi fragmentami wokół ciemnego kwadratu.",
+  "altEN": "Cobalt field with scattered black and pink fragments around a dark square.",
+  "captionPL": "Wiktor Sielaszuk, Emergent Hallucinations, z cyklu „Latentne”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, Emergent Hallucinations, from the Latentne series, digital artwork, 2026.",
+  "detailOnly": false
+}

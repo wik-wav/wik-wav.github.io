@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 58,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-07-cami-reference-sheet.webp",
+      "ratio": "10/7",
+      "fit": "contain",
+      "altPL": "Plansza referencyjna Cami z widokami przodu i tyłu, detalami stroju, laski i deskorolki.",
+      "altEN": "Cami reference sheet with front and back views plus wardrobe, staff, and skateboard details.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-07-cami-reference-sheet.webp",
+      "ratio": "10/7",
+      "fit": "contain",
+      "altPL": "Plansza referencyjna Cami z widokami przodu i tyłu, detalami stroju, laski i deskorolki.",
+      "altEN": "Cami reference sheet with front and back views plus wardrobe, staff, and skateboard details.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "character-art-07-cami-reference-sheet",
+  "project": "character-art",
+  "collections": [
+    "character-art"
+  ],
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "character-art",
+    "character-design"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-07-cami-reference-sheet.webp",
+    "ratio": "10/7",
+    "fit": "contain",
+    "altPL": "Plansza referencyjna Cami z widokami przodu i tyłu, detalami stroju, laski i deskorolki.",
+    "altEN": "Cami reference sheet with front and back views plus wardrobe, staff, and skateboard details.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.504,
+      "y": 0.247
+    }
+  },
+  "titlePL": "Cami — plansza referencyjna",
+  "titleEN": "Cami — reference sheet",
+  "summaryPL": "Plansza dokumentująca konstrukcję, proporcje i elementy wizualne postaci.",
+  "summaryEN": "A sheet documenting the character’s construction, proportions, and visual elements.",
+  "altPL": "Plansza referencyjna Cami z widokami przodu i tyłu, detalami stroju, laski i deskorolki.",
+  "altEN": "Cami reference sheet with front and back views plus wardrobe, staff, and skateboard details.",
+  "captionPL": "Cami — plansza referencyjna — plansza projektowa.",
+  "captionEN": "Cami — reference sheet—character-design sheet.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 32,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/lem-vccv-cvvc-mongoose-illustration.webp",
+      "ratio": "2/3",
+      "fit": "contain",
+      "altPL": "Kolorowa pełnopostaciowa ilustracja formy Mongoose postaci Lem.",
+      "altEN": "Colour full-body illustration of Lem’s Mongoose form.",
+      "hasTransparency": true,
+      "viewerBackground": "light",
+      "transparencyMode": "force-transparent"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/lem-vccv-cvvc-mongoose-illustration.webp",
+      "ratio": "2/3",
+      "fit": "contain",
+      "altPL": "Kolorowa pełnopostaciowa ilustracja formy Mongoose postaci Lem.",
+      "altEN": "Colour full-body illustration of Lem’s Mongoose form.",
+      "hasTransparency": true,
+      "viewerBackground": "light",
+      "transparencyMode": "force-transparent"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": "2024",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-11-mongoose-illustration",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/lem-vccv-cvvc-mongoose-illustration.webp",
+    "ratio": "2/3",
+    "fit": "contain",
+    "altPL": "Kolorowa pełnopostaciowa ilustracja formy Mongoose postaci Lem.",
+    "altEN": "Colour full-body illustration of Lem’s Mongoose form.",
+    "hasTransparency": true,
+    "viewerBackground": "light",
+    "transparencyMode": "force-transparent",
+    "focalPoint": {
+      "x": 0.457,
+      "y": 0.198
+    }
+  },
+  "titlePL": "Mongoose 2024 — ilustracja",
+  "titleEN": "Mongoose 2024 — illustration",
+  "summaryPL": "Ilustracja etapu rozwoju angielskiego VCCV i japońskiego CVVC.",
+  "summaryEN": "Illustration for the English VCCV and Japanese CVVC development stage.",
+  "altPL": "Kolorowa pełnopostaciowa ilustracja formy Mongoose postaci Lem.",
+  "altEN": "Colour full-body illustration of Lem’s Mongoose form.",
+  "captionPL": "Mongoose 2024 — English VCCV + Japanese CVVC, Normal / Soft.",
+  "captionEN": "Mongoose 2024—English VCCV + Japanese CVVC, Normal / Soft.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

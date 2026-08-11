@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 66,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/dissonance-perspective/dissonance-perspective-01-0028.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Białe poziome pasma zakłóceń na czarnym tle.",
+      "altEN": "White horizontal interference bands on black.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/dissonance-perspective/dissonance-perspective-01-0028.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Białe poziome pasma zakłóceń na czarnym tle.",
+      "altEN": "White horizontal interference bands on black.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": false,
+  "projectPageVisible": true,
+  "mediaType": "image",
+  "types": [],
+  "medium": "digital",
+  "year": "",
+  "summaryPL": "Kadr z autorskiej animacji 3D.",
+  "summaryEN": "Still from the original 3D animation.",
+  "altPL": "Białe poziome pasma zakłóceń na czarnym tle.",
+  "altEN": "White horizontal interference bands on black.",
+  "id": "dissonance-still-01",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/dissonance-perspective/dissonance-perspective-01-0028.webp",
+    "ratio": "16/9",
+    "fit": "cover",
+    "altPL": "Białe poziome pasma zakłóceń na czarnym tle.",
+    "altEN": "White horizontal interference bands on black.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Dissonance Perspective — kadr 00:28",
+  "titleEN": "Dissonance Perspective — still 00:28",
+  "captionPL": "Kadr z autorskiej animacji 3D.",
+  "captionEN": "Still from the original 3D animation.",
+  "project": "dissonance-perspective",
+  "detailOnly": true
+}

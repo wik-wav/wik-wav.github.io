@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 31,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/lem-shapeshifter-mongoose-transparent.webp",
+      "ratio": "1/2",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa ilustracja formy Mongoose postaci Lem na przezroczystym tle.",
+      "altEN": "Full-body illustration of Lem’s Mongoose form on a transparent background.",
+      "hasTransparency": true,
+      "viewerBackground": "light",
+      "transparencyMode": "force-transparent"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/lem-shapeshifter-mongoose-transparent.webp",
+      "ratio": "1/2",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa ilustracja formy Mongoose postaci Lem na przezroczystym tle.",
+      "altEN": "Full-body illustration of Lem’s Mongoose form on a transparent background.",
+      "hasTransparency": true,
+      "viewerBackground": "light",
+      "transparencyMode": "force-transparent"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": "2024",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-10-mongoose-transparent",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/lem-shapeshifter-mongoose-transparent.webp",
+    "ratio": "1/2",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowa ilustracja formy Mongoose postaci Lem na przezroczystym tle.",
+    "altEN": "Full-body illustration of Lem’s Mongoose form on a transparent background.",
+    "hasTransparency": true,
+    "viewerBackground": "light",
+    "transparencyMode": "force-transparent",
+    "focalPoint": {
+      "x": 0.558,
+      "y": 0.101
+    }
+  },
+  "titlePL": "Mongoose 2024 — forma",
+  "titleEN": "Mongoose 2024 — form",
+  "summaryPL": "Forma dla dwujęzycznego głosu English VCCV + Japanese CVVC.",
+  "summaryEN": "Form for the bilingual English VCCV + Japanese CVVC voicebank.",
+  "altPL": "Pełnopostaciowa ilustracja formy Mongoose postaci Lem na przezroczystym tle.",
+  "altEN": "Full-body illustration of Lem’s Mongoose form on a transparent background.",
+  "captionPL": "Mongoose 2024 — tryby Normal i Soft, po pięć wysokości.",
+  "captionEN": "Mongoose 2024—Normal and Soft modes, five pitches each.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

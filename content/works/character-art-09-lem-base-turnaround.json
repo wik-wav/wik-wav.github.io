@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 60,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-09-lem-base-turnaround.webp",
+      "ratio": "8/5",
+      "fit": "contain",
+      "altPL": "Bazowa plansza obrotowa formy Mongoose postaci Lem z widokiem przodu, boku i tyłu oraz studiami proporcji.",
+      "altEN": "Base turnaround of Lem’s Mongoose form with front, side, and back views plus proportion studies.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-09-lem-base-turnaround.webp",
+      "ratio": "8/5",
+      "fit": "contain",
+      "altPL": "Bazowa plansza obrotowa formy Mongoose postaci Lem z widokiem przodu, boku i tyłu oraz studiami proporcji.",
+      "altEN": "Base turnaround of Lem’s Mongoose form with front, side, and back views plus proportion studies.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "character-art-09-lem-base-turnaround",
+  "project": "lem",
+  "collections": [
+    "character-art"
+  ],
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "character-art",
+    "character-design"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-09-lem-base-turnaround.webp",
+    "ratio": "8/5",
+    "fit": "contain",
+    "altPL": "Bazowa plansza obrotowa formy Mongoose postaci Lem z widokiem przodu, boku i tyłu oraz studiami proporcji.",
+    "altEN": "Base turnaround of Lem’s Mongoose form with front, side, and back views plus proportion studies.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.528,
+      "y": 0.247
+    }
+  },
+  "titlePL": "Lem — Mongoose — bazowa plansza obrotowa",
+  "titleEN": "Lem — Mongoose base turnaround",
+  "summaryPL": "Plansza dokumentująca konstrukcję i proporcje bazowej formy Mongoose postaci Lem.",
+  "summaryEN": "A sheet documenting the construction and proportions of Lem’s base Mongoose form.",
+  "altPL": "Bazowa plansza obrotowa formy Mongoose postaci Lem z widokiem przodu, boku i tyłu oraz studiami proporcji.",
+  "altEN": "Base turnaround of Lem’s Mongoose form with front, side, and back views plus proportion studies.",
+  "captionPL": "Forma Mongoose postaci Lem — bazowa plansza obrotowa.",
+  "captionEN": "Lem’s Mongoose form — base turnaround.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

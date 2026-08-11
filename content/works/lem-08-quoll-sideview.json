@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 29,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/lem-quoll-sideview.webp",
+      "ratio": "2/3",
+      "fit": "contain",
+      "altPL": "Profilowe popiersie formy Quoll postaci Lem, zwrócone w lewo, z cętkowanym futrem, pomarańczowym kucykiem i jasną kurtką.",
+      "altEN": "Left-facing profile bust of Lem’s Quoll form with spotted fur, an orange ponytail, and a pale jacket.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/lem-quoll-sideview.webp",
+      "ratio": "2/3",
+      "fit": "contain",
+      "altPL": "Profilowe popiersie formy Quoll postaci Lem, zwrócone w lewo, z cętkowanym futrem, pomarańczowym kucykiem i jasną kurtką.",
+      "altEN": "Left-facing profile bust of Lem’s Quoll form with spotted fur, an orange ponytail, and a pale jacket.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-08-quoll-sideview",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/lem-quoll-sideview.webp",
+    "ratio": "2/3",
+    "fit": "contain",
+    "altPL": "Profilowe popiersie formy Quoll postaci Lem, zwrócone w lewo, z cętkowanym futrem, pomarańczowym kucykiem i jasną kurtką.",
+    "altEN": "Left-facing profile bust of Lem’s Quoll form with spotted fur, an orange ponytail, and a pale jacket.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.508,
+      "y": 0.275
+    }
+  },
+  "titlePL": "Quoll — profil",
+  "titleEN": "Quoll — side view",
+  "summaryPL": "Profil porządkujący proporcje i cechy formy Quoll.",
+  "summaryEN": "Side view defining the proportions and features of the Quoll form.",
+  "altPL": "Profilowe popiersie formy Quoll postaci Lem, zwrócone w lewo, z cętkowanym futrem, pomarańczowym kucykiem i jasną kurtką.",
+  "altEN": "Left-facing profile bust of Lem’s Quoll form with spotted fur, an orange ponytail, and a pale jacket.",
+  "captionPL": "Widok boczny formy Quoll.",
+  "captionEN": "Quoll form side view.",
+  "projectGroup": "lem-sideviews",
+  "projectGroupLabelPL": "Widoki boczne",
+  "projectGroupLabelEN": "Side views",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

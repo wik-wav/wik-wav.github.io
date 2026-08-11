@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 49,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/cover-art/cover-art-02-cloud-flow-free.webp",
+      "ratio": "1/1",
+      "fit": "cover",
+      "altPL": "Jasna malarska okładka z zielono-turkusowymi płaszczyznami przypominającymi górę, wodę i chmury.",
+      "altEN": "Light painterly cover with green-and-turquoise planes suggesting a mountain, water, and clouds.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/cover-art/cover-art-02-cloud-flow-free.webp",
+      "ratio": "1/1",
+      "fit": "cover",
+      "altPL": "Jasna malarska okładka z zielono-turkusowymi płaszczyznami przypominającymi górę, wodę i chmury.",
+      "altEN": "Light painterly cover with green-and-turquoise planes suggesting a mountain, water, and clouds.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "cover-art-02-cloud-flow-free",
+  "project": "cover-art",
+  "year": "2022",
+  "date": "2022-09-24",
+  "medium": "digital",
+  "types": [
+    "cover-art",
+    "design",
+    "music"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/cover-art/cover-art-02-cloud-flow-free.webp",
+    "ratio": "1/1",
+    "fit": "cover",
+    "altPL": "Jasna malarska okładka z zielono-turkusowymi płaszczyznami przypominającymi górę, wodę i chmury.",
+    "altEN": "Light painterly cover with green-and-turquoise planes suggesting a mountain, water, and clouds.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "I dreamt upon a mountain top, let the cloud flow free",
+  "titleEN": "I dreamt upon a mountain top, let the cloud flow free",
+  "summaryPL": "Projekt okładki singla SVREN, wydanego 24 września 2022 roku.",
+  "summaryEN": "Cover artwork for a SVREN single released on 24 September 2022.",
+  "altPL": "Jasna malarska okładka z zielono-turkusowymi płaszczyznami przypominającymi górę, wodę i chmury.",
+  "altEN": "Light painterly cover with green-and-turquoise planes suggesting a mountain, water, and clouds.",
+  "captionPL": "Okładka singla SVREN, 24.09.2022.",
+  "captionEN": "Cover artwork for a SVREN single, 24 September 2022.",
+  "externalLinks": [
+    {
+      "href": "https://open.spotify.com/album/01y2kSzgnhLctTaBA8YrzY",
+      "labelPL": "Posłuchaj singla „I dreamt upon a mountain top, let the cloud flow free” w Spotify",
+      "labelEN": "Listen to the single “I dreamt upon a mountain top, let the cloud flow free” on Spotify"
+    }
+  ],
+  "detailOnly": false
+}

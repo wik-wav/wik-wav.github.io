@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "portfolio-site.schema.json",
+  "title": "Portfolio site settings",
+  "type": "object",
+  "required": ["schemaVersion", "origin", "profile", "navigation", "copy", "home", "pages", "footer"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "origin": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "profile": { "type": "object", "required": ["name", "email"], "properties": { "name": { "type": "string" }, "email": { "type": "string" }, "linkedIn": { "type": "string" } },
+    "navigation": { "type": "array", "items": { "type": "object", "required": ["id", "href", "labelPL", "labelEN"] } },
+    "copy": { "type": "object" },
+    "home": { "type": "object", "properties": { "heroLineHeight": { "type": "number", "minimum": 0.8, "maximum": 1.4, "default": 1.02 } } },
+    "pages": { "type": "object" },
+    "footer": { "type": "object" }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 67,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/dissonance-perspective/dissonance-perspective-03-0130.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Rozproszone białe bryły z ukośnymi liniami na jasnym tle.",
+      "altEN": "Scattered white forms with diagonal lines on a light background.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/dissonance-perspective/dissonance-perspective-03-0130.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Rozproszone białe bryły z ukośnymi liniami na jasnym tle.",
+      "altEN": "Scattered white forms with diagonal lines on a light background.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": false,
+  "projectPageVisible": true,
+  "mediaType": "image",
+  "types": [],
+  "medium": "digital",
+  "year": "",
+  "summaryPL": "Kadr z autorskiej animacji 3D.",
+  "summaryEN": "Still from the original 3D animation.",
+  "altPL": "Rozproszone białe bryły z ukośnymi liniami na jasnym tle.",
+  "altEN": "Scattered white forms with diagonal lines on a light background.",
+  "id": "dissonance-still-03",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/dissonance-perspective/dissonance-perspective-03-0130.webp",
+    "ratio": "16/9",
+    "fit": "cover",
+    "altPL": "Rozproszone białe bryły z ukośnymi liniami na jasnym tle.",
+    "altEN": "Scattered white forms with diagonal lines on a light background.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Dissonance Perspective — kadr 01:30",
+  "titleEN": "Dissonance Perspective — still 01:30",
+  "captionPL": "Kadr z autorskiej animacji 3D.",
+  "captionEN": "Still from the original 3D animation.",
+  "project": "dissonance-perspective",
+  "detailOnly": true
+}

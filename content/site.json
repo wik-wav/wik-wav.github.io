@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "origin": "https://wik-wav.github.io",
+  "profile": {
+    "name": "Wiktor Sielaszuk",
+    "email": "wiktor.sielaszuk.22@gmail.com",
+    "linkedIn": "https://www.linkedin.com/in/wiktor-sielaszuk"
+  },
+  "navigation": [
+    {
+      "id": "home",
+      "href": "index.html",
+      "labelPL": "Profil",
+      "labelEN": "Profile"
+    },
+    {
+      "id": "portfolio",
+      "href": "portfolio/index.html",
+      "labelPL": "Portfolio",
+      "labelEN": "Portfolio"
+    },
+    {
+      "id": "projects",
+      "href": "projects/index.html",
+      "labelPL": "Projekty",
+      "labelEN": "Projects"
+    },
+    {
+      "id": "contact",
+      "href": "#contact",
+      "labelPL": "Kontakt",
+      "labelEN": "Contact"
+    }
+  ],
+  "copy": {
+    "skip": {
+      "pl": "Przejdź do treści",
+      "en": "Skip to content"
+    },
+    "nav.home": {
+      "pl": "Profil",
+      "en": "Profile"
+    },
+    "nav.portfolio": {
+      "pl": "Portfolio",
+      "en": "Portfolio"
+    },
+    "nav.projects": {
+      "pl": "Projekty",
+      "en": "Projects"
+    },
+    "nav.contact": {
+      "pl": "Kontakt",
+      "en": "Contact"
+    },
+    "nav.menu": {
+      "pl": "MENU",
+      "en": "MENU"
+    },
+    "nav.close": {
+      "pl": "ZAMKNIJ",
+      "en": "CLOSE"
+    },
+    "language": {
+      "pl": "Język",
+      "en": "Language"
+    },
+    "footer.title": {
+      "pl": "Porozmawiajmy o projekcie albo współpracy.",
+      "en": "Let’s talk about a project or collaboration."
+    },
+    "project.view": {
+      "pl": "Zobacz projekt",
+      "en": "View project"
+    },
+    "media.placeholder": {
+      "pl": "ZASTĘPCZY MATERIAŁ",
+      "en": "PLACEHOLDER"
+    },
+    "media.video": {
+      "pl": "WIDEO",
+      "en": "VIDEO"
+    },
+    "media.audio": {
+      "pl": "AUDIO",
+      "en": "AUDIO"
+    }
+  },
+  "home": {
+    "eyebrowPL": "PROFIL / PROJEKTOWANIE + BADANIA",
+    "eyebrowEN": "PROFILE / DESIGN + RESEARCH",
+    "heroLines": [
+      {
+        "pl": "Tożsamość",
+        "en": "Identity in art,"
+      },
+      {
+        "pl": "w sztuce, projekcie, protokole",
+        "en": "design and protocol"
+      }
+    ],
+    "heroLineHeight": 1.02,
+    "introPL": "Wiktor Sielaszuk — projektant pracujący na styku komunikacji wizualnej, narzędzi językowych, sztuki generatywnej i systemów uczenia maszynowego.",
+    "introEN": "Wiktor Sielaszuk — a designer working across visual communication, language tools, generative art, and machine-learning systems.",
+    "disciplinesHeadingPL": "Praktyka bez sztucznych granic między formą a systemem.",
+    "disciplinesHeadingEN": "A practice without artificial boundaries between form and system.",
+    "disciplinesIntroPL": "Każdy projekt zaczyna się od innego pytania, ale łączy je ta sama metoda: nazwać reguły, sprawdzić je w działaniu i dopracować język wizualny tak, by pozostał czytelny.",
+    "disciplinesIntroEN": "Each project begins with a different question, but shares one method: name the rules, test them in use, and refine the visual language until it remains clear.",
+    "disciplines": [
+      {
+        "titlePL": "Systemy wizualne",
+        "titleEN": "Visual systems",
+        "textPL": "Identyfikacja, typografia, reguły i dokumentacja.",
+        "textEN": "Identity, typography, rules, and documentation."
+      },
+      {
+        "titlePL": "Język i narzędzia",
+        "titleEN": "Language and tools",
+        "textPL": "Pismo, krój, narzędzia przeglądarkowe i interfejsy.",
+        "textEN": "Writing systems, type, browser tools, and interfaces."
+      },
+      {
+        "titlePL": "Badania generatywne",
+        "titleEN": "Generative research",
+        "textPL": "Latentne i Para-analog-on: obraz, protokół i sprawczość.",
+        "textEN": "Latentne and Para-analog-on: image, protocol, and agency."
+      },
+      {
+        "titlePL": "Głos i postać",
+        "titleEN": "Voice and character",
+        "textPL": "Synteza wokalna, zbiory danych, system Lem i projektowanie postaci.",
+        "textEN": "Vocal synthesis, datasets, the Lem system, and character design."
+      },
+      {
+        "titlePL": "Publikacje",
+        "titleEN": "Publishing",
+        "textPL": "Okładki, plakaty i typografia redakcyjna.",
+        "textEN": "Covers, posters, and editorial typography."
+      },
+      {
+        "titlePL": "Ruch i dźwięk",
+        "titleEN": "Motion and sound",
+        "textPL": "Autorska muzyka, wideo fraktalne i syntezowane wokale.",
+        "textEN": "Original music, fractal video, and synthesised vocals."
+      }
+    ],
+    "degreeProjectIds": [
+      "latentne",
+      "para-analog-on",
+      "gaijin-no-mittsu-no-kuusou"
+    ]
+  },
+  "pages": {
+    "home": {
+      "titlePL": "Wiktor Sielaszuk — profil",
+      "titleEN": "Wiktor Sielaszuk — profile",
+      "descriptionPL": "Profil Wiktora Sielaszuka: projektowanie, sztuka, systemy wizualne i badania.",
+      "descriptionEN": "Wiktor Sielaszuk’s profile: design, art, visual systems, and research."
+    },
+    "portfolio": {
+      "titlePL": "Portfolio — Wiktor Sielaszuk",
+      "titleEN": "Portfolio — Wiktor Sielaszuk",
+      "descriptionPL": "Wszystkie publiczne prace Wiktora Sielaszuka z filtrowaniem według projektu, roku, medium i typu.",
+      "descriptionEN": "All public work by Wiktor Sielaszuk, filterable by project, year, medium, and type."
+    },
+    "projects": {
+      "titlePL": "Projekty — Wiktor Sielaszuk",
+      "titleEN": "Projects — Wiktor Sielaszuk",
+      "descriptionPL": "Wybrane projekty Wiktora Sielaszuka z opisami założeń, procesu, roli i mediów.",
+      "descriptionEN": "Selected projects by Wiktor Sielaszuk with context on concept, process, role, and media."
+    }
+  },
+  "footer": {
+    "headingPL": "Porozmawiajmy o projekcie albo współpracy.",
+    "headingEN": "Let’s talk about a project or collaboration."
+  }
+}

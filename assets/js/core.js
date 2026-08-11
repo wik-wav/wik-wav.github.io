@@ -1,7 +1,6 @@
-import "./media-dimensions.js";
-
 (() => {
-  const copy = {
+  const site = window.PORTFOLIO_SITE || {};
+  const copy = site.copy || {
     "skip": { pl: "Przejdź do treści", en: "Skip to content" },
     "nav.home": { pl: "Profil", en: "Profile" },
     "nav.portfolio": { pl: "Portfolio", en: "Portfolio" },
@@ -12,13 +11,21 @@ import "./media-dimensions.js";
     "language": { pl: "Język", en: "Language" },
     "footer.title": { pl: "Porozmawiajmy o projekcie albo współpracy.", en: "Let’s talk about a project or collaboration." },
     "media.placeholder": { pl: "ZASTĘPCZY MATERIAŁ", en: "PLACEHOLDER" },
-    "media.video": { pl: "WIDEO", en: "VIDEO" }
+    "media.video": { pl: "WIDEO", en: "VIDEO" },
+    "media.audio": { pl: "AUDIO", en: "AUDIO" }
   };
+  for (const item of site.navigation || []) copy[`nav.${item.id}`] = { pl: item.labelPL, en: item.labelEN };
+  if (site.footer) copy["footer.title"] = { pl: site.footer.headingPL, en: site.footer.headingEN };
 
-  const state = { lang: localStorage.getItem("portfolio:lang") === "en" ? "en" : "pl" };
+  const storage = {
+    get(key) { try { return window.localStorage.getItem(key); } catch { return null; } },
+    set(key, value) { try { window.localStorage.setItem(key, value); } catch { /* sandboxed previews may deny storage */ } }
+  };
+  const state = { lang: storage.get("portfolio:lang") === "en" ? "en" : "pl" };
   const base = document.body.dataset.base || ".";
   const url = path => `${base}/${path}`.replace(/\/+/g, "/");
   const esc = value => String(value ?? "").replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" })[char]);
+  const singleLine = value => String(value ?? "").replace(/\s+/gu, " ").trim();
   const text = item => item?.[state.lang === "pl" ? "titlePL" : "titleEN"] || "";
   const field = (item, name) => item?.[`${name}${state.lang === "pl" ? "PL" : "EN"}`] || "";
   const t = key => copy[key]?.[state.lang] || key;
@@ -53,8 +60,8 @@ import "./media-dimensions.js";
       <a class="skip-link" href="#main" data-copy="skip">${t("skip")}</a>
       <header class="site-header" data-od-id="global-header">
         <div class="header-inner">
-          <a class="wordmark" href="${url("index.html")}" aria-label="Wiktor Sielaszuk — ${t("nav.home")}" data-aria-pl="Wiktor Sielaszuk — Profil" data-aria-en="Wiktor Sielaszuk — Profile" data-od-id="wordmark">
-            <span class="register-mark" aria-hidden="true"></span><span>Wiktor Sielaszuk</span>
+          <a class="wordmark" href="${url("index.html")}" aria-label="${esc(site.profile?.name || "Wiktor Sielaszuk")} — ${t("nav.home")}" data-aria-pl="${esc(site.profile?.name || "Wiktor Sielaszuk")} — Profil" data-aria-en="${esc(site.profile?.name || "Wiktor Sielaszuk")} — Profile" data-od-id="wordmark">
+            <span class="register-mark" aria-hidden="true"></span><span>${esc(site.profile?.name || "Wiktor Sielaszuk")}</span>
           </a>
           <nav class="primary-nav" id="primary-nav" aria-label="${t("nav.menu")}" data-aria-pl="Nawigacja główna" data-aria-en="Primary navigation" data-od-id="primary-navigation">
             ${navLink("index.html", "nav.home", "home")}
@@ -76,8 +83,8 @@ import "./media-dimensions.js";
           <div class="footer-main">
             <div><p class="section-code">C.01 / ${t("nav.contact")}</p><h2 data-copy="footer.title">${t("footer.title")}</h2></div>
             <div class="footer-links">
-              <a href="mailto:wiktor.sielaszuk.22@gmail.com">wiktor.sielaszuk.22@gmail.com</a>
-              <a href="https://www.linkedin.com/in/wiktor-sielaszuk" rel="me">LinkedIn</a>
+              <a href="mailto:${esc(site.profile?.email || "wiktor.sielaszuk.22@gmail.com")}">${esc(site.profile?.email || "wiktor.sielaszuk.22@gmail.com")}</a>
+              <a href="${esc(site.profile?.linkedIn || "https://www.linkedin.com/in/wiktor-sielaszuk")}" rel="me">LinkedIn</a>
               <a href="${url("portfolio/index.html")}" data-copy="nav.portfolio">${t("nav.portfolio")}</a>
               <a href="${url("projects/index.html")}" data-copy="nav.projects">${t("nav.projects")}</a>
             </div>
@@ -92,15 +99,15 @@ import "./media-dimensions.js";
     document.querySelectorAll("[data-lang]").forEach(btn => btn.setAttribute("aria-pressed", String(btn.dataset.lang === state.lang)));
     document.querySelectorAll("[data-pl][data-en]").forEach(el => { el.textContent = el.dataset[state.lang]; });
     document.querySelectorAll("[data-aria-pl][data-aria-en]").forEach(el => { el.setAttribute("aria-label", el.dataset[state.lang === "pl" ? "ariaPl" : "ariaEn"]); });
-    document.querySelectorAll("[data-content-pl][data-content-en]").forEach(el => { el.setAttribute("content", el.dataset[state.lang === "pl" ? "contentPl" : "contentEn"]); });
+    document.querySelectorAll("[data-content-pl][data-content-en]").forEach(el => { el.setAttribute("content", singleLine(el.dataset[state.lang === "pl" ? "contentPl" : "contentEn"])); });
     const pageTitle = document.querySelector("title[data-pl][data-en]");
-    if (pageTitle) document.title = pageTitle.dataset[state.lang];
+    if (pageTitle) document.title = singleLine(pageTitle.dataset[state.lang]);
     window.dispatchEvent(new CustomEvent("portfolio:language", { detail: { lang: state.lang } }));
   }
 
   function setLanguage(lang) {
     state.lang = lang === "en" ? "en" : "pl";
-    localStorage.setItem("portfolio:lang", state.lang);
+    storage.set("portfolio:lang", state.lang);
     applyCopy();
   }
 
@@ -129,15 +136,25 @@ import "./media-dimensions.js";
   }
 
   function wrapMedia(frame, media, options) {
-    return `<div class="media-block">${frame}${mediaDisclosure(media, options)}</div>`;
+    const disclosure = options?.hideDisclosure === true ? "" : mediaDisclosure(media, options);
+    return `<div class="media-block">${frame}${disclosure}</div>`;
+  }
+
+  function mediaHasTransparency(media) {
+    if (!media) return false;
+    if (media.hasTransparency === true) return true;
+    return media.kind === "group" && Array.isArray(media.items) && media.items.some(mediaHasTransparency);
   }
 
   function makeMedia(media, item, options = {}) {
     const ratio = media?.ratio || "4/3";
     const eager = options.eager === true;
+    const mediaBadge = ["video", "audio"].includes(options.mediaBadge) ? options.mediaBadge : mediaBadgeForItem(item);
+    const mediaMark = mediaBadge ? `<span class="media-mark media-mark-${mediaBadge}">${t(`media.${mediaBadge}`)}</span>` : "";
     if (media?.kind === "group" && Array.isArray(media.items)) {
-      const frame = `<div class="media-frame media-group" data-group-count="${media.items.length}" style="--ratio:${esc(ratio)}">${media.items.map((asset, index) => `
-        <div class="media-group-item"><img src="${url(asset.src)}" alt="${esc(mediaAlt(asset, item))}"${imageAttributes(asset, { fetchPriority: options.fetchPriority === "high" && index === 0 ? "high" : undefined })} loading="${eager && index === 0 ? "eager" : "lazy"}" decoding="async"></div>`).join("")}</div>`;
+      const transparencyClass = mediaHasTransparency(media) ? " has-transparency" : "";
+      const frame = `<div class="media-frame media-group${transparencyClass}" data-group-count="${media.items.length}" style="--ratio:${esc(ratio)}">${media.items.map((asset, index) => `
+        <div class="media-group-item"><img src="${url(asset.src)}" alt="${esc(mediaAlt(asset, item))}"${imageAttributes(asset, { fetchPriority: options.fetchPriority === "high" && index === 0 ? "high" : undefined })} loading="${eager && index === 0 ? "eager" : "lazy"}" decoding="async"></div>`).join("")}${mediaMark}</div>`;
       return wrapMedia(frame, media, options);
     }
     if (media?.kind === "image" && media.src) {
@@ -146,34 +163,93 @@ import "./media-dimensions.js";
       const noPadding = media.noPadding === true ? " no-padding" : "";
       const mobileRatio = media.mobileRatio ? `;--mobile-ratio:${esc(media.mobileRatio)}` : "";
       const objectPosition = media.objectPosition ? `;--object-position:${esc(media.objectPosition)}` : "";
-      const frame = `<div class="media-frame ${fit}${noPadding}" style="--ratio:${esc(ratio)}${mobileRatio}${objectPosition}"><picture>${source}<img src="${url(media.src)}" alt="${esc(mediaAlt(media, item))}"${imageAttributes(media, options)} loading="${eager ? "eager" : "lazy"}" decoding="async"></picture>${item?.mediaType === "video" ? `<span class="video-mark">${t("media.video")}</span>` : ""}</div>`;
+      const transparencyClass = mediaHasTransparency(media) ? " has-transparency" : "";
+      const frame = `<div class="media-frame ${fit}${noPadding}${transparencyClass}" style="--ratio:${esc(ratio)}${mobileRatio}${objectPosition}"><picture>${source}<img src="${url(media.src)}" alt="${esc(mediaAlt(media, item))}"${imageAttributes(media, options)} loading="${eager ? "eager" : "lazy"}" decoding="async"></picture>${mediaMark}</div>`;
       return wrapMedia(frame, media, options);
     }
     const frame = `<div class="media-frame" style="--ratio:${esc(ratio)}">
       <div class="media-art ${esc(media?.art || "art-latentne")}" role="img" aria-label="${esc(mediaAlt(media, item))}"><i></i><b></b><em></em></div>
       <span class="placeholder-label">${t("media.placeholder")}</span>
-      ${item?.mediaType === "video" ? `<span class="video-mark">${t("media.video")}</span>` : ""}
+      ${mediaMark}
     </div>`;
     return wrapMedia(frame, media, options);
   }
 
+  const AUDIO_EMBED_SIZES = new Set(["compact", "standard", "expanded"]);
+  const AUDIO_PROVIDERS = new Set(["soundcloud", "bandcamp"]);
+  const audioEmbedSize = video => AUDIO_EMBED_SIZES.has(video?.embedSize) ? video.embedSize : "standard";
+
   function videoUrl(video) {
-    if (!video?.provider || !video?.id) return null;
+    if (!video?.provider) return null;
     if (video.provider === "youtube" && /^[A-Za-z0-9_-]{6,20}$/.test(video.id)) return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(video.id)}?rel=0`;
     if (video.provider === "vimeo" && /^\d{5,12}$/.test(video.id)) return `https://player.vimeo.com/video/${encodeURIComponent(video.id)}`;
+    if (video.provider === "soundcloud") {
+      try {
+        const track = new URL(video.url);
+        if (track.protocol !== "https:" || !(track.hostname === "soundcloud.com" || track.hostname.endsWith(".soundcloud.com"))) return null;
+        const size = audioEmbedSize(video);
+        const params = new URLSearchParams({
+          url: track.href,
+          auto_play: "false",
+          hide_related: "true",
+          show_comments: "false",
+          show_user: "true",
+          show_reposts: "false",
+          visual: size === "expanded" ? "true" : "false",
+          show_artwork: size === "standard" ? "true" : "false"
+        });
+        return `https://w.soundcloud.com/player/?${params}`;
+      } catch { return null; }
+    }
+    if (video.provider === "bandcamp" && /^(?:album|track)$/.test(video.bandcampType) && /^\d{5,12}$/.test(String(video.id || ""))) {
+      const size = audioEmbedSize(video);
+      const layout = size === "compact"
+        ? "size=small"
+        : `size=large/artwork=small/tracklist=${size === "expanded" ? "true" : "false"}`;
+      return `https://bandcamp.com/EmbeddedPlayer/v=2/${video.bandcampType}=${encodeURIComponent(video.id)}/${layout}/bgcol=f8f9f8/linkcol=1420ca/transparent=true/`;
+    }
     return null;
+  }
+
+  function mediaBadgeForItem(item) {
+    if (item?.mediaType !== "video" || !videoUrl(item.video)) return "";
+    return AUDIO_PROVIDERS.has(item.video?.provider) ? "audio" : "video";
+  }
+
+  function preferredMediaBadge(items = []) {
+    let hasAudio = false;
+    for (const item of items) {
+      const badge = mediaBadgeForItem(item);
+      if (badge === "video") return "video";
+      if (badge === "audio") hasAudio = true;
+    }
+    return hasAudio ? "audio" : "";
   }
 
   function makeVideo(item, options = {}) {
     const src = videoUrl(item?.video);
     if (!src) return makeMedia(item?.video?.poster || item?.cover, item, options);
+    const provider = item?.video?.provider || "";
+    const isAudioEmbed = AUDIO_PROVIDERS.has(provider);
+    const embedSize = audioEmbedSize(item?.video);
+    const audioClasses = isAudioEmbed ? ` is-audio-embed embed-provider-${provider} embed-size-${embedSize}` : "";
+    const frameClasses = isAudioEmbed ? " audio-embed-frame" : "";
+    const frameStyle = isAudioEmbed ? "" : ' style="--ratio:16/9"';
+    const providerLabel = provider === "bandcamp" ? "Bandcamp" : provider === "soundcloud" ? "SoundCloud" : "Video";
+    const fullscreen = isAudioEmbed ? "" : " allowfullscreen";
     const warning = field(item, "videoWarning");
     const externalUrl = item?.video?.externalUrl;
     const externalLabel = field(item, "videoLink");
-    return `<div class="video-block">
+    const transcript = field(item?.video, "transcript");
+    const credits = field(item?.video, "credits");
+    const transcriptLabel = state.lang === "pl" ? "Transkrypcja" : "Transcript";
+    const creditsLabel = state.lang === "pl" ? "Kredyty" : "Credits";
+    return `<div class="video-block${audioClasses}">
       ${warning ? `<p class="video-warning" role="note">${esc(warning)}</p>` : ""}
-      <div class="media-frame video-frame" style="--ratio:16/9"><iframe src="${src}" title="${esc(text(item))}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+      <div class="media-frame video-frame${frameClasses}"${frameStyle}><iframe src="${src}" title="${esc(`${providerLabel}: ${text(item)}`)}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media"${fullscreen}></iframe></div>
       ${externalUrl && externalLabel ? `<p class="media-external"><a href="${esc(externalUrl)}" target="_blank" rel="noopener noreferrer">${esc(externalLabel)}</a></p>` : ""}
+      ${credits ? `<p class="video-credits"><strong>${creditsLabel}:</strong> ${esc(credits)}</p>` : ""}
+      ${transcript ? `<details class="video-transcript"><summary>${transcriptLabel}</summary><p>${esc(transcript)}</p></details>` : ""}
     </div>`;
   }
 
@@ -183,6 +259,10 @@ import "./media-dimensions.js";
 
   function projectById(id) { return window.PORTFOLIO_DATA.projects.find(project => project.id === id); }
   function projectName(id) { return text(projectById(id)); }
+  function projectHref(id) {
+    const project = projectById(id);
+    return project ? url(`projects/${encodeURIComponent(project.id)}/index.html`) : "";
+  }
   function labelFor(fieldName, value) {
     if (value == null || value === "") return "";
     const labels = {
@@ -215,6 +295,64 @@ import "./media-dimensions.js";
   }
 
   renderChrome();
+  function initTypography() {
+    if (window.PortfolioTypography) {
+      window.PortfolioTypography.start();
+      return;
+    }
+    if (!location.pathname.includes("/studio-preview/") || document.querySelector("[data-typography-fallback]")) return;
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src = url("assets/js/typography.js");
+    script.dataset.typographyFallback = "true";
+    script.addEventListener("load",() => window.PortfolioTypography?.start(),{once:true});
+    document.head.append(script);
+  }
+  initTypography();
+
+  function initSmartHeader() {
+    const shell = document.querySelector("[data-site-header]");
+    if (!shell) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let lastY = Math.max(0, window.scrollY);
+    let downwardTravel = 0;
+    let upwardTravel = 0;
+    let frame = 0;
+
+    const reveal = () => shell.classList.remove("is-hidden");
+    const menuIsOpen = () => document.querySelector(".menu-toggle")?.getAttribute("aria-expanded") === "true";
+    const mustStayVisible = () => reducedMotion.matches || menuIsOpen() || shell.contains(document.activeElement) || document.body.classList.contains("no-scroll");
+
+    const update = () => {
+      frame = 0;
+      const currentY = Math.max(0, window.scrollY);
+      const delta = currentY - lastY;
+      const topZone = Math.max(16, shell.offsetHeight);
+
+      if (currentY <= topZone || mustStayVisible()) {
+        reveal();
+        downwardTravel = 0;
+        upwardTravel = 0;
+      } else if (delta > 0) {
+        downwardTravel += delta;
+        upwardTravel = 0;
+        if (downwardTravel >= 32) shell.classList.add("is-hidden");
+      } else if (delta < 0) {
+        upwardTravel += Math.abs(delta);
+        downwardTravel = 0;
+        if (upwardTravel >= 12) reveal();
+      }
+      lastY = currentY;
+    };
+
+    window.addEventListener("scroll", () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    }, { passive: true });
+    shell.addEventListener("focusin", reveal);
+    reducedMotion.addEventListener?.("change", reveal);
+  }
+
+  initSmartHeader();
   document.addEventListener("click", event => {
     const lang = event.target.closest("[data-lang]");
     if (lang) setLanguage(lang.dataset.lang);
@@ -224,9 +362,22 @@ import "./media-dimensions.js";
       toggle.setAttribute("aria-expanded", String(open));
       toggle.textContent = t(open ? "nav.close" : "nav.menu");
       document.querySelector(".primary-nav")?.classList.toggle("open", open);
+      document.querySelector("[data-site-header]")?.classList.remove("is-hidden");
     }
+  });
+  window.addEventListener("message", event => {
+    if (!location.pathname.includes("/studio-preview/")) return;
+    let referrerOrigin = "";
+    try { referrerOrigin = new URL(document.referrer).origin; } catch {}
+    if (event.source !== window.parent || event.origin !== referrerOrigin || !/^http:\/\/(?:127\.0\.0\.1|localhost):\d+$/.test(event.origin)) return;
+    if (event.data?.type !== "portfolio-preview-heading-spacing") return;
+    const hero = document.querySelector(".project-hero");
+    if (!hero) return;
+    const clamp = value => Math.min(1.4, Math.max(0.8, Number(value) || 1.12));
+    hero.style.setProperty("--project-hero-line-height-pl", String(clamp(event.data.pl)));
+    hero.style.setProperty("--project-hero-line-height-en", String(clamp(event.data.en)));
   });
   applyCopy();
 
-  window.Portfolio = { state, t, text, field, esc, url, setLanguage, makeMedia, makeVideo, makeWorkMedia, projectById, projectName, labelFor, videoUrl, paginationTokens, renderPaginationTokens };
+  window.Portfolio = { state, t, text, field, esc, singleLine, url, setLanguage, makeMedia, makeVideo, makeWorkMedia, mediaDisclosure, mediaHasTransparency, mediaBadgeForItem, preferredMediaBadge, projectById, projectName, projectHref, labelFor, videoUrl, paginationTokens, renderPaginationTokens };
 })();

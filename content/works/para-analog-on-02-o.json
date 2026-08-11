@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 14,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/para-analog-on-02-o.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Biała plansza z dużą literą O oraz kaskadą tekstu zwężającą się ku dołowi.",
+      "altEN": "White board with a large O and a cascade of text narrowing toward the bottom.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/para-analog-on-02-o.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Biała plansza z dużą literą O oraz kaskadą tekstu zwężającą się ku dołowi.",
+      "altEN": "White board with a large O and a cascade of text narrowing toward the bottom.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "para-analog-on-02-o",
+  "project": "para-analog-on",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "poster",
+    "typography",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/para-analog-on-02-o.webp",
+    "ratio": "7/10",
+    "fit": "cover",
+    "altPL": "Biała plansza z dużą literą O oraz kaskadą tekstu zwężającą się ku dołowi.",
+    "altEN": "White board with a large O and a cascade of text narrowing toward the bottom.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "O",
+  "titleEN": "O",
+  "summaryPL": "Plansza 2 z czteroczęściowej realizacji protokołu Para-analog-on.",
+  "summaryEN": "Board 2 from the four-part Para-analog-on protocol execution.",
+  "altPL": "Biała plansza z dużą literą O oraz kaskadą tekstu zwężającą się ku dołowi.",
+  "altEN": "White board with a large O and a cascade of text narrowing toward the bottom.",
+  "captionPL": "Wiktor Sielaszuk, O, z cyklu „Para-analog-on”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, O, from the Para-analog-on series, digital artwork, 2026.",
+  "detailOnly": false
+}

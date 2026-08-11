@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 62,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/dissonance-perspective/dissonance-perspective-02-hero-0104.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Białe koncentryczne pierścienie na czarnym tle z realizacji Dissonance Perspective.",
+      "altEN": "White concentric rings on black from Dissonance Perspective.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "youtube",
+    "id": "jRYRyH9USNQ",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/dissonance-perspective/dissonance-perspective-02-hero-0104.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Białe koncentryczne pierścienie na czarnym tle z realizacji Dissonance Perspective.",
+      "altEN": "White concentric rings on black from Dissonance Perspective.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "externalUrl": "https://www.youtube.com/watch?v=jRYRyH9USNQ"
+  },
+  "featured": true,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "dissonance-video",
+  "project": "dissonance-perspective",
+  "year": "2026",
+  "date": "2026-03-07",
+  "author": "wik_wav",
+  "medium": "digital",
+  "types": [
+    "video",
+    "motion",
+    "3d",
+    "music-video",
+    "sound"
+  ],
+  "mediaType": "video",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/dissonance-perspective/dissonance-perspective-02-hero-0104.webp",
+    "ratio": "16/9",
+    "fit": "cover",
+    "altPL": "Białe koncentryczne pierścienie na czarnym tle z realizacji Dissonance Perspective.",
+    "altEN": "White concentric rings on black from Dissonance Perspective.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "videoWarningPL": "Ostrzeżenie: film zawiera szybko migające światła i efekty stroboskopowe.",
+  "videoWarningEN": "Warning: the video contains rapidly flashing lights and strobe effects.",
+  "videoLinkPL": "Obejrzyj Dissonance Perspective w YouTube",
+  "videoLinkEN": "Watch Dissonance Perspective on YouTube",
+  "titlePL": "Dissonance Perspective",
+  "titleEN": "Dissonance Perspective",
+  "summaryPL": "Autorska realizacja audiowizualna badająca granicę między harmonią a szumem.",
+  "summaryEN": "An original audiovisual work exploring the boundary between harmony and noise.",
+  "altPL": "Białe koncentryczne pierścienie na czarnym tle z realizacji Dissonance Perspective.",
+  "altEN": "White concentric rings on black from Dissonance Perspective.",
+  "captionPL": "Dissonance Perspective — wik_wav, opublikowano 07.03.2026.",
+  "captionEN": "Dissonance Perspective—wik_wav, published 7 March 2026.",
+  "detailOnly": false
+}

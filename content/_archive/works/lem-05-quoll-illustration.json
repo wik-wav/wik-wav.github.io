@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 26,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/lem-v4-utau-quoll-illustration.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Kolorowa pełnopostaciowa ilustracja formy Quoll postaci Lem.",
+      "altEN": "Colour full-body illustration of Lem’s Quoll form.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/lem-v4-utau-quoll-illustration.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Kolorowa pełnopostaciowa ilustracja formy Quoll postaci Lem.",
+      "altEN": "Colour full-body illustration of Lem’s Quoll form.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": null,
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-05-quoll-illustration",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/lem-v4-utau-quoll-illustration.webp",
+    "ratio": "7/10",
+    "fit": "contain",
+    "altPL": "Kolorowa pełnopostaciowa ilustracja formy Quoll postaci Lem.",
+    "altEN": "Colour full-body illustration of Lem’s Quoll form.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Quoll — ilustracja systemowa",
+  "titleEN": "Quoll — system illustration",
+  "summaryPL": "Ilustracja prezentująca wizualną interpretację wariantu Quoll.",
+  "summaryEN": "Illustration presenting the visual interpretation of the Quoll variant.",
+  "altPL": "Kolorowa pełnopostaciowa ilustracja formy Quoll postaci Lem.",
+  "altEN": "Colour full-body illustration of Lem’s Quoll form.",
+  "captionPL": "Ilustracja systemowa formy Quoll.",
+  "captionEN": "System illustration for the Quoll form.",
+  "projectPageVisible": false,
+  "detailOnly": false,
+  "archivedAt": "2026-08-11T16:31:31.777Z"
+}

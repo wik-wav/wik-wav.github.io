@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 22,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/lem-v4-utau-civet-transparent.webp",
+      "ratio": "1/2",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa forma Civet postaci Lem: smukła antropomorficzna cyweta w sportowym stroju, z długim ogonem.",
+      "altEN": "Full-body Lem Civet form: a slim anthropomorphic civet in sportswear with a long tail.",
+      "hasTransparency": true,
+      "viewerBackground": "light",
+      "transparencyMode": "force-transparent"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/lem-v4-utau-civet-transparent.webp",
+      "ratio": "1/2",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa forma Civet postaci Lem: smukła antropomorficzna cyweta w sportowym stroju, z długim ogonem.",
+      "altEN": "Full-body Lem Civet form: a slim anthropomorphic civet in sportswear with a long tail.",
+      "hasTransparency": true,
+      "viewerBackground": "light",
+      "transparencyMode": "force-transparent"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": true,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-01-civet-identity",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/lem-v4-utau-civet-transparent.webp",
+    "ratio": "1/2",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowa forma Civet postaci Lem: smukła antropomorficzna cyweta w sportowym stroju, z długim ogonem.",
+    "altEN": "Full-body Lem Civet form: a slim anthropomorphic civet in sportswear with a long tail.",
+    "hasTransparency": true,
+    "viewerBackground": "light",
+    "transparencyMode": "force-transparent",
+    "focalPoint": {
+      "x": 0.461,
+      "y": 0.148
+    }
+  },
+  "titlePL": "Lem V4 — Civet",
+  "titleEN": "Lem V4 — Civet",
+  "summaryPL": "Pierwsza z trzech form V4/V4Bi w systemie jednej zmiennej tożsamości.",
+  "summaryEN": "The first of three V4/V4Bi forms within one variable identity.",
+  "altPL": "Pełnopostaciowa forma Civet postaci Lem: smukła antropomorficzna cyweta w sportowym stroju, z długim ogonem.",
+  "altEN": "Full-body Lem Civet form: a slim anthropomorphic civet in sportswear with a long tail.",
+  "captionPL": "Forma Civet — warianty wokalne Main i Head Voice.",
+  "captionEN": "Civet form—Main and Head Voice vocal variants.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

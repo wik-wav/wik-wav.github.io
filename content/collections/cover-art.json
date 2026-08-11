@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "recordType": "collection",
+  "order": 9,
+  "published": true,
+  "draft": false,
+  "pageCode": "P.10",
+  "pageLabelPL": "KOLEKCJA",
+  "pageLabelEN": "COLLECTION",
+  "id": "cover-art",
+  "detailMediaSize": "standard",
+  "titlePL": "Okładki",
+  "titleEN": "Cover Art",
+  "summaryPL": "Wybrane projekty okładek, w tym dwie okładki singli SVREN.",
+  "summaryEN": "Selected cover artwork, including two single covers for SVREN.",
+  "overviewPL": "Kolekcja pokazuje trzy odrębne podejścia do kwadratowego pola okładki: abstrakcję, malarską narrację i ilustrację pejzażową.",
+  "overviewEN": "The collection presents three distinct approaches to the square cover format: abstraction, painterly narrative, and landscape illustration.",
+  "yearPL": "",
+  "yearEN": "",
+  "disciplinesPL": "projekt okładek, ilustracja",
+  "disciplinesEN": "cover design, illustration",
+  "formatPL": "trzy projekty okładek",
+  "formatEN": "three cover artworks",
+  "rolePL": "koncepcja i projekt okładek",
+  "roleEN": "cover concepts and design",
+  "processHeadingPL": "Trzy podejścia do kwadratowego formatu.",
+  "processHeadingEN": "Three approaches to the square format.",
+  "processPL": "Każda okładka została opracowana jako samodzielna kompozycja, z naciskiem na kolor, rytm i czytelność w kwadratowym formacie.",
+  "processEN": "Each cover was developed as a self-contained composition, emphasising colour, rhythm, and legibility in a square format.",
+  "creditsPL": "Projekt okładek: Wiktor Sielaszuk.",
+  "creditsEN": "Cover artwork: Wiktor Sielaszuk.",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/cover-art/cover-art-01-untitled.webp",
+    "ratio": "1/1",
+    "fit": "cover",
+    "altPL": "Kwadratowa abstrakcyjna okładka w granacie i miedzianym różu z pionowym japońskim napisem.",
+    "altEN": "Square abstract cover in navy and copper-pink with vertical Japanese lettering.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "hero": {
+    "kind": "group",
+    "items": [
+      {
+        "kind": "image",
+        "src": "assets/media/cover-art/cover-art-01-untitled.webp",
+        "ratio": "1/1",
+        "fit": "cover",
+        "altPL": "Kwadratowa abstrakcyjna okładka w granacie i miedzianym różu z pionowym japońskim napisem.",
+        "altEN": "Square abstract cover in navy and copper-pink with vertical Japanese lettering.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      },
+      {
+        "kind": "image",
+        "src": "assets/media/cover-art/cover-art-02-cloud-flow-free.webp",
+        "ratio": "1/1",
+        "fit": "cover",
+        "altPL": "Jasna malarska okładka z zielono-turkusowymi płaszczyznami przypominającymi górę, wodę i chmury.",
+        "altEN": "Light painterly cover with green-and-turquoise planes suggesting a mountain, water, and clouds.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      },
+      {
+        "kind": "image",
+        "src": "assets/media/cover-art/cover-art-03-midsummer-journey.webp",
+        "ratio": "1/1",
+        "fit": "cover",
+        "altPL": "Akwarelowa okładka z jasnym leśnym pejzażem, smukłymi pniami i czerwonymi kwiatami.",
+        "altEN": "Watercolour cover with a bright woodland scene, slender trunks, and red flowers.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      }
+    ],
+    "ratio": "2/1"
+  },
+  "thumbnail": {
+    "kind": "image",
+    "src": "assets/media/cover-art/cover-art-01-untitled.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Kwadratowa abstrakcyjna okładka w granacie i miedzianym różu z pionowym japońskim napisem.",
+    "altEN": "Square abstract cover in navy and copper-pink with vertical Japanese lettering.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "related": [
+    "book-cover",
+    "windows-zine"
+  ],
+  "detailSequenceIds": [
+    "cover-art-01-untitled",
+    "cover-art-02-cloud-flow-free",
+    "cover-art-03-midsummer-journey"
+  ],
+  "seo": {
+    "titlePL": "Okładki — Wiktor Sielaszuk",
+    "titleEN": "Cover Art — Wiktor Sielaszuk",
+    "descriptionPL": "Wybrane projekty okładek, w tym dwie okładki singli SVREN.",
+    "descriptionEN": "Selected cover artwork, including two single covers for SVREN.",
+    "image": "assets/media/cover-art/cover-art-01-untitled.webp",
+    "imageAltPL": "Kwadratowa abstrakcyjna okładka w granacie i miedzianym różu z pionowym japońskim napisem.",
+    "imageAltEN": "Square abstract cover in navy and copper-pink with vertical Japanese lettering."
+  }
+}

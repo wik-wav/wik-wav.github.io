@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 16,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/para-analog-on-04-d.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Biała plansza z wielowarstwowym tekstem, konturem postaci i dużą literą D.",
+      "altEN": "White board with layered text, a figure outline, and a large D.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/para-analog-on-04-d.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Biała plansza z wielowarstwowym tekstem, konturem postaci i dużą literą D.",
+      "altEN": "White board with layered text, a figure outline, and a large D.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "para-analog-on-04-d",
+  "project": "para-analog-on",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "poster",
+    "typography",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/para-analog-on-04-d.webp",
+    "ratio": "7/10",
+    "fit": "cover",
+    "altPL": "Biała plansza z wielowarstwowym tekstem, konturem postaci i dużą literą D.",
+    "altEN": "White board with layered text, a figure outline, and a large D.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "D",
+  "titleEN": "D",
+  "summaryPL": "Plansza 4 z czteroczęściowej realizacji protokołu Para-analog-on.",
+  "summaryEN": "Board 4 from the four-part Para-analog-on protocol execution.",
+  "altPL": "Biała plansza z wielowarstwowym tekstem, konturem postaci i dużą literą D.",
+  "altEN": "White board with layered text, a figure outline, and a large D.",
+  "captionPL": "Wiktor Sielaszuk, D, z cyklu „Para-analog-on”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, D, from the Para-analog-on series, digital artwork, 2026.",
+  "detailOnly": false
+}

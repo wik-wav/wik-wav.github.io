@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 28,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/lem-banded-palm-civet-sideview.webp",
+      "ratio": "2/3",
+      "fit": "contain",
+      "altPL": "Profilowe popiersie formy Civet postaci Lem, zwrócone w lewo, z pomarańczowym kucykiem, opaską, czerwonym kołnierzem i niebieskim topem.",
+      "altEN": "Left-facing profile bust of Lem’s Civet form with an orange ponytail, patterned headband, red collar, and blue top.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/lem-banded-palm-civet-sideview.webp",
+      "ratio": "2/3",
+      "fit": "contain",
+      "altPL": "Profilowe popiersie formy Civet postaci Lem, zwrócone w lewo, z pomarańczowym kucykiem, opaską, czerwonym kołnierzem i niebieskim topem.",
+      "altEN": "Left-facing profile bust of Lem’s Civet form with an orange ponytail, patterned headband, red collar, and blue top.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-07-civet-sideview",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/lem-banded-palm-civet-sideview.webp",
+    "ratio": "2/3",
+    "fit": "contain",
+    "altPL": "Profilowe popiersie formy Civet postaci Lem, zwrócone w lewo, z pomarańczowym kucykiem, opaską, czerwonym kołnierzem i niebieskim topem.",
+    "altEN": "Left-facing profile bust of Lem’s Civet form with an orange ponytail, patterned headband, red collar, and blue top.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.531,
+      "y": 0.288
+    }
+  },
+  "titlePL": "Civet — profil",
+  "titleEN": "Civet — side view",
+  "summaryPL": "Profil porządkujący proporcje i cechy formy Civet.",
+  "summaryEN": "Side view defining the proportions and features of the Civet form.",
+  "altPL": "Profilowe popiersie formy Civet postaci Lem, zwrócone w lewo, z pomarańczowym kucykiem, opaską, czerwonym kołnierzem i niebieskim topem.",
+  "altEN": "Left-facing profile bust of Lem’s Civet form with an orange ponytail, patterned headband, red collar, and blue top.",
+  "captionPL": "Widok boczny formy Civet.",
+  "captionEN": "Civet form side view.",
+  "projectGroup": "lem-sideviews",
+  "projectGroupLabelPL": "Widoki boczne",
+  "projectGroupLabelEN": "Side views",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

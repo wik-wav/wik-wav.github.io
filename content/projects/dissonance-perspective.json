@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "recordType": "project",
+  "order": 4,
+  "published": true,
+  "draft": false,
+  "pageCode": "P.13",
+  "pageLabelPL": "PROJEKT KURATORSKI",
+  "pageLabelEN": "CURATED PROJECT",
+  "id": "dissonance-perspective",
+  "detailMediaSize": "large",
+  "titlePL": "Dissonance Perspective",
+  "titleEN": "Dissonance Perspective",
+  "summaryPL": "Autorska realizacja audiowizualna badająca granicę między harmonią a szumem.",
+  "summaryEN": "An original audiovisual work exploring the boundary between harmony and noise.",
+  "overviewPL": "Autorska realizacja audiowizualna badająca granicę między harmonią a szumem, pokazująca kompetencje w Blenderze i animacji 3D, realizacji wizualizera, produkcji muzyki, aranżacji, miksie i montażu w DaVinci Resolve.",
+  "overviewEN": "An original audiovisual work exploring the boundary between harmony and noise, demonstrating work in Blender and 3D animation, visualiser production, music production, arrangement, mixing, and editing in DaVinci Resolve.",
+  "yearPL": "2026",
+  "yearEN": "2026",
+  "disciplinesPL": "wideo, animacja 3D, muzyka",
+  "disciplinesEN": "video, 3D animation, music",
+  "formatPL": "wideo 1920 × 1080, 2:22",
+  "formatEN": "1920 × 1080 video, 2:22",
+  "rolePL": "muzyka, aranżacja, miks i wizualizer",
+  "roleEN": "music, arrangement, mix, and visualiser",
+  "processHeadingPL": "Animacja 3D, muzyka i montaż.",
+  "processHeadingEN": "3D animation, music, and editing.",
+  "processPL": "Animowane układy geometryczne powstały w Blenderze, a finalny obraz i dźwięk zostały zmontowane w DaVinci Resolve.",
+  "processEN": "Animated geometric systems were created in Blender, with the final image and sound edited in DaVinci Resolve.",
+  "creditsPL": "Muzyka, aranżacja, miks i wizualizer: wik_wav.",
+  "creditsEN": "Music, Arrangement, Mix, Visualizer: wik_wav.",
+  "sourceVideo": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "duration": "02:21.79",
+    "author": "wik_wav",
+    "published": "2026-03-07"
+  },
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/dissonance-perspective/dissonance-perspective-02-hero-0104.webp",
+    "ratio": "16/9",
+    "fit": "cover",
+    "altPL": "Białe koncentryczne pierścienie na czarnym tle z realizacji Dissonance Perspective.",
+    "altEN": "White concentric rings on black from Dissonance Perspective.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  "hero": {
+    "kind": "image",
+    "src": "assets/media/dissonance-perspective/dissonance-perspective-02-hero-0104.webp",
+    "ratio": "2/1",
+    "fit": "cover",
+    "altPL": "Białe koncentryczne pierścienie na czarnym tle z realizacji Dissonance Perspective.",
+    "altEN": "White concentric rings on black from Dissonance Perspective.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "thumbnail": {
+    "kind": "image",
+    "src": "assets/media/dissonance-perspective/dissonance-perspective-02-hero-0104.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Białe koncentryczne pierścienie na czarnym tle z realizacji Dissonance Perspective.",
+    "altEN": "White concentric rings on black from Dissonance Perspective.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "detailSequenceIds": [
+    "dissonance-still-01",
+    "dissonance-video",
+    "dissonance-still-03",
+    "dissonance-still-04"
+  ],
+  "related": [
+    "gaijin-no-mittsu-no-kuusou",
+    "windows-zine"
+  ],
+  "seo": {
+    "titlePL": "Dissonance Perspective — Wiktor Sielaszuk",
+    "titleEN": "Dissonance Perspective — Wiktor Sielaszuk",
+    "descriptionPL": "Autorska realizacja audiowizualna badająca granicę między harmonią a szumem.",
+    "descriptionEN": "An original audiovisual work exploring the boundary between harmony and noise.",
+    "image": "assets/media/dissonance-perspective/dissonance-perspective-02-hero-0104.webp",
+    "imageAltPL": "Białe koncentryczne pierścienie na czarnym tle z realizacji Dissonance Perspective.",
+    "imageAltEN": "White concentric rings on black from Dissonance Perspective."
+  },
+  "heroLineHeightPL": 0.99,
+  "heroLineHeightEN": 1.12,
+  "statementPL": "",
+  "statementEN": ""
+}

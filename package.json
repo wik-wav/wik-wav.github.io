@@ -4,11 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "migrate:content": "node scripts/migrate-content.mjs",
+    "generate": "node scripts/generate-site.mjs",
+    "generate:check": "node scripts/generate-site.mjs --check",
+    "validate:content": "node scripts/validate-content.mjs --publish",
+    "dev": "npm run generate && vite --host 127.0.0.1 --port 4177",
+    "studio": "node studio/server.mjs",
     "media:dimensions": "node scripts/generate-media-dimensions.mjs",
-    "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0",
-    "test": "npm run media:dimensions && vite build && node --test tests/rendered-html.test.mjs"
+    "build:site": "vite build",
+    "build": "npm run generate && npm run build:site",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "npm run validate:content && npm run generate:check && npm run media:dimensions && npm run build:site && node --test tests/*.test.mjs"
   },
   "devDependencies": {
     "vite": "^8.2.1"

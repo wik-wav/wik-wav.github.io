@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 38,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-page-01.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Biała okładka zina z niebiesko-żółtym tytułem WIN / DOWS i powielonym, falującym napisem.",
+      "altEN": "White zine cover with a blue-and-yellow WIN / DOWS title and repeated undulating lettering.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-elements",
+        "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+        "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+      },
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-page-01.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Biała okładka zina z niebiesko-żółtym tytułem WIN / DOWS i powielonym, falującym napisem.",
+      "altEN": "White zine cover with a blue-and-yellow WIN / DOWS title and repeated undulating lettering.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-elements",
+        "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+        "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+      },
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": true,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "windows-zine-page-01",
+  "project": "windows-zine",
+  "year": "2023",
+  "medium": "digital",
+  "types": [
+    "editorial",
+    "scanography",
+    "typography",
+    "design"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/windows-zine/windows-zine-page-01.webp",
+    "ratio": "7/10",
+    "fit": "contain",
+    "altPL": "Biała okładka zina z niebiesko-żółtym tytułem WIN / DOWS i powielonym, falującym napisem.",
+    "altEN": "White zine cover with a blue-and-yellow WIN / DOWS title and repeated undulating lettering.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-elements",
+      "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+      "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+      "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+      "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+    },
+    "transparencyMode": "auto"
+  },
+  "titlePL": "WIN / DOWS — Okładka",
+  "titleEN": "WIN / DOWS — Cover",
+  "summaryPL": "Przednia okładka zina łączącego autorską redakcję i skanografię z ASCII artem powstałym w rozmowie z ChatGPT.",
+  "summaryEN": "The front cover of a zine combining original editing and scanography with ASCII art created in conversation with ChatGPT.",
+  "altPL": "Biała okładka zina z niebiesko-żółtym tytułem WIN / DOWS i powielonym, falującym napisem.",
+  "altEN": "White zine cover with a blue-and-yellow WIN / DOWS title and repeated undulating lettering.",
+  "captionPL": "WIN / DOWS, okładka, 2023.",
+  "captionEN": "WIN / DOWS, cover, 2023.",
+  "provenance": {
+    "source": "XMP źródłowego pliku / source-file XMP",
+    "creationYear": "2023"
+  },
+  "detailOnly": false
+}

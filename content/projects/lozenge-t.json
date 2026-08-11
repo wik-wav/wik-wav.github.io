@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "recordType": "project",
+  "order": 6,
+  "published": true,
+  "draft": false,
+  "pageCode": "P.07",
+  "pageLabelPL": "PROJEKT KURATORSKI",
+  "pageLabelEN": "CURATED PROJECT",
+  "id": "lozenge-t",
+  "detailMediaSize": "standard",
+  "titlePL": "Lozenge T.",
+  "titleEN": "Lozenge T.",
+  "summaryPL": "Projekt worldbuildingowy łączący fikcyjny świat, język Asaxi, autorski system pisma oraz dokumentację i narzędzia przeglądarkowe.",
+  "summaryEN": "A worldbuilding project connecting a fictional setting, the Asaxi language, an original writing system, documentation, and browser tools.",
+  "overviewPL": "Lozenge T. rozwija fikcyjny, częściowo wewnętrznie spójny świat. Powiązany z nim język Asaxi obejmuje gramatykę, leksykon, system pisma Pabaka i narzędzia wspierające pracę z językiem.",
+  "overviewEN": "Lozenge T. develops a fictional, partly internally consistent world. Its associated Asaxi language includes a grammar, lexicon, the Pabaka writing system, and tools for working with the language.",
+  "yearPL": "",
+  "yearEN": "",
+  "disciplinesPL": "worldbuilding, język konstruowany, projektowanie pisma, dokumentacja, narzędzia webowe",
+  "disciplinesEN": "worldbuilding, constructed language, type design, documentation, web tools",
+  "formatPL": "świat fikcyjny, język, krój pisma, dokumentacja i narzędzia",
+  "formatEN": "fictional world, language, typeface, documentation, and tools",
+  "rolePL": "koncepcja świata, konstrukcja języka, projekt pisma i kroju, dokumentacja, interfejs",
+  "roleEN": "world concept, language construction, writing-system and type design, documentation, interface",
+  "processHeadingPL": "Język, pismo i narzędzia.",
+  "processHeadingEN": "Language, script, and tools.",
+  "processPL": "Świat, język Asaxi, system pisma Pabaka, dokumentacja i narzędzia przeglądarkowe są rozwijane jako połączone części jednego projektu worldbuildingowego.",
+  "processEN": "The setting, Asaxi language, Pabaka script, documentation, and browser tools are developed as connected parts of one worldbuilding project.",
+  "creditsPL": "Koncepcja świata i języka, projekt systemu pisma i kroju, dokumentacja oraz narzędzia: Wiktor Sielaszuk.",
+  "creditsEN": "World and language concept, writing-system and type design, documentation, and tools: Wiktor Sielaszuk.",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lozenge-t/lozenge-t-pabaka-alphabet.webp",
+    "ratio": "1527/1080",
+    "fit": "cover",
+    "altPL": "Plansza alfabetu Pabaka z zestawem znaków pisma języka Asaxi.",
+    "altEN": "Pabaka alphabet board showing the character set of the Asaxi script.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  "hero": {
+    "kind": "image",
+    "src": "assets/media/lozenge-t/lozenge-t-pabaka-alphabet.webp",
+    "ratio": "2/1",
+    "fit": "cover",
+    "altPL": "Plansza alfabetu Pabaka z zestawem znaków pisma języka Asaxi.",
+    "altEN": "Pabaka alphabet board showing the character set of the Asaxi script.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "thumbnail": {
+    "kind": "image",
+    "src": "assets/media/lozenge-t/lozenge-t-pabaka-alphabet.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Plansza alfabetu Pabaka z zestawem znaków pisma języka Asaxi.",
+    "altEN": "Pabaka alphabet board showing the character set of the Asaxi script.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "externalLinks": [
+    {
+      "href": "https://wik-wav.github.io/lozenge-tessellation/",
+      "labelPL": "Lozenge T. — otwórz projekt",
+      "labelEN": "Open Lozenge T."
+    },
+    {
+      "href": "https://wik-wav.github.io/lozenge-tessellation/grammar",
+      "labelPL": "Gramatyka Asaxi",
+      "labelEN": "Asaxi grammar"
+    }
+  ],
+  "scriptTitlePL": "Pabaka — pismo Asaxi",
+  "scriptTitleEN": "Pabaka — the Asaxi script",
+  "scriptSummaryPL": "Transliteracja pozostaje czytelna obok znaków renderowanych na żywo w kroju Pabaka. Dwuznaki korzystają ze standardowych ligatur OpenType.",
+  "scriptSummaryEN": "The transliteration remains visible beside live Pabaka glyphs. Digraphs use standard OpenType ligatures.",
+  "scriptRows": [
+    [
+      "p",
+      "b",
+      "k",
+      "g",
+      "s",
+      "z",
+      "ś",
+      "sh",
+      "jh",
+      "h"
+    ],
+    [
+      "j",
+      "w",
+      "ŕ",
+      "d",
+      "t",
+      "zh",
+      "m",
+      "ng",
+      "l",
+      "c"
+    ],
+    [
+      "th",
+      "v",
+      "n",
+      "dh",
+      "x",
+      "f",
+      "nj",
+      "ch",
+      "dz",
+      "r"
+    ],
+    [
+      "a",
+      "ă",
+      "á",
+      "å",
+      "o",
+      "ő",
+      "ỏ",
+      "i"
+    ],
+    [
+      "e",
+      "ë",
+      "è",
+      "ě",
+      "ý",
+      "ù",
+      "ů",
+      "ń"
+    ]
+  ],
+  "scriptSpecimen": "pabaka sh jh ng th dh nj ch dz zh",
+  "related": [
+    "lem",
+    "para-analog-on"
+  ],
+  "detailSequenceIds": [
+    "lozenge-t-pabaka-script"
+  ],
+  "seo": {
+    "titlePL": "Lozenge T. — Wiktor Sielaszuk",
+    "titleEN": "Lozenge T. — Wiktor Sielaszuk",
+    "descriptionPL": "Projekt worldbuildingowy łączący fikcyjny świat, język Asaxi, autorski system pisma oraz dokumentację i narzędzia przeglądarkowe.",
+    "descriptionEN": "A worldbuilding project connecting a fictional setting, the Asaxi language, an original writing system, documentation, and browser tools.",
+    "image": "assets/media/lozenge-t/lozenge-t-pabaka-alphabet.webp",
+    "imageAltPL": "Plansza alfabetu Pabaka z zestawem znaków pisma języka Asaxi.",
+    "imageAltEN": "Pabaka alphabet board showing the character set of the Asaxi script."
+  },
+  "heroLineHeight": 1.02,
+  "statementPL": "",
+  "statementEN": ""
+}

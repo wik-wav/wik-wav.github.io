@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "recordType": "project",
+  "order": 7,
+  "published": true,
+  "draft": false,
+  "pageCode": "P.08",
+  "pageLabelPL": "PROJEKT KURATORSKI",
+  "pageLabelEN": "CURATED PROJECT",
+  "id": "book-cover",
+  "detailMediaSize": "standard",
+  "titlePL": "Książka, której nie napisałem",
+  "titleEN": "The Book I Did Not Write",
+  "summaryPL": "Projekt okładki książki Mariusza Obiedzińskiego, wydanej przez Novae Res w 2025 roku.",
+  "summaryEN": "Book-cover design for Mariusz Obiedziński, published by Novae Res in 2025.",
+  "overviewPL": "Projekt okładki porządkuje relację tytułu, nazwiska autora i pola obrazu w zwartej kompozycji wydawniczej.",
+  "overviewEN": "The cover design organises the title, author’s name, and image field into a compact publishing composition.",
+  "yearPL": "2025",
+  "yearEN": "2025",
+  "disciplinesPL": "projekt okładki, typografia",
+  "disciplinesEN": "cover design, typography",
+  "formatPL": "okładka książki",
+  "formatEN": "book cover",
+  "rolePL": "projekt okładki",
+  "roleEN": "cover design",
+  "processHeadingPL": "Typografia i kompozycja okładki.",
+  "processHeadingEN": "Typography and cover composition.",
+  "processPL": "Zakres obejmował opracowanie okładki dla wydania Novae Res.",
+  "processEN": "The scope covered the book jacket design for the Novae Res edition.",
+  "creditsPL": "Projekt okładki: Wiktor Sielaszuk. Autor: Mariusz Obiedziński. Wydawca: Novae Res.",
+  "creditsEN": "Cover design: Wiktor Sielaszuk. Author: Mariusz Obiedziński. Publisher: Novae Res.",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/book-cover/book-cover-obiedzinski-mockup.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Makieta książki „Książka, której nie napisałem” Mariusza Obiedzińskiego i pasującej zakładki na jasnym biurku.",
+    "altEN": "Mockup of Mariusz Obiedziński’s book The Book I Did Not Write with a matching bookmark on a light desk.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-generated",
+      "shortPL": "Wizualizacja wygenerowana przez AI",
+      "shortEN": "AI-generated visualisation",
+      "detailPL": "Wizualizacja wygenerowana przez AI; projekt okładki: Wiktor Sielaszuk.",
+      "detailEN": "AI-generated visualisation; cover design by Wiktor Sielaszuk."
+    },
+    "transparencyMode": "auto"
+  },
+  "hero": {
+    "kind": "image",
+    "src": "assets/media/book-cover/book-cover-obiedzinski-mockup.webp",
+    "ratio": "2/1",
+    "fit": "cover",
+    "altPL": "Makieta książki „Książka, której nie napisałem” Mariusza Obiedzińskiego i pasującej zakładki na jasnym biurku.",
+    "altEN": "Mockup of Mariusz Obiedziński’s book The Book I Did Not Write with a matching bookmark on a light desk.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-generated",
+      "shortPL": "Wizualizacja wygenerowana przez AI",
+      "shortEN": "AI-generated visualisation",
+      "detailPL": "Wizualizacja wygenerowana przez AI; projekt okładki: Wiktor Sielaszuk.",
+      "detailEN": "AI-generated visualisation; cover design by Wiktor Sielaszuk."
+    },
+    "transparencyMode": "auto"
+  },
+  "thumbnail": {
+    "kind": "image",
+    "src": "assets/media/book-cover/book-cover-obiedzinski-mockup.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Makieta książki „Książka, której nie napisałem” Mariusza Obiedzińskiego i pasującej zakładki na jasnym biurku.",
+    "altEN": "Mockup of Mariusz Obiedziński’s book The Book I Did Not Write with a matching bookmark on a light desk.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-generated",
+      "shortPL": "Wizualizacja wygenerowana przez AI",
+      "shortEN": "AI-generated visualisation",
+      "detailPL": "Wizualizacja wygenerowana przez AI; projekt okładki: Wiktor Sielaszuk.",
+      "detailEN": "AI-generated visualisation; cover design by Wiktor Sielaszuk."
+    },
+    "transparencyMode": "auto"
+  },
+  "related": [
+    "lozenge-t",
+    "latentne"
+  ],
+  "detailSequenceIds": [
+    "book-cover-2025"
+  ],
+  "seo": {
+    "titlePL": "Książka, której nie napisałem — Wiktor Sielaszuk",
+    "titleEN": "The Book I Did Not Write — Wiktor Sielaszuk",
+    "descriptionPL": "Projekt okładki książki Mariusza Obiedzińskiego, wydanej przez Novae Res w 2025 roku.",
+    "descriptionEN": "Book-cover design for Mariusz Obiedziński, published by Novae Res in 2025.",
+    "image": "assets/media/book-cover/book-cover-obiedzinski-mockup.webp",
+    "imageAltPL": "Makieta książki „Książka, której nie napisałem” Mariusza Obiedzińskiego i pasującej zakładki na jasnym biurku.",
+    "imageAltEN": "Mockup of Mariusz Obiedziński’s book The Book I Did Not Write with a matching bookmark on a light desk."
+  }
+}

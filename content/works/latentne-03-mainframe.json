@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 3,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-03-mainframe.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Jasnożółta kompozycja z szarą, zapętloną formą i delikatną siecią linii.",
+      "altEN": "Pale-yellow composition with a grey looping form and a fine network of lines.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-03-mainframe.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Jasnożółta kompozycja z szarą, zapętloną formą i delikatną siecią linii.",
+      "altEN": "Pale-yellow composition with a grey looping form and a fine network of lines.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "latentne-03-mainframe",
+  "project": "latentne",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/latentne-03-mainframe.webp",
+    "ratio": "10/7",
+    "fit": "cover",
+    "altPL": "Jasnożółta kompozycja z szarą, zapętloną formą i delikatną siecią linii.",
+    "altEN": "Pale-yellow composition with a grey looping form and a fine network of lines.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Mainframe",
+  "titleEN": "Mainframe",
+  "summaryPL": "Praca 3 z 12-częściowego cyklu „Latentne”.",
+  "summaryEN": "Work 3 from the 12-part Latentne series.",
+  "altPL": "Jasnożółta kompozycja z szarą, zapętloną formą i delikatną siecią linii.",
+  "altEN": "Pale-yellow composition with a grey looping form and a fine network of lines.",
+  "captionPL": "Wiktor Sielaszuk, Mainframe, z cyklu „Latentne”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, Mainframe, from the Latentne series, digital artwork, 2026.",
+  "detailOnly": false
+}

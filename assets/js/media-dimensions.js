@@ -211,6 +211,10 @@ window.MEDIA_DIMENSIONS = Object.freeze({
     "width": 2000,
     "height": 1414
   },
+  "assets/media/library/image-of-itself-6f502f82.webp": {
+    "width": 1080,
+    "height": 1080
+  },
   "assets/media/lozenge-t/lozenge-t-pabaka-alphabet.webp": {
     "width": 1527,
     "height": 1080

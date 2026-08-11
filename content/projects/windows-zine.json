@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "recordType": "project",
+  "order": 11,
+  "published": true,
+  "draft": false,
+  "pageCode": "P.09",
+  "pageLabelPL": "PROJEKT KURATORSKI",
+  "pageLabelEN": "CURATED PROJECT",
+  "id": "windows-zine",
+  "detailMediaSize": "standard",
+  "titlePL": "WIN / DOWS",
+  "titleEN": "WIN / DOWS",
+  "summaryPL": "Zin z 2023 roku łączący ASCII art stworzony przez ChatGPT w rozmowie z Wiktorem ze skanografią i autorskim projektem redakcyjnym.",
+  "summaryEN": "A 2023 zine combining ASCII art created by ChatGPT in conversation with Wiktor, scanography, and an original editorial design.",
+  "overviewPL": "Zin powstały na zajęciach projektowych na studiach artystycznych. Łączy ASCII art stworzony przez ChatGPT w rozmowie z Wiktorem ze skanografią wykorzystaną jako narzędzie budowania obrazu.",
+  "overviewEN": "A zine developed for a university design class. It combines ASCII art created by ChatGPT in conversation with Wiktor and scanography used as an image-making method.",
+  "statementPL": "Wiktor reflects\non language models\nas if\non language models\ndid his future depend",
+  "statementEN": "Wiktor reflects\non language models\nas if\non language models\ndid his future depend",
+  "yearPL": "2023",
+  "yearEN": "2023",
+  "disciplinesPL": "projekt redakcyjny, skanografia, typografia",
+  "disciplinesEN": "editorial design, scanography, typography",
+  "formatPL": "zin: okładki i osiem rozkładówek",
+  "formatEN": "zine: covers and eight spreads",
+  "rolePL": "koncepcja, redakcja, projekt i skanografia",
+  "roleEN": "concept, editing, design, and scanography",
+  "processHeadingPL": "ASCII, skanografia i skład zina.",
+  "processHeadingEN": "ASCII, scanography, and zine layout.",
+  "processPL": "ASCII art powstał w rozmowie z ChatGPT, a Wiktor opracował koncepcję, redakcję, układ oraz warstwę skanograficzną zina.",
+  "processEN": "The ASCII art was created in conversation with ChatGPT; Wiktor authored the zine’s concept, editing, layout, and scanographic imagery.",
+  "creditsPL": "Koncepcja, redakcja, projekt i skanografia: Wiktor Sielaszuk. ASCII art: ChatGPT w rozmowie z Wiktorem.",
+  "creditsEN": "Concept, editing, design, and scanography: Wiktor Sielaszuk. ASCII art: ChatGPT in conversation with Wiktor.",
+  "provenance": {
+    "creationYear": "2023",
+    "source": "XMP źródłowych plików / source-file XMP"
+  },
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/windows-zine/windows-zine-mockup-01-hero.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Mockup zina WIN / DOWS na szklanym stole, pokazujący okładkę i rozkładówkę.",
+    "altEN": "WIN / DOWS zine mockup on a glass table, showing the cover and an open spread.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-generated",
+      "shortPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+      "shortEN": "AI-generated image — zine visualisation.",
+      "detailPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+      "detailEN": "AI-generated image — zine visualisation."
+    },
+    "transparencyMode": "auto"
+  },
+  "hero": {
+    "kind": "image",
+    "src": "assets/media/windows-zine/windows-zine-mockup-01-hero.webp",
+    "ratio": "2/1",
+    "fit": "cover",
+    "altPL": "Mockup zina WIN / DOWS na szklanym stole, pokazujący okładkę i rozkładówkę.",
+    "altEN": "WIN / DOWS zine mockup on a glass table, showing the cover and an open spread.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-generated",
+      "shortPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+      "shortEN": "AI-generated image — zine visualisation.",
+      "detailPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+      "detailEN": "AI-generated image — zine visualisation."
+    },
+    "transparencyMode": "auto"
+  },
+  "thumbnail": {
+    "kind": "image",
+    "src": "assets/media/windows-zine/windows-zine-mockup-01-hero.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Mockup zina WIN / DOWS na szklanym stole, pokazujący okładkę i rozkładówkę.",
+    "altEN": "WIN / DOWS zine mockup on a glass table, showing the cover and an open spread.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-generated",
+      "shortPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+      "shortEN": "AI-generated image — zine visualisation.",
+      "detailPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+      "detailEN": "AI-generated image — zine visualisation."
+    },
+    "transparencyMode": "auto"
+  },
+  "detailSequenceIds": [
+    "windows-zine-mockup-01",
+    "windows-zine-page-01",
+    "windows-zine-page-02",
+    "windows-zine-page-03",
+    "windows-zine-page-04",
+    "windows-zine-page-05",
+    "windows-zine-page-06",
+    "windows-zine-page-07",
+    "windows-zine-page-08",
+    "windows-zine-page-09",
+    "windows-zine-page-10",
+    "windows-zine-mockup-02",
+    "windows-zine-mockup-03"
+  ],
+  "related": [
+    "para-analog-on",
+    "book-cover"
+  ],
+  "seo": {
+    "titlePL": "WIN / DOWS — Wiktor Sielaszuk",
+    "titleEN": "WIN / DOWS — Wiktor Sielaszuk",
+    "descriptionPL": "Zin z 2023 roku łączący ASCII art stworzony przez ChatGPT w rozmowie z Wiktorem ze skanografią i autorskim projektem redakcyjnym.",
+    "descriptionEN": "A 2023 zine combining ASCII art created by ChatGPT in conversation with Wiktor, scanography, and an original editorial design.",
+    "image": "assets/media/windows-zine/windows-zine-mockup-01-hero.webp",
+    "imageAltPL": "Mockup zina WIN / DOWS na szklanym stole, pokazujący okładkę i rozkładówkę.",
+    "imageAltEN": "WIN / DOWS zine mockup on a glass table, showing the cover and an open spread."
+  }
+}

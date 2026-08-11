@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 17,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/para-analog-on-01-w.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Kadr zastępczy wideo.",
+      "altEN": "Video poster fallback.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "youtube",
+    "id": "Ek-TSGs-sKs",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/para-analog-on-01-w.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Kadr zastępczy wideo.",
+      "altEN": "Video poster fallback.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "para-analog-on-05-video",
+  "project": "para-analog-on",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "motion",
+    "video"
+  ],
+  "mediaType": "video",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/para-analog-on-01-w.webp",
+    "ratio": "16/9",
+    "fit": "cover",
+    "altPL": "Kadr zastępczy wideo.",
+    "altEN": "Video poster fallback.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Para-analog-on — wideo",
+  "titleEN": "Para-analog-on — video",
+  "summaryPL": "Dokumentacja wideo projektu Para-analog-on.",
+  "summaryEN": "Video documentation of the Para-analog-on project.",
+  "altPL": "Kadr zastępczy wideo.",
+  "altEN": "Video poster fallback.",
+  "captionPL": "Para-analog-on, dokumentacja wideo, 2026.",
+  "captionEN": "Para-analog-on, video documentation, 2026.",
+  "detailOnly": false
+}

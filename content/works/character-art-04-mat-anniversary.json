@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 55,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-04-mat-anniversary.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowy Mat, antropomorficzny wilk o jasnym futrze, spoglądający przez ramię i unoszący znak pokoju, w ciemnym warstwowym stroju.",
+      "altEN": "Full-body Mat, an anthropomorphic wolf with pale fur, looking over his shoulder and raising a peace sign in a dark layered outfit.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-04-mat-anniversary.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowy Mat, antropomorficzny wilk o jasnym futrze, spoglądający przez ramię i unoszący znak pokoju, w ciemnym warstwowym stroju.",
+      "altEN": "Full-body Mat, an anthropomorphic wolf with pale fur, looking over his shoulder and raising a peace sign in a dark layered outfit.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "character-art-04-mat-anniversary",
+  "project": "character-art",
+  "collections": [
+    "character-art"
+  ],
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "character-art",
+    "illustration"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-04-mat-anniversary.webp",
+    "ratio": "7/10",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowy Mat, antropomorficzny wilk o jasnym futrze, spoglądający przez ramię i unoszący znak pokoju, w ciemnym warstwowym stroju.",
+    "altEN": "Full-body Mat, an anthropomorphic wolf with pale fur, looking over his shoulder and raising a peace sign in a dark layered outfit.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.521,
+      "y": 0.255
+    }
+  },
+  "titlePL": "Mat — ilustracja rocznicowa",
+  "titleEN": "Mat — anniversary illustration",
+  "summaryPL": "Autorska ilustracja postaci.",
+  "summaryEN": "An original character illustration.",
+  "altPL": "Pełnopostaciowy Mat, antropomorficzny wilk o jasnym futrze, spoglądający przez ramię i unoszący znak pokoju, w ciemnym warstwowym stroju.",
+  "altEN": "Full-body Mat, an anthropomorphic wolf with pale fur, looking over his shoulder and raising a peace sign in a dark layered outfit.",
+  "captionPL": "Mat — ilustracja rocznicowa — ilustracja cyfrowa.",
+  "captionEN": "Mat — anniversary illustration—digital illustration.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 21,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/gaijins-three-visions-01-nyuu-min.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Kadr zastępczy wideo wykorzystujący plakat „Nyū Min”.",
+      "altEN": "Video poster fallback using the Nyū Min artwork.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "youtube",
+    "id": "0qHNBdlIDoA",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/gaijins-three-visions-01-nyuu-min.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Kadr zastępczy wideo wykorzystujący plakat „Nyū Min”.",
+      "altEN": "Video poster fallback using the Nyū Min artwork.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": true,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "gaijins-three-visions-04-video",
+  "project": "gaijin-no-mittsu-no-kuusou",
+  "year": "2024",
+  "medium": "digital",
+  "types": [
+    "motion",
+    "video",
+    "sound",
+    "generative"
+  ],
+  "mediaType": "video",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/gaijins-three-visions-01-nyuu-min.webp",
+    "ratio": "16/9",
+    "fit": "cover",
+    "altPL": "Kadr zastępczy wideo wykorzystujący plakat „Nyū Min”.",
+    "altEN": "Video poster fallback using the Nyū Min artwork.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "外人の三つの空想 — wideo",
+  "titleEN": "A Gaijin’s Three Visions — video",
+  "summaryPL": "Pełna realizacja audiowizualna tryptyku: oryginalna muzyka i fraktalna sztuka wideo.",
+  "summaryEN": "The complete audiovisual triptych: original music and fractal video art.",
+  "altPL": "Kadr zastępczy wideo wykorzystujący plakat „Nyū Min”.",
+  "altEN": "Video poster fallback using the Nyū Min artwork.",
+  "captionPL": "„外人の三つの空想 (A Gaijin’s Three Visions) | Fractal Video Art [JWildfire / Mandelbulb3D]”, 2024.",
+  "captionEN": "“外人の三つの空想 (A Gaijin’s Three Visions) | Fractal Video Art [JWildfire / Mandelbulb3D],” 2024.",
+  "detailOnly": false
+}

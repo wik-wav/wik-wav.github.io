@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 53,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-02-kiyomi.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa ilustracja Kiyomi, antropomorficznej króliczki z długimi opadającymi uszami, układającej dłonie w serce, w warstwowym czarnym stroju i berecie.",
+      "altEN": "Full-body illustration of Kiyomi, an anthropomorphic rabbit with long floppy ears, making a heart gesture in a layered black outfit and beret.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-02-kiyomi.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa ilustracja Kiyomi, antropomorficznej króliczki z długimi opadającymi uszami, układającej dłonie w serce, w warstwowym czarnym stroju i berecie.",
+      "altEN": "Full-body illustration of Kiyomi, an anthropomorphic rabbit with long floppy ears, making a heart gesture in a layered black outfit and beret.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "character-art-02-kiyomi",
+  "project": "character-art",
+  "collections": [
+    "character-art"
+  ],
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "character-art",
+    "illustration"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-02-kiyomi.webp",
+    "ratio": "7/10",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowa ilustracja Kiyomi, antropomorficznej króliczki z długimi opadającymi uszami, układającej dłonie w serce, w warstwowym czarnym stroju i berecie.",
+    "altEN": "Full-body illustration of Kiyomi, an anthropomorphic rabbit with long floppy ears, making a heart gesture in a layered black outfit and beret.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.518,
+      "y": 0.211
+    }
+  },
+  "titlePL": "Kiyomi",
+  "titleEN": "Kiyomi",
+  "summaryPL": "Autorska ilustracja postaci.",
+  "summaryEN": "An original character illustration.",
+  "altPL": "Pełnopostaciowa ilustracja Kiyomi, antropomorficznej króliczki z długimi opadającymi uszami, układającej dłonie w serce, w warstwowym czarnym stroju i berecie.",
+  "altEN": "Full-body illustration of Kiyomi, an anthropomorphic rabbit with long floppy ears, making a heart gesture in a layered black outfit and beret.",
+  "captionPL": "Kiyomi — ilustracja cyfrowa.",
+  "captionEN": "Kiyomi—digital illustration.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

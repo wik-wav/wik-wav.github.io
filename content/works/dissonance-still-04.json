@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 68,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/dissonance-perspective/dissonance-perspective-04-0204.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Czarno-białe geometryczne bryły w ukośne pasy na jasnym tle.",
+      "altEN": "Black-and-white geometric forms with diagonal stripes on a light background.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/dissonance-perspective/dissonance-perspective-04-0204.webp",
+      "ratio": "16/9",
+      "fit": "cover",
+      "altPL": "Czarno-białe geometryczne bryły w ukośne pasy na jasnym tle.",
+      "altEN": "Black-and-white geometric forms with diagonal stripes on a light background.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": false,
+  "projectPageVisible": true,
+  "mediaType": "image",
+  "types": [],
+  "medium": "digital",
+  "year": "",
+  "summaryPL": "Kadr z autorskiej animacji 3D.",
+  "summaryEN": "Still from the original 3D animation.",
+  "altPL": "Czarno-białe geometryczne bryły w ukośne pasy na jasnym tle.",
+  "altEN": "Black-and-white geometric forms with diagonal stripes on a light background.",
+  "id": "dissonance-still-04",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/dissonance-perspective/dissonance-perspective-04-0204.webp",
+    "ratio": "16/9",
+    "fit": "cover",
+    "altPL": "Czarno-białe geometryczne bryły w ukośne pasy na jasnym tle.",
+    "altEN": "Black-and-white geometric forms with diagonal stripes on a light background.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Dissonance Perspective — kadr 02:04",
+  "titleEN": "Dissonance Perspective — still 02:04",
+  "captionPL": "Kadr z autorskiej animacji 3D.",
+  "captionEN": "Still from the original 3D animation.",
+  "project": "dissonance-perspective",
+  "detailOnly": true
+}

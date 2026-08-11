@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 12,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-12-mainframe-detail-2.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Pionowy kobaltowy detal z turkusową, architektoniczną strukturą przy dolnej krawędzi.",
+      "altEN": "Portrait cobalt detail with a turquoise architectural structure near the lower edge.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-12-mainframe-detail-2.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Pionowy kobaltowy detal z turkusową, architektoniczną strukturą przy dolnej krawędzi.",
+      "altEN": "Portrait cobalt detail with a turquoise architectural structure near the lower edge.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "latentne-12-mainframe-detail-2",
+  "project": "latentne",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/latentne-12-mainframe-detail-2.webp",
+    "ratio": "7/10",
+    "fit": "cover",
+    "altPL": "Pionowy kobaltowy detal z turkusową, architektoniczną strukturą przy dolnej krawędzi.",
+    "altEN": "Portrait cobalt detail with a turquoise architectural structure near the lower edge.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Mainframe — Detail 2",
+  "titleEN": "Mainframe — Detail 2",
+  "summaryPL": "Praca 12 z 12-częściowego cyklu „Latentne”.",
+  "summaryEN": "Work 12 from the 12-part Latentne series.",
+  "altPL": "Pionowy kobaltowy detal z turkusową, architektoniczną strukturą przy dolnej krawędzi.",
+  "altEN": "Portrait cobalt detail with a turquoise architectural structure near the lower edge.",
+  "captionPL": "Wiktor Sielaszuk, Mainframe — detal 2, z cyklu „Latentne”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, Mainframe — Detail 2, from the Latentne series, digital artwork, 2026.",
+  "detailOnly": false
+}

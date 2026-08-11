@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 57,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-06-diiru.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowy Diiru, antropomorficzny myszojeleń z brązowym futrem, różowymi lokami, małymi rogami, kłami i kopytami, w turkusowych spodniach.",
+      "altEN": "Full-body Diiru, an anthropomorphic mouse-deer with brown fur, pink curls, small antlers, tusks, and hooves, wearing turquoise trousers.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-06-diiru.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowy Diiru, antropomorficzny myszojeleń z brązowym futrem, różowymi lokami, małymi rogami, kłami i kopytami, w turkusowych spodniach.",
+      "altEN": "Full-body Diiru, an anthropomorphic mouse-deer with brown fur, pink curls, small antlers, tusks, and hooves, wearing turquoise trousers.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "character-art-06-diiru",
+  "project": "character-art",
+  "collections": [
+    "character-art"
+  ],
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "character-art",
+    "illustration"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-06-diiru.webp",
+    "ratio": "7/10",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowy Diiru, antropomorficzny myszojeleń z brązowym futrem, różowymi lokami, małymi rogami, kłami i kopytami, w turkusowych spodniach.",
+    "altEN": "Full-body Diiru, an anthropomorphic mouse-deer with brown fur, pink curls, small antlers, tusks, and hooves, wearing turquoise trousers.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.494,
+      "y": 0.171
+    }
+  },
+  "titlePL": "Diiru — myszojeleń",
+  "titleEN": "Diiru — mouse deer",
+  "summaryPL": "Autorska ilustracja postaci.",
+  "summaryEN": "An original character illustration.",
+  "altPL": "Pełnopostaciowy Diiru, antropomorficzny myszojeleń z brązowym futrem, różowymi lokami, małymi rogami, kłami i kopytami, w turkusowych spodniach.",
+  "altEN": "Full-body Diiru, an anthropomorphic mouse-deer with brown fur, pink curls, small antlers, tusks, and hooves, wearing turquoise trousers.",
+  "captionPL": "Diiru — myszojeleń — ilustracja cyfrowa.",
+  "captionEN": "Diiru — mouse deer—digital illustration.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

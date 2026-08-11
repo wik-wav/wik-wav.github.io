@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 52,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-01-cami-possum-witch.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa postać z szarą skórą, oposim ogonem, laską i turkusową tuniką.",
+      "altEN": "Full-body character with grey skin, a possum tail, staff, and teal tunic.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-01-cami-possum-witch.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa postać z szarą skórą, oposim ogonem, laską i turkusową tuniką.",
+      "altEN": "Full-body character with grey skin, a possum tail, staff, and teal tunic.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": true,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "character-art-01-cami-possum-witch",
+  "project": "character-art",
+  "collections": [
+    "character-art"
+  ],
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "character-art",
+    "illustration"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-01-cami-possum-witch.webp",
+    "ratio": "7/10",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowa postać z szarą skórą, oposim ogonem, laską i turkusową tuniką.",
+    "altEN": "Full-body character with grey skin, a possum tail, staff, and teal tunic.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.514,
+      "y": 0.228
+    }
+  },
+  "titlePL": "Cami — oposia wiedźma",
+  "titleEN": "Cami — possum witch",
+  "summaryPL": "Autorska ilustracja postaci.",
+  "summaryEN": "An original character illustration.",
+  "altPL": "Pełnopostaciowa postać z szarą skórą, oposim ogonem, laską i turkusową tuniką.",
+  "altEN": "Full-body character with grey skin, a possum tail, staff, and teal tunic.",
+  "captionPL": "Cami — oposia wiedźma — ilustracja cyfrowa.",
+  "captionEN": "Cami — possum witch—digital illustration.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

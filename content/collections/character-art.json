@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "recordType": "collection",
+  "order": 8,
+  "published": true,
+  "draft": false,
+  "pageCode": "P.12",
+  "pageLabelPL": "KOLEKCJA",
+  "pageLabelEN": "COLLECTION",
+  "id": "character-art",
+  "detailMediaSize": "compact",
+  "titlePL": "Postaci - ilustracje",
+  "titleEN": "Character Art",
+  "summaryPL": "Wybrane ilustracje postaci i plansze projektowe — od pełnych sylwetek po rozbudowane widoki referencyjne.",
+  "summaryEN": "Selected character illustrations and design sheets, from full figures to detailed reference turnarounds.",
+  "overviewPL": "Kolekcja zestawia ilustrację postaci z dokumentacją projektową. Obejmuje cyfrowe sylwetki, plansze referencyjne oraz tradycyjny rysunek tuszem i lawowaniem.",
+  "overviewEN": "The collection pairs character illustration with design documentation. It includes digital figures, reference sheets, and a traditional ink-and-wash drawing.",
+  "yearPL": "",
+  "yearEN": "",
+  "disciplinesPL": "ilustracja postaci, projektowanie postaci",
+  "disciplinesEN": "character illustration, character design",
+  "formatPL": "ilustracje i plansze referencyjne",
+  "formatEN": "illustrations and reference sheets",
+  "rolePL": "ilustracja i opracowanie plansz",
+  "roleEN": "illustration and reference-sheet development",
+  "processHeadingPL": "Od sylwetki do planszy referencyjnej.",
+  "processHeadingEN": "From silhouette to reference sheet.",
+  "processPL": "Prace rozwijają sylwetkę, kostium, proporcje i gest poprzez ilustracje końcowe oraz plansze obrotowe.",
+  "processEN": "The works develop silhouette, wardrobe, proportions, and gesture through finished illustrations and turnaround sheets.",
+  "creditsPL": "Ilustracje i opracowanie plansz: Wiktor Sielaszuk.",
+  "creditsEN": "Illustrations and reference-sheet development: Wiktor Sielaszuk.",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-01-cami-possum-witch.webp",
+    "ratio": "7/10",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowa ilustracja Cami, oposiej wiedźmy, z laską i długim ogonem.",
+    "altEN": "Full-body illustration of Cami, a possum witch, with a staff and long tail.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  "hero": {
+    "kind": "group",
+    "items": [
+      {
+        "kind": "image",
+        "src": "assets/media/character-art/character-art-01-cami-possum-witch.webp",
+        "ratio": "7/10",
+        "fit": "contain",
+        "altPL": "Pełnopostaciowa ilustracja Cami, oposiej wiedźmy, z laską i długim ogonem.",
+        "altEN": "Full-body illustration of Cami, a possum witch, with a staff and long tail.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      },
+      {
+        "kind": "image",
+        "src": "assets/media/character-art/character-art-02-kiyomi.webp",
+        "ratio": "7/10",
+        "fit": "contain",
+        "altPL": "Pełnopostaciowa ilustracja Kiyomi, antropomorficznej króliczki z długimi opadającymi uszami, układającej dłonie w serce, w warstwowym czarnym stroju i berecie.",
+        "altEN": "Full-body illustration of Kiyomi, an anthropomorphic rabbit with long floppy ears, making a heart gesture in a layered black outfit and beret.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      },
+      {
+        "kind": "image",
+        "src": "assets/media/character-art/character-art-03-lem-banded-palm-civet.webp",
+        "ratio": "7/10",
+        "fit": "contain",
+        "altPL": "Pełnopostaciowa forma Lem — Banded Palm Civet.",
+        "altEN": "Full-body Lem — Banded Palm Civet form.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      }
+    ],
+    "ratio": "2/1"
+  },
+  "thumbnail": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-01-cami-possum-witch.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Pełnopostaciowa ilustracja Cami, oposiej wiedźmy, z laską i długim ogonem.",
+    "altEN": "Full-body illustration of Cami, a possum witch, with a staff and long tail.",
+    "hasTransparency": false,
+    "objectPosition": "50% 0%",
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0
+    },
+    "transparencyMode": "auto"
+  },
+  "related": [
+    "lem",
+    "cover-art"
+  ],
+  "detailSequenceIds": [
+    "character-art-01-cami-possum-witch",
+    "character-art-02-kiyomi",
+    "character-art-04-mat-anniversary",
+    "character-art-05-mel-numbat",
+    "character-art-06-diiru",
+    "character-art-07-cami-reference-sheet",
+    "character-art-08-lem-wardrobe-turnaround",
+    "character-art-09-lem-base-turnaround",
+    "character-art-10-lem-sleeping"
+  ],
+  "seo": {
+    "titlePL": "Postaci - ilustracje — Wiktor Sielaszuk",
+    "titleEN": "Character Art — Wiktor Sielaszuk",
+    "descriptionPL": "Wybrane ilustracje postaci i plansze projektowe — od pełnych sylwetek po rozbudowane widoki referencyjne.",
+    "descriptionEN": "Selected character illustrations and design sheets, from full figures to detailed reference turnarounds.",
+    "image": "assets/media/character-art/character-art-01-cami-possum-witch.webp",
+    "imageAltPL": "Pełnopostaciowa ilustracja Cami, oposiej wiedźmy, z laską i długim ogonem.",
+    "imageAltEN": "Full-body illustration of Cami, a possum witch, with a staff and long tail."
+  },
+  "statementPL": "",
+  "statementEN": "",
+  "heroLineHeight": 1.02
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "portfolio-work.schema.json",
+  "title": "Portfolio work",
+  "type": "object",
+  "required": ["schemaVersion", "recordType", "id", "order", "published", "draft", "project", "titlePL", "titleEN", "altPL", "altEN", "captionPL", "captionEN", "types", "mediaType", "cover"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "recordType": { "const": "work" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "order": { "type": "number" },
+    "published": { "type": "boolean" },
+    "draft": { "type": "boolean" },
+    "project": { "type": "string" },
+    "collections": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "types": {
+      "type": "array",
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": { "type": "string", "maxLength": 48, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+    },
+    "mediaType": { "enum": ["image", "video"] },
+    "video": {
+      "type": "object",
+      "properties": {
+        "provider": { "enum": [null, "", "youtube", "vimeo", "soundcloud", "bandcamp"] },
+        "id": { "type": ["string", "null"] },
+        "url": { "type": ["string", "null"], "format": "uri" },
+        "bandcampType": { "enum": [null, "", "album", "track"] },
+        "embedSize": { "enum": [null, "", "compact", "standard", "expanded"] },
+        "poster": { "type": "object" },
+        "transcriptPL": { "type": "string" },
+        "transcriptEN": { "type": "string" },
+        "creditsPL": { "type": "string" },
+        "creditsEN": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

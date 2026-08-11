@@ -10,6 +10,37 @@
   const projectWorks = project.detailSequenceIds
     ? project.detailSequenceIds.map(id => allDetailItems.find(item => item.id === id)).filter(Boolean)
     : memberWorks;
+  const imageSequence = projectWorks.filter(item => item.mediaType !== "video");
+  const detailMediaSizes = ["compact", "standard", "large", "full"];
+  const detailHeightLimits = { compact: 70, standard: 76, large: 82, full: 86 };
+  const viewer = window.PortfolioViewer.create();
+
+  function detailMediaSize(item) {
+    if (detailMediaSizes.includes(item?.detailMediaSize)) return item.detailMediaSize;
+    return detailMediaSizes.includes(project.detailMediaSize) ? project.detailMediaSize : "standard";
+  }
+
+  function mediaAspect(media) {
+    const key = String(media?.src || "").replace(/^\.\//, "").replace(/^\//, "");
+    const dimensions = window.MEDIA_DIMENSIONS?.[key];
+    if (dimensions?.width && dimensions?.height) return dimensions.width / dimensions.height;
+    const [width, height] = String(media?.ratio || "4/3").split("/").map(Number);
+    return width > 0 && height > 0 ? width / height : 4 / 3;
+  }
+
+  function sequenceMedia(item, index) {
+    if (item.mediaType === "video") return P.makeWorkMedia(item, { eager: index < 2, disclosureMode: "detail" });
+    const size = detailMediaSize(item);
+    const aspect = mediaAspect(item.cover);
+    const widthFromHeight = `${(detailHeightLimits[size] * aspect).toFixed(3)}svh`;
+    const label = P.state.lang === "pl" ? `Powiększ: ${P.text(item)}` : `Enlarge: ${P.text(item)}`;
+    return `<div class="sequence-media-natural detail-media-size-${size}" data-detail-media-size="${size}" style="--detail-aspect:${aspect.toFixed(6)};--detail-width-from-height:${widthFromHeight}">
+      <button class="sequence-media-button" type="button" data-open-sequence="${P.esc(item.id)}" aria-label="${P.esc(label)}">
+        ${P.makeWorkMedia(item, { eager: index < 2, hideDisclosure: true, disclosureMode: "detail" })}
+      </button>
+      ${P.mediaDisclosure(item.cover, { disclosureMode: "detail" })}
+    </div>`;
+  }
 
   function set(selector, value) {
     document.querySelectorAll(selector).forEach(el => { el.textContent = value || ""; });
@@ -47,7 +78,7 @@
     if (!item.externalLinks?.length) return "";
     return `<div class="sequence-links">${item.externalLinks.map(link => {
       const label = P.state.lang === "pl" ? link.labelPL : link.labelEN;
-      return `<a href="${link.href}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+      return `<a href="${P.esc(link.href)}" target="_blank" rel="noopener noreferrer">${P.esc(label)}</a>`;
     }).join("")}</div>`;
   }
 
@@ -80,24 +111,24 @@
     return sequenceUnits(items).map(unit => {
       if (unit.type === "item") {
         const number = String(unit.index + 1).padStart(2, "0");
-        return `<figure class="sequence-item" data-od-id="sequence-${project.id}-${number}">
-          <div class="sequence-media">${P.makeWorkMedia(unit.item, { eager: unit.index < 2, disclosureMode: "detail" })}</div>
+        return `<figure class="sequence-item" data-od-id="sequence-${P.esc(project.id)}-${number}">
+          <div class="sequence-media">${sequenceMedia(unit.item, unit.index)}</div>
           <figcaption class="sequence-caption">
-            <p class="section-code">${number} / ${sequenceLabel}</p>
-            <h3>${P.text(unit.item)}</h3>
-            <p>${P.field(unit.item, "caption")}</p>
+            <p class="section-code">${number} / ${P.esc(sequenceLabel)}</p>
+            <h3>${P.esc(P.text(unit.item))}</h3>
+            <p>${P.esc(P.field(unit.item, "caption"))}</p>
             ${externalLinks(unit.item)}
           </figcaption>
         </figure>`;
       }
       const first = unit.items[0].index + 1;
       const last = unit.items.at(-1).index + 1;
-      return `<section class="sequence-group" data-project-group="${unit.id}" data-od-id="sequence-group-${unit.id}">
-        <header class="sequence-group-heading"><p class="section-code">${String(first).padStart(2, "0")}–${String(last).padStart(2, "0")} / ${sequenceLabel}</p><h3>${unit.label}</h3></header>
+      return `<section class="sequence-group" data-project-group="${P.esc(unit.id)}" data-od-id="sequence-group-${P.esc(unit.id)}">
+        <header class="sequence-group-heading"><p class="section-code">${String(first).padStart(2, "0")}–${String(last).padStart(2, "0")} / ${P.esc(sequenceLabel)}</p><h3>${P.esc(unit.label)}</h3></header>
         <div class="sequence-group-grid" data-group-count="${unit.items.length}">${unit.items.map(({ item, index }) => `
-          <figure class="sequence-group-card" data-od-id="sequence-${project.id}-${String(index + 1).padStart(2, "0")}">
-            ${P.makeWorkMedia(item, { eager: index < 2, disclosureMode: "detail" })}
-            <figcaption><p class="section-code">${String(index + 1).padStart(2, "0")}</p><h4>${P.text(item)}</h4><p>${P.field(item, "caption")}</p>${externalLinks(item)}</figcaption>
+          <figure class="sequence-group-card" data-od-id="sequence-${P.esc(project.id)}-${String(index + 1).padStart(2, "0")}">
+            ${sequenceMedia(item, index)}
+            <figcaption><p class="section-code">${String(index + 1).padStart(2, "0")}</p><h4>${P.esc(P.text(item))}</h4><p>${P.esc(P.field(item, "caption"))}</p>${externalLinks(item)}</figcaption>
           </figure>`).join("")}</div>
       </section>`;
     }).join("");
@@ -119,9 +150,6 @@
 
     const cover = document.querySelector("[data-project-cover]");
     if (cover) cover.innerHTML = P.makeMedia(project.hero || project.cover, firstWork, { eager: true, fetchPriority: "high", disclosureMode: "detail" });
-    document.title = `${P.text(project)} — Wiktor Sielaszuk`;
-    const description = document.querySelector('meta[name="description"]');
-    if (description) description.setAttribute("content", P.field(project, "summary"));
 
     const sequence = document.querySelector("[data-curated-sequence]");
     if (sequence) {
@@ -150,14 +178,48 @@
     if (processSection) processSection.hidden = !P.field(project, "process") && !P.field(project, "credits");
 
     const related = document.querySelector("[data-related-projects]");
-    if (related) related.innerHTML = (project.related || []).map((id, index) => {
-      const item = P.projectById(id);
-      const relatedWorks = allWorks.filter(entry => (entry.project === id || entry.collections?.includes(id)) && !entry.draft);
-      const relatedWork = relatedWorks[0] || { altPL: item.summaryPL, altEN: item.summaryEN, mediaType: "image" };
-      return `<article class="work-card" data-od-id="related-${id}"><a class="work-link" href="${P.url(`projects/${id}/index.html`)}">${P.makeMedia(item.thumbnail || item.cover, relatedWork)}<div class="work-title"><h3>${P.text(item)}</h3><span class="work-index">0${index + 1}</span></div></a></article>`;
-    }).join("");
+    if (related) {
+      const section = related.closest(".section");
+      const heading = related.previousElementSibling;
+      section?.classList.add("related-projects-section");
+      if (heading?.classList.contains("section-code")) {
+        heading.classList.add("related-section-heading");
+        heading.id ||= `${project.id}-related-heading`;
+        heading.setAttribute("role", "heading");
+        heading.setAttribute("aria-level", "2");
+        related.setAttribute("aria-labelledby", heading.id);
+      }
+
+      const projectLabel = P.state.lang === "pl" ? "PROJEKT" : "PROJECT";
+      const openLabel = P.state.lang === "pl" ? "Zobacz projekt" : "View project";
+      related.innerHTML = (project.related || []).map((id, index) => {
+        const item = P.projectById(id);
+        const href = P.projectHref(id);
+        if (!item || !href) return "";
+        const relatedWorks = item.detailSequenceIds
+          ? item.detailSequenceIds.map(workId => allDetailItems.find(entry => entry.id === workId)).filter(Boolean)
+          : allDetailItems.filter(entry => (entry.project === id || entry.collections?.includes(id)) && !entry.draft);
+        const relatedWork = relatedWorks[0] || { altPL: item.summaryPL, altEN: item.summaryEN, mediaType: "image" };
+        const mediaBadge = P.preferredMediaBadge(relatedWorks);
+        return `<article class="related-card" data-od-id="related-${P.esc(id)}">
+          <a class="related-card-link" href="${P.esc(href)}">
+            <div class="related-card-media">${P.makeMedia(item.thumbnail || item.cover, relatedWork, { mediaBadge })}</div>
+            <div class="related-card-copy">
+              <p class="related-card-meta"><span>${String(index + 1).padStart(2, "0")}</span><span>${projectLabel}</span></p>
+              <h3>${P.esc(P.text(item))}</h3>
+              <span class="related-card-action">${openLabel} <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </article>`;
+      }).join("");
+    }
   }
 
   window.addEventListener("portfolio:language", render);
+  document.addEventListener("click", event => {
+    const opener = event.target.closest("[data-open-sequence]");
+    if (!opener) return;
+    viewer.open({ items: imageSequence, id: opener.dataset.openSequence, opener });
+  });
   render();
 })();

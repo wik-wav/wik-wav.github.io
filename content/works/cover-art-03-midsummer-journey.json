@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 50,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/cover-art/cover-art-03-midsummer-journey.webp",
+      "ratio": "1/1",
+      "fit": "cover",
+      "altPL": "Akwarelowa okładka z jasnym leśnym pejzażem, smukłymi pniami i czerwonymi kwiatami.",
+      "altEN": "Watercolour cover with a bright woodland scene, slender trunks, and red flowers.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/cover-art/cover-art-03-midsummer-journey.webp",
+      "ratio": "1/1",
+      "fit": "cover",
+      "altPL": "Akwarelowa okładka z jasnym leśnym pejzażem, smukłymi pniami i czerwonymi kwiatami.",
+      "altEN": "Watercolour cover with a bright woodland scene, slender trunks, and red flowers.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "cover-art-03-midsummer-journey",
+  "project": "cover-art",
+  "year": "2022",
+  "date": "2022-07-26",
+  "medium": "digital",
+  "types": [
+    "cover-art",
+    "design",
+    "music"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/cover-art/cover-art-03-midsummer-journey.webp",
+    "ratio": "1/1",
+    "fit": "cover",
+    "altPL": "Akwarelowa okładka z jasnym leśnym pejzażem, smukłymi pniami i czerwonymi kwiatami.",
+    "altEN": "Watercolour cover with a bright woodland scene, slender trunks, and red flowers.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "A Midsummer Journey",
+  "titleEN": "A Midsummer Journey",
+  "summaryPL": "Projekt okładki singla SVREN, wydanego 26 lipca 2022 roku.",
+  "summaryEN": "Cover artwork for a SVREN single released on 26 July 2022.",
+  "altPL": "Akwarelowa okładka z jasnym leśnym pejzażem, smukłymi pniami i czerwonymi kwiatami.",
+  "altEN": "Watercolour cover with a bright woodland scene, slender trunks, and red flowers.",
+  "captionPL": "Okładka singla SVREN, 26.07.2022.",
+  "captionEN": "Cover artwork for a SVREN single, 26 July 2022.",
+  "externalLinks": [
+    {
+      "href": "https://open.spotify.com/album/7l4DnDaDdpZSWTMJzULw52",
+      "labelPL": "Posłuchaj singla „A Midsummer Journey” w Spotify",
+      "labelEN": "Listen to the single “A Midsummer Journey” on Spotify"
+    }
+  ],
+  "detailOnly": false
+}

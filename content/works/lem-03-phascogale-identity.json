@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 24,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/lem-v4-utau-phascogale-transparent.webp",
+      "ratio": "1/2",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa forma Phascogale postaci Lem: niewysoka sylwetka z dużymi uszami i kokardą na ogonie.",
+      "altEN": "Full-body Lem Phascogale form: a short figure with large ears and a ribbon tied around the tail.",
+      "hasTransparency": true,
+      "viewerBackground": "light",
+      "transparencyMode": "force-transparent"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/lem-v4-utau-phascogale-transparent.webp",
+      "ratio": "1/2",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa forma Phascogale postaci Lem: niewysoka sylwetka z dużymi uszami i kokardą na ogonie.",
+      "altEN": "Full-body Lem Phascogale form: a short figure with large ears and a ribbon tied around the tail.",
+      "hasTransparency": true,
+      "viewerBackground": "light",
+      "transparencyMode": "force-transparent"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-03-phascogale-identity",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/lem-v4-utau-phascogale-transparent.webp",
+    "ratio": "1/2",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowa forma Phascogale postaci Lem: niewysoka sylwetka z dużymi uszami i kokardą na ogonie.",
+    "altEN": "Full-body Lem Phascogale form: a short figure with large ears and a ribbon tied around the tail.",
+    "hasTransparency": true,
+    "viewerBackground": "light",
+    "transparencyMode": "force-transparent",
+    "focalPoint": {
+      "x": 0.461,
+      "y": 0.245
+    }
+  },
+  "titlePL": "Lem V4 — Phascogale",
+  "titleEN": "Lem V4 — Phascogale",
+  "summaryPL": "Forma Phascogale dopełniająca trzyczęściowy system V4/V4Bi.",
+  "summaryEN": "The Phascogale form completing the three-part V4/V4Bi system.",
+  "altPL": "Pełnopostaciowa forma Phascogale postaci Lem: niewysoka sylwetka z dużymi uszami i kokardą na ogonie.",
+  "altEN": "Full-body Lem Phascogale form: a short figure with large ears and a ribbon tied around the tail.",
+  "captionPL": "Forma Phascogale — warianty wokalne Main i Head Voice.",
+  "captionEN": "Phascogale form—Main and Head Voice vocal variants.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

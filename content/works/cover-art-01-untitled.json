@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 48,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/cover-art/cover-art-01-untitled.webp",
+      "ratio": "1/1",
+      "fit": "cover",
+      "altPL": "Abstrakcyjna kwadratowa okładka w granacie i miedzianym różu z pionowym białym napisem japońskim.",
+      "altEN": "Abstract square cover in navy and copper-pink with vertical white Japanese lettering.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/cover-art/cover-art-01-untitled.webp",
+      "ratio": "1/1",
+      "fit": "cover",
+      "altPL": "Abstrakcyjna kwadratowa okładka w granacie i miedzianym różu z pionowym białym napisem japońskim.",
+      "altEN": "Abstract square cover in navy and copper-pink with vertical white Japanese lettering.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "cover-art-01-untitled",
+  "project": "cover-art",
+  "year": null,
+  "medium": "digital",
+  "types": [
+    "cover-art",
+    "design"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/cover-art/cover-art-01-untitled.webp",
+    "ratio": "1/1",
+    "fit": "cover",
+    "altPL": "Abstrakcyjna kwadratowa okładka w granacie i miedzianym różu z pionowym białym napisem japońskim.",
+    "altEN": "Abstract square cover in navy and copper-pink with vertical white Japanese lettering.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Projekt okładki",
+  "titleEN": "Cover artwork",
+  "summaryPL": "Autorska abstrakcyjna kompozycja okładkowa.",
+  "summaryEN": "An original abstract cover composition.",
+  "altPL": "Abstrakcyjna kwadratowa okładka w granacie i miedzianym różu z pionowym białym napisem japońskim.",
+  "altEN": "Abstract square cover in navy and copper-pink with vertical white Japanese lettering.",
+  "captionPL": "Projekt okładki — praca autorska.",
+  "captionEN": "Cover artwork—independent work.",
+  "detailOnly": false
+}

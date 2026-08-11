@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 42,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-page-05.webp",
+      "ratio": "10/7",
+      "fit": "contain",
+      "altPL": "Kobaltowa rozkładówka z kolejnymi figurami ASCII i pionowymi fragmentami tekstu.",
+      "altEN": "Cobalt spread with successive ASCII figures and vertical fragments of text.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-elements",
+        "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+        "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+      },
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-page-05.webp",
+      "ratio": "10/7",
+      "fit": "contain",
+      "altPL": "Kobaltowa rozkładówka z kolejnymi figurami ASCII i pionowymi fragmentami tekstu.",
+      "altEN": "Cobalt spread with successive ASCII figures and vertical fragments of text.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-elements",
+        "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+        "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+      },
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "windows-zine-page-05",
+  "project": "windows-zine",
+  "year": "2023",
+  "medium": "digital",
+  "types": [
+    "editorial",
+    "scanography",
+    "typography",
+    "design"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/windows-zine/windows-zine-page-05.webp",
+    "ratio": "10/7",
+    "fit": "contain",
+    "altPL": "Kobaltowa rozkładówka z kolejnymi figurami ASCII i pionowymi fragmentami tekstu.",
+    "altEN": "Cobalt spread with successive ASCII figures and vertical fragments of text.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-elements",
+      "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+      "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+      "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+      "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+    },
+    "transparencyMode": "auto"
+  },
+  "titlePL": "WIN / DOWS — Figury ASCII",
+  "titleEN": "WIN / DOWS — ASCII figures",
+  "summaryPL": "Rozkładówka zina łączącego autorską redakcję i skanografię z ASCII artem powstałym w rozmowie z ChatGPT.",
+  "summaryEN": "A zine spread combining original editing and scanography with ASCII art created in conversation with ChatGPT.",
+  "altPL": "Kobaltowa rozkładówka z kolejnymi figurami ASCII i pionowymi fragmentami tekstu.",
+  "altEN": "Cobalt spread with successive ASCII figures and vertical fragments of text.",
+  "captionPL": "WIN / DOWS, figury ascii, 2023.",
+  "captionEN": "WIN / DOWS, ascii figures, 2023.",
+  "provenance": {
+    "source": "XMP źródłowego pliku / source-file XMP",
+    "creationYear": "2023"
+  },
+  "detailOnly": false
+}

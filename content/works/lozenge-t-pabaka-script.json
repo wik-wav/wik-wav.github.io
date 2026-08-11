@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 36,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lozenge-t/lozenge-t-pabaka-alphabet.webp",
+      "ratio": "1527/1080",
+      "fit": "cover",
+      "altPL": "Plansza alfabetu Pabaka z zestawem znaków pisma języka Asaxi.",
+      "altEN": "Pabaka alphabet board showing the character set of the Asaxi script.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lozenge-t/lozenge-t-pabaka-alphabet.webp",
+      "ratio": "1527/1080",
+      "fit": "cover",
+      "altPL": "Plansza alfabetu Pabaka z zestawem znaków pisma języka Asaxi.",
+      "altEN": "Pabaka alphabet board showing the character set of the Asaxi script.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "lozenge-t-pabaka-script",
+  "project": "lozenge-t",
+  "year": null,
+  "medium": "digital",
+  "types": [
+    "typography",
+    "design"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lozenge-t/lozenge-t-pabaka-alphabet.webp",
+    "ratio": "1527/1080",
+    "fit": "cover",
+    "altPL": "Plansza alfabetu Pabaka z zestawem znaków pisma języka Asaxi.",
+    "altEN": "Pabaka alphabet board showing the character set of the Asaxi script.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Pabaka — pismo Asaxi",
+  "titleEN": "Pabaka — the Asaxi script",
+  "summaryPL": "Alfabet i krój Pabaka rozwijane jako część języka Asaxi i świata Lozenge T.",
+  "summaryEN": "The Pabaka alphabet and typeface developed as part of the Asaxi language and Lozenge T. world.",
+  "altPL": "Plansza alfabetu Pabaka z zestawem znaków pisma języka Asaxi.",
+  "altEN": "Pabaka alphabet board showing the character set of the Asaxi script.",
+  "captionPL": "Pabaka — alfabet i system pisma języka Asaxi.",
+  "captionEN": "Pabaka—the alphabet and writing system of the Asaxi language.",
+  "detailOnly": false
+}

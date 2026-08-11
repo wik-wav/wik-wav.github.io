@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 47,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-page-10.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Turkusowo-żółta tylna okładka z fragmentami znaków, siatką i uśmiechniętą figurą ASCII.",
+      "altEN": "Turquoise-and-yellow back cover with glyph fragments, a grid, and a smiling ASCII figure.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-elements",
+        "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+        "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+      },
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-page-10.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Turkusowo-żółta tylna okładka z fragmentami znaków, siatką i uśmiechniętą figurą ASCII.",
+      "altEN": "Turquoise-and-yellow back cover with glyph fragments, a grid, and a smiling ASCII figure.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-elements",
+        "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+        "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+      },
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "windows-zine-page-10",
+  "project": "windows-zine",
+  "year": "2023",
+  "medium": "digital",
+  "types": [
+    "editorial",
+    "scanography",
+    "typography",
+    "design"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/windows-zine/windows-zine-page-10.webp",
+    "ratio": "7/10",
+    "fit": "contain",
+    "altPL": "Turkusowo-żółta tylna okładka z fragmentami znaków, siatką i uśmiechniętą figurą ASCII.",
+    "altEN": "Turquoise-and-yellow back cover with glyph fragments, a grid, and a smiling ASCII figure.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-elements",
+      "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+      "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+      "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+      "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+    },
+    "transparencyMode": "auto"
+  },
+  "titlePL": "WIN / DOWS — Tylna okładka",
+  "titleEN": "WIN / DOWS — Back cover",
+  "summaryPL": "Tylna okładka zina łączącego autorską redakcję i skanografię z ASCII artem powstałym w rozmowie z ChatGPT.",
+  "summaryEN": "The back cover of a zine combining original editing and scanography with ASCII art created in conversation with ChatGPT.",
+  "altPL": "Turkusowo-żółta tylna okładka z fragmentami znaków, siatką i uśmiechniętą figurą ASCII.",
+  "altEN": "Turquoise-and-yellow back cover with glyph fragments, a grid, and a smiling ASCII figure.",
+  "captionPL": "WIN / DOWS, tylna okładka, 2023.",
+  "captionEN": "WIN / DOWS, back cover, 2023.",
+  "provenance": {
+    "source": "XMP źródłowego pliku / source-file XMP",
+    "creationYear": "2023"
+  },
+  "detailOnly": false
+}

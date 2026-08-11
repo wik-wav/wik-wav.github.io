@@ -1,0 +1,329 @@
+{
+  "schemaVersion": 1,
+  "published": [
+    {
+      "id": "latentne",
+      "recordType": "project"
+    },
+    {
+      "id": "para-analog-on",
+      "recordType": "project"
+    },
+    {
+      "id": "gaijin-no-mittsu-no-kuusou",
+      "recordType": "project"
+    },
+    {
+      "id": "lem",
+      "recordType": "project"
+    },
+    {
+      "id": "lozenge-t",
+      "recordType": "project"
+    },
+    {
+      "id": "book-cover",
+      "recordType": "project"
+    },
+    {
+      "id": "windows-zine",
+      "recordType": "project"
+    },
+    {
+      "id": "cover-art",
+      "recordType": "collection"
+    },
+    {
+      "id": "small-design-projects",
+      "recordType": "collection"
+    },
+    {
+      "id": "character-art",
+      "recordType": "collection"
+    },
+    {
+      "id": "dissonance-perspective",
+      "recordType": "project"
+    },
+    {
+      "id": "latentne-01-graph-of-babel",
+      "recordType": "work"
+    },
+    {
+      "id": "latentne-02-emergent-hardware",
+      "recordType": "work"
+    },
+    {
+      "id": "latentne-03-mainframe",
+      "recordType": "work"
+    },
+    {
+      "id": "latentne-04-foot-of-loss-mountain",
+      "recordType": "work"
+    },
+    {
+      "id": "latentne-05-mirror-intelligence",
+      "recordType": "work"
+    },
+    {
+      "id": "latentne-06-loss-mountain-up-close",
+      "recordType": "work"
+    },
+    {
+      "id": "latentne-07-digital-weed",
+      "recordType": "work"
+    },
+    {
+      "id": "latentne-08-emergent-hallucinations",
+      "recordType": "work"
+    },
+    {
+      "id": "latentne-09-emergent-hardware-detail-1",
+      "recordType": "work"
+    },
+    {
+      "id": "latentne-10-emergent-hardware-detail-2",
+      "recordType": "work"
+    },
+    {
+      "id": "latentne-11-mainframe-detail-1",
+      "recordType": "work"
+    },
+    {
+      "id": "latentne-12-mainframe-detail-2",
+      "recordType": "work"
+    },
+    {
+      "id": "para-analog-on-01-w",
+      "recordType": "work"
+    },
+    {
+      "id": "para-analog-on-02-o",
+      "recordType": "work"
+    },
+    {
+      "id": "para-analog-on-03-r",
+      "recordType": "work"
+    },
+    {
+      "id": "para-analog-on-04-d",
+      "recordType": "work"
+    },
+    {
+      "id": "para-analog-on-05-video",
+      "recordType": "work"
+    },
+    {
+      "id": "gaijins-three-visions-01-nyuu-min",
+      "recordType": "work"
+    },
+    {
+      "id": "gaijins-three-visions-02-fuyuu",
+      "recordType": "work"
+    },
+    {
+      "id": "gaijins-three-visions-03-nai-atsu",
+      "recordType": "work"
+    },
+    {
+      "id": "gaijins-three-visions-04-video",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-01-civet-identity",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-02-quoll-identity",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-03-phascogale-identity",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-04-civet-illustration",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-05-quoll-illustration",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-06-phascogale-illustration",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-07-civet-sideview",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-08-quoll-sideview",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-09-phascogale-sideview",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-10-mongoose-transparent",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-11-mongoose-illustration",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-12-v3-weasel-illustration",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-14-phascogale-camera",
+      "recordType": "work"
+    },
+    {
+      "id": "lem-15-opaque-application",
+      "recordType": "work"
+    },
+    {
+      "id": "lozenge-t-pabaka-script",
+      "recordType": "work"
+    },
+    {
+      "id": "book-cover-2025",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-page-01",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-page-02",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-page-03",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-page-04",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-page-05",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-page-06",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-page-07",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-page-08",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-page-09",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-page-10",
+      "recordType": "work"
+    },
+    {
+      "id": "cover-art-01-untitled",
+      "recordType": "work"
+    },
+    {
+      "id": "cover-art-02-cloud-flow-free",
+      "recordType": "work"
+    },
+    {
+      "id": "cover-art-03-midsummer-journey",
+      "recordType": "work"
+    },
+    {
+      "id": "small-design-projects-voice-model-icon",
+      "recordType": "work"
+    },
+    {
+      "id": "character-art-01-cami-possum-witch",
+      "recordType": "work"
+    },
+    {
+      "id": "character-art-02-kiyomi",
+      "recordType": "work"
+    },
+    {
+      "id": "character-art-03-lem-banded-palm-civet",
+      "recordType": "work"
+    },
+    {
+      "id": "character-art-04-mat-anniversary",
+      "recordType": "work"
+    },
+    {
+      "id": "character-art-05-mel-numbat",
+      "recordType": "work"
+    },
+    {
+      "id": "character-art-06-diiru",
+      "recordType": "work"
+    },
+    {
+      "id": "character-art-07-cami-reference-sheet",
+      "recordType": "work"
+    },
+    {
+      "id": "character-art-08-lem-wardrobe-turnaround",
+      "recordType": "work"
+    },
+    {
+      "id": "character-art-09-lem-base-turnaround",
+      "recordType": "work"
+    },
+    {
+      "id": "character-art-10-lem-sleeping",
+      "recordType": "work"
+    },
+    {
+      "id": "dissonance-video",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-mockup-01",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-mockup-02",
+      "recordType": "work"
+    },
+    {
+      "id": "windows-zine-mockup-03",
+      "recordType": "work"
+    },
+    {
+      "id": "dissonance-still-01",
+      "recordType": "work"
+    },
+    {
+      "id": "dissonance-still-03",
+      "recordType": "work"
+    },
+    {
+      "id": "dissonance-still-04",
+      "recordType": "work"
+    },
+    {
+      "id": "feat-lem-v4bi-audio",
+      "recordType": "work"
+    },
+    {
+      "id": "gaijins-three-visions-05-bandcamp",
+      "recordType": "work"
+    }
+  ]
+}

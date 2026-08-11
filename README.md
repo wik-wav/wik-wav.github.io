@@ -1,8 +1,45 @@
 # Portfolio Wiktora Sielaszuka / Wiktor Sielaszuk Portfolio
 
+## Portfolio Studio
+
+Treść strony jest teraz oddzielona od kodu. Źródłem prawdy są pliki w `content/`: ustawienia globalne w `content/site.json`, projekty w `content/projects/`, kolekcje w `content/collections/`, a prace w `content/works/`. Pliki HTML, `assets/js/data.js`, `assets/js/site-data.js`, `seo-metadata.ts`, mapa witryny i manifest tras są generowane — nie należy edytować ich ręcznie.
+
+Uruchomienie na Windows:
+
+```powershell
+cd D:\wyash\Documents\GitHub\wik-wav.github.io
+npm.cmd install
+npm.cmd run studio
+```
+
+Polecenie otwiera dwa lokalne adresy: Portfolio Studio (`127.0.0.1:4310`) i podgląd Vite (`127.0.0.1:4177`). Studio działa wyłącznie na komputerze lokalnym. Zapis rekordu waliduje pełny graf treści, generuje tylko zmienione pliki i odświeża podgląd.
+
+W Studio można:
+
+- tworzyć, duplikować, porządkować i archiwizować projekty oraz prace; istniejące kolekcje i ich relacje pozostają zachowane w danych;
+- edytować teksty PL/EN, podpisy, opisy alternatywne, tagi wybierane z listy lub dodawane jako nowe, medium, rok, SEO i kolejność sekwencji;
+- przypisywać niezależne okładki, hero i miniatury oraz ustawiać `cover`/`contain`, punkt kadrowania, rozmiar na stronie projektu i jasne/ciemne tło przezroczystych prac;
+- upuszczać obrazy do importu. Oryginał trafia do zewnętrznego magazynu masterów, a do repozytorium — zoptymalizowany WebP bez metadanych, maksymalnie 2400 px;
+- dodawać tylko ustrukturyzowane osadzenia YouTube, Vimeo, SoundCloud i Bandcamp, bez dowolnego HTML/iframe; dla odtwarzaczy audio można wybrać wariant kompaktowy, standardowy lub rozszerzony;
+- wykonać ścisłą walidację i produkcyjny build przyciskiem **Build for publishing**.
+
+Build nie wykonuje operacji Git. Po sprawdzeniu zmian należy osobno użyć zwykłego workflow: `git status`, commit i push. GitHub Actions publikuje stronę. Szkice nie trafiają do podglądu publicznego ani buildu i nie blokują publikacji innych, gotowych treści; ich ostrzeżenia pozostają widoczne w Studio. Usuwanie aktywnej pracy w Studio oznacza najpierw archiwizację JSON; materiały źródłowe nie są kasowane, opublikowany adres pozostaje na zawsze zarezerwowany, a rekord z aktywnymi odwołaniami nie może zostać zarchiwizowany. Zarchiwizowany JSON pracy można następnie trwale usunąć po wpisaniu jego dokładnego identyfikatora. Ta operacja nie usuwa plików mediów ani rezerwacji wcześniej opublikowanego adresu.
+
+Najważniejsze polecenia:
+
+```powershell
+npm.cmd run studio             # edycja + Vite
+npm.cmd run generate           # ręczne odtworzenie plików generowanych
+npm.cmd run validate:content   # ścisła walidacja publikacji
+npm.cmd test                   # walidacja, drift, build i testy
+npm.cmd run build              # generacja + dist/
+```
+
+The site content is separated from its presentation code. `content/site.json`, `content/projects/`, `content/collections/`, and `content/works/` are authoritative. Run `npm run studio` to use the local browser editor and live Vite preview. Studio supports bilingual copy, sequence ordering, selectable and user-defined work tags, media import and crop settings, structured YouTube, Vimeo, SoundCloud, and Bandcamp embeds, compact/standard/expanded audio-player sizes, SEO, validation, and a production build. Existing collection data and relationships remain supported without a separate collection-management panel. Drafts remain private without blocking other ready content; published addresses stay permanently reserved after archival. An archived work JSON can be permanently removed only after exact-ID confirmation; its media remains untouched and a published address remains reserved. Studio never commits, pushes, or edits Git state.
+
 ## PL
 
-Statyczne, wielostronicowe portfolio przygotowane dla przyszłej witryny GitHub Pages. Strona startowa, filtrowalna galeria, indeks projektów i jedenaście widoków kuratorskich korzystają ze wspólnych tokenów, danych PL/EN i trwałego przełącznika języka. Projekt zawiera 14 tras i 61 publicznych prac galerii.
+Statyczne, wielostronicowe portfolio przygotowane dla przyszłej witryny GitHub Pages. Strona startowa, filtrowalna galeria, indeks projektów i jedenaście widoków kuratorskich korzystają ze wspólnych tokenów, danych PL/EN i trwałego przełącznika języka. Projekt zawiera 14 tras i 62 publiczne prace galerii.
 
 Trasy:
 
@@ -37,17 +74,19 @@ Metadane `disclosure` należą do konkretnego medium i są renderowane centralni
 
 Vite kopiuje katalogi `assets/media/` i `assets/fonts/` do tych samych ścieżek w `dist/`, dzięki czemu adresy działają zarówno w podglądzie Open Design, jak i w buildzie produkcyjnym.
 
-Widoki `portfolio/` i `projects/` obsługują parametry `size`, `per` i `page`. Rozmiar oraz właściwa dla danego widoku liczba elementów są zapamiętywane lokalnie, natomiast poprawny query string ma pierwszeństwo. Przełączenie między trybami przenosi wyłącznie wspólny parametr `size`. Jawna nawigacja stron używa historii przeglądarki, podczas gdy zmiany układu, filtrów i liczby elementów aktualizują bieżący wpis. Galeria zachowuje powtarzane parametry filtrów. Pole `projectPageVisible: false` ukrywa pracę wyłącznie w narracji projektu, a `projectGroup` łączy kolejne prace w semantyczną grupę bez zmiany ich obecności w galerii ogólnej.
+Widoki `portfolio/` i `projects/` obsługują parametry `size`, `per` i `page`. Widok projektów obsługuje także `view=visual|list`; lista tworzy zwarty indeks bez obrazów i ikon. Rozmiar, tryb projektów oraz właściwa dla danego widoku liczba elementów są zapamiętywane lokalnie, natomiast poprawny query string ma pierwszeństwo. Przełączenie między trybami przenosi wyłącznie wspólny parametr `size`. Jawna nawigacja stron używa historii przeglądarki, podczas gdy zmiany układu, filtrów i liczby elementów aktualizują bieżący wpis. Galeria zachowuje powtarzane parametry filtrów. Pole `projectPageVisible: false` ukrywa pracę wyłącznie w narracji projektu, a `projectGroup` łączy kolejne prace w semantyczną grupę bez zmiany ich obecności w galerii ogólnej.
 
 Pole `collections` pozwala jednej pracy należeć do kolekcji bez duplikowania rekordu. Skrót Postaci - ilustracje ustawia parametr `collection=character-art`; wpisy Lem pozostają przypisane do projektu `lem`, a jednocześnie są widoczne w kolekcji.
 
+Pole projektu `detailMediaSize` steruje domyślną skalą naturalnych obrazów w sekwencji kuratorskiej i przyjmuje wyłącznie `compact`, `standard`, `large` albo `full`. Ten sam klucz zapisany przy pojedynczej pracy ma pierwszeństwo. Obrazy sekwencji otwierają wspólny viewer Portfolio/projektów z kontrolą powiększenia, przesuwaniem i opcjonalnym panelem szczegółów; filmy pozostają responsywnymi osadzeniami 16:9.
+
 ### Przyszła aktualizacja
 
-Przyszłe lokalne narzędzie może dopisywać wpisy i zoptymalizowane zasoby galerii ogólnej. Nie powinno przebudowywać ani nadpisywać narracji, kolejności mediów, procesu, kredytów i powiązanych prac w widokach `projects/*/index.html`. Pipeline nie jest częścią tego repozytorium.
+Portfolio Studio jest lokalnym narzędziem aktualizacji. Dane w `content/` są źródłem prawdy, a narracja, kolejność mediów, proces, kredyty i powiązane prace są generowane z tych danych.
 
 ## EN
 
-Static, multi-page portfolio prepared for a future GitHub Pages site. The home page, filterable gallery, project index, and eleven curated views share one token layer, paired PL/EN data, and a persistent language switcher. The project contains 14 routes and 61 public gallery works.
+Static, multi-page portfolio prepared for a future GitHub Pages site. The home page, filterable gallery, project index, and eleven curated views share one token layer, paired PL/EN data, and a persistent language switcher. The project contains 14 routes and 62 public gallery works.
 
 Routes:
 
@@ -82,19 +121,21 @@ The book-cover mockup lives in `assets/media/book-cover/`. Its local WebP deriva
 
 Vite copies `assets/media/` and `assets/fonts/` to the same paths in `dist/`, so URLs work in both Open Design preview and the production build.
 
-The `portfolio/` and `projects/` views support `size`, `per`, and `page` parameters. Size and each view’s own per-page preference persist locally, while a valid query string takes precedence. Switching modes carries only the shared `size` parameter. Explicit page navigation uses browser history, while layout, filter, and per-page changes update the current entry. The gallery preserves repeated filter parameters. `projectPageVisible: false` hides a work only from a project narrative, while `projectGroup` combines consecutive works into one semantic group without changing their general-gallery presence.
+The `portfolio/` and `projects/` views support `size`, `per`, and `page` parameters. Projects also supports `view=visual|list`; list view renders a compact index with no images or icons. Size, project view, and each route’s own per-page preference persist locally, while a valid query string takes precedence. Switching modes carries only the shared `size` parameter. Explicit page navigation uses browser history, while layout, filter, and per-page changes update the current entry. The gallery preserves repeated filter parameters. `projectPageVisible: false` hides a work only from a project narrative, while `projectGroup` combines consecutive works into one semantic group without changing their general-gallery presence.
 
 The `collections` field lets one work join a collection without duplicating its record. The Character Art shortcut sets `collection=character-art`; Lem works retain `lem` as their primary project while also appearing in the collection.
 
+The project-level `detailMediaSize` field controls the default scale of natural-ratio images in a curated sequence and accepts only `compact`, `standard`, `large`, or `full`. The same key on an individual work overrides the project default. Sequence images open the shared Portfolio/project viewer with zoom, pan, and an optional details panel; visual video remains responsive 16:9 while SoundCloud and Bandcamp use responsive player-specific presets.
+
 ### Future updates
 
-A future local tool may append general-gallery entries and optimised assets. It must not rebuild or overwrite the narrative, media order, process, credits, or related work in `projects/*/index.html`. The update pipeline is outside this repository.
+Portfolio Studio is the local update pipeline. Data in `content/` is authoritative; narrative, media order, process, credits, related work, routes, and SEO are generated from it.
 
 ## SEO and GitHub Pages / SEO i GitHub Pages
 
-Metadane wszystkich 14 tras są utrzymywane centralnie w `seo-metadata.ts` i wstrzykiwane podczas builda. Jedynym originem kanonicznym jest `https://wik-wav.github.io`; adresy kanoniczne mają końcowy slash i nigdy nie zawierają parametrów filtrów, paginacji ani lightboxu. Polski pozostaje językiem początkowego HTML, a przełącznik PL/EN aktualizuje tytuł, opis i obsługiwane metadane. Osobno indeksowalna wersja angielska wymagałaby w przyszłości tras `/en/` i nie jest częścią tej wersji.
+Metadane wszystkich 14 tras są utrzymywane centralnie w `seo-metadata.ts` i wstrzykiwane podczas builda. Jedynym originem kanonicznym jest `https://wik-wav.github.io`; adresy kanoniczne mają końcowy slash i nigdy nie zawierają parametrów filtrów, paginacji ani viewera. Polski pozostaje językiem początkowego HTML, a przełącznik PL/EN aktualizuje tytuł, opis i obsługiwane metadane. Osobno indeksowalna wersja angielska wymagałaby w przyszłości tras `/en/` i nie jest częścią tej wersji.
 
-Metadata for all 14 routes is maintained in `seo-metadata.ts` and injected at build time. The sole canonical origin is `https://wik-wav.github.io`; canonical URLs use trailing slashes and never contain filter, pagination, or lightbox parameters. Polish remains the initial HTML language, while the PL/EN switch updates the title, description, and supported metadata. Fully indexable English content would require separate `/en/` routes in a later release.
+Metadata for all 14 routes is maintained in `seo-metadata.ts` and injected at build time. The sole canonical origin is `https://wik-wav.github.io`; canonical URLs use trailing slashes and never contain filter, pagination, or viewer parameters. Polish remains the initial HTML language, while the PL/EN switch updates the title, description, and supported metadata. Fully indexable English content would require separate `/en/` routes in a later release.
 
 `public/og-social.png` jest wygenerowaną przez AI wizualizacją podglądu portfolio i zachowuje widoczne oznaczenie pochodzenia. The social card is an AI-generated portfolio preview visualisation and retains its visible disclosure.
 

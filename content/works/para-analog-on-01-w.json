@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 13,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/para-analog-on-01-w.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Biała plansza typograficzna z gęstą siecią opisów, falującym konturem i dużą literą W.",
+      "altEN": "White typographic board with dense descriptive text, a wavering contour, and a large W.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/para-analog-on-01-w.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Biała plansza typograficzna z gęstą siecią opisów, falującym konturem i dużą literą W.",
+      "altEN": "White typographic board with dense descriptive text, a wavering contour, and a large W.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": true,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "para-analog-on-01-w",
+  "project": "para-analog-on",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "poster",
+    "typography",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/para-analog-on-01-w.webp",
+    "ratio": "7/10",
+    "fit": "cover",
+    "altPL": "Biała plansza typograficzna z gęstą siecią opisów, falującym konturem i dużą literą W.",
+    "altEN": "White typographic board with dense descriptive text, a wavering contour, and a large W.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "W",
+  "titleEN": "W",
+  "summaryPL": "Plansza 1 z czteroczęściowej realizacji protokołu Para-analog-on.",
+  "summaryEN": "Board 1 from the four-part Para-analog-on protocol execution.",
+  "altPL": "Biała plansza typograficzna z gęstą siecią opisów, falującym konturem i dużą literą W.",
+  "altEN": "White typographic board with dense descriptive text, a wavering contour, and a large W.",
+  "captionPL": "Wiktor Sielaszuk, W, z cyklu „Para-analog-on”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, W, from the Para-analog-on series, digital artwork, 2026.",
+  "detailOnly": false
+}

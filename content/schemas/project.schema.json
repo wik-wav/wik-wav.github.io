@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "portfolio-project.schema.json",
+  "title": "Portfolio project",
+  "type": "object",
+  "required": ["schemaVersion", "recordType", "id", "order", "published", "draft", "titlePL", "titleEN", "summaryPL", "summaryEN", "cover", "hero", "thumbnail", "detailMediaSize"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "recordType": { "const": "project" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "order": { "type": "number" },
+    "published": { "type": "boolean" },
+    "draft": { "type": "boolean" },
+    "detailMediaSize": { "enum": ["compact", "standard", "large", "full"] },
+    "heroLineHeightPL": { "type": "number", "minimum": 0.8, "maximum": 1.4, "default": 1.12 },
+    "heroLineHeightEN": { "type": "number", "minimum": 0.8, "maximum": 1.4, "default": 1.12 }
+  }
+}

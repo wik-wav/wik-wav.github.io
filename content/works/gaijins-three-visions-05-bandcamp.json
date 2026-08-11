@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "id": "gaijins-three-visions-05-bandcamp",
+  "order": 21.5,
+  "published": true,
+  "draft": false,
+  "titlePL": "外人の色々な空想 — album Bandcamp",
+  "titleEN": "外人の色々な空想 — Bandcamp album",
+  "project": "gaijin-no-mittsu-no-kuusou",
+  "collections": [],
+  "year": "2024",
+  "medium": "digital",
+  "types": [
+    "music",
+    "sound"
+  ],
+  "mediaType": "video",
+  "galleryVisible": false,
+  "projectPageVisible": true,
+  "detailOnly": true,
+  "summaryPL": "Siedmioutworowy album koncepcyjny o śnie i halucynacjach słuchowych; kompozycja, produkcja, miks i mastering: wik_wav.",
+  "summaryEN": "A seven-track concept album about sleep and auditory hallucinations; composed, produced, mixed, and mastered by wik_wav.",
+  "altPL": "Jasny plakat z dużymi znakami 浮遊 i lekkimi, unoszącymi się formami, użyty jako grafika zastępcza albumu.",
+  "altEN": "Pale poster with large 浮遊 characters and light, floating forms, used as the album fallback artwork.",
+  "captionPL": "外人の色々な空想 (Gaijin no iroirona kūsō), album koncepcyjny, wik_wav, 2024.",
+  "captionEN": "外人の色々な空想 (Gaijin no iroirona kūsō), concept album, wik_wav, 2024.",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/gaijins-three-visions-02-fuyuu.webp",
+    "ratio": "7/10",
+    "fit": "cover",
+    "altPL": "Jasny plakat z dużymi znakami 浮遊 i lekkimi, unoszącymi się formami, użyty jako grafika zastępcza albumu.",
+    "altEN": "Pale poster with large 浮遊 characters and light, floating forms, used as the album fallback artwork.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "gallery": [],
+  "video": {
+    "provider": "bandcamp",
+    "id": "2617205445",
+    "bandcampType": "album",
+    "url": "https://wik-wav.bandcamp.com/album/gaijin-no-iroirona-k-s",
+    "embedSize": "expanded",
+    "externalUrl": "https://wik-wav.bandcamp.com/album/gaijin-no-iroirona-k-s",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/gaijins-three-visions-02-fuyuu.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Jasny plakat z dużymi znakami 浮遊 i lekkimi, unoszącymi się formami, użyty jako grafika zastępcza albumu.",
+      "altEN": "Pale poster with large 浮遊 characters and light, floating forms, used as the album fallback artwork.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "creditsPL": "Kompozycja, produkcja, miks i mastering: wik_wav.",
+    "creditsEN": "Composed, produced, mixed, and mastered by wik_wav."
+  },
+  "videoLinkPL": "Posłuchaj albumu na Bandcamp",
+  "videoLinkEN": "Listen to the album on Bandcamp",
+  "featured": false,
+  "detailMediaSize": "",
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "https://wik-wav.bandcamp.com/album/gaijin-no-iroirona-k-s",
+    "creationYear": "2024"
+  }
+}

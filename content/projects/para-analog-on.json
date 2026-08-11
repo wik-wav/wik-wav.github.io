@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "recordType": "project",
+  "order": 2,
+  "published": true,
+  "draft": false,
+  "pageCode": "P.04",
+  "pageLabelPL": "PROJEKT KURATORSKI",
+  "pageLabelEN": "CURATED PROJECT",
+  "id": "para-analog-on",
+  "detailMediaSize": "standard",
+  "titlePL": "Para-analog-on",
+  "titleEN": "Para-analog-on",
+  "summaryPL": "Aneks dyplomowy: otwarty protokół przekształcający opis obrazu od tysiąca słów do dwóch kluczowych wyrazów.",
+  "summaryEN": "Diploma annex: an open protocol transforming an image description from one thousand words into two key terms.",
+  "overviewPL": "Projekt traktuje system reguł jako dzieło. Obraz wejściowy zostaje wielokrotnie opisywany, rozwijany i redukowany, a kolejne warstwy tekstu są komponowane z obrazem i maksymą Arthura Brisbane’a.",
+  "overviewEN": "The project treats its rule system as the artwork. An input image is repeatedly described, expanded, and reduced before successive text layers are composed with the image and Arthur Brisbane’s maxim.",
+  "yearPL": "2026",
+  "yearEN": "2026",
+  "disciplinesPL": "projektowanie protokołu, typografia, wideo",
+  "disciplinesEN": "protocol design, typography, video",
+  "formatPL": "cztery wydruki 100 × 70 cm i projekt wideo",
+  "formatEN": "four 100 × 70 cm prints and a video project",
+  "rolePL": "projekt systemu, wykonanie protokołu, kompozycja",
+  "roleEN": "system design, protocol execution, composition",
+  "processHeadingPL": "Od tysiąca słów do dwóch.",
+  "processHeadingEN": "From a thousand words to two.",
+  "processPL": "Proces rozwija opis obrazu do około 1000 słów, następnie iteracyjnie redukuje go do dwóch wyrazów i łączy wszystkie etapy opisu z obrazem wejściowym. Protokół udostępniono na licencji CC0 1.0.",
+  "processEN": "The process expands an image description to roughly 1,000 words, iteratively reduces it to two terms, and combines the descriptive stages with the input image. The protocol is released under CC0 1.0.",
+  "creditsPL": "Aneks dyplomowy zrealizowany pod kierunkiem prof. dr. hab. Jarosława Bujnego.",
+  "creditsEN": "Diploma annex supervised by Prof. Jarosław Bujny.",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/para-analog-on-01-w.webp",
+    "ratio": "16/8",
+    "fit": "contain",
+    "altPL": "Aneks dyplomowy: otwarty protokół przekształcający opis obrazu od tysiąca słów do dwóch kluczowych wyrazów.",
+    "altEN": "Diploma annex: an open protocol transforming an image description from one thousand words into two key terms.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "hero": {
+    "kind": "group",
+    "items": [
+      {
+        "kind": "image",
+        "src": "assets/media/degree/para-analog-on-01-w.webp",
+        "ratio": "7/10",
+        "fit": "contain",
+        "altPL": "W — pierwszy wydruk systemu Para-analog-on.",
+        "altEN": "W — first print in the Para-analog-on system.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      },
+      {
+        "kind": "image",
+        "src": "assets/media/degree/para-analog-on-02-o.webp",
+        "ratio": "7/10",
+        "fit": "contain",
+        "altPL": "O — drugi wydruk systemu Para-analog-on.",
+        "altEN": "O — second print in the Para-analog-on system.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      },
+      {
+        "kind": "image",
+        "src": "assets/media/degree/para-analog-on-03-r.webp",
+        "ratio": "7/10",
+        "fit": "contain",
+        "altPL": "R — trzeci wydruk systemu Para-analog-on.",
+        "altEN": "R — third print in the Para-analog-on system.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      },
+      {
+        "kind": "image",
+        "src": "assets/media/degree/para-analog-on-04-d.webp",
+        "ratio": "7/10",
+        "fit": "contain",
+        "altPL": "D — czwarty wydruk systemu Para-analog-on.",
+        "altEN": "D — fourth print in the Para-analog-on system.",
+        "hasTransparency": false,
+        "transparencyMode": "auto"
+      }
+    ],
+    "ratio": "2/1"
+  },
+  "thumbnail": {
+    "kind": "image",
+    "src": "assets/media/degree/para-analog-on-01-w.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Aneks dyplomowy: otwarty protokół przekształcający opis obrazu od tysiąca słów do dwóch kluczowych wyrazów.",
+    "altEN": "Diploma annex: an open protocol transforming an image description from one thousand words into two key terms.",
+    "hasTransparency": false,
+    "objectPosition": "50% 0%",
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0
+    },
+    "transparencyMode": "auto"
+  },
+  "related": [
+    "latentne",
+    "gaijin-no-mittsu-no-kuusou"
+  ],
+  "detailSequenceIds": [
+    "para-analog-on-01-w",
+    "para-analog-on-02-o",
+    "para-analog-on-03-r",
+    "para-analog-on-04-d",
+    "para-analog-on-05-video"
+  ],
+  "seo": {
+    "titlePL": "Para-analog-on — Wiktor Sielaszuk",
+    "titleEN": "Para-analog-on — Wiktor Sielaszuk",
+    "descriptionPL": "Aneks dyplomowy: otwarty protokół przekształcający opis obrazu od tysiąca słów do dwóch kluczowych wyrazów.",
+    "descriptionEN": "Diploma annex: an open protocol transforming an image description from one thousand words into two key terms.",
+    "image": "assets/media/degree/para-analog-on-01-w.webp",
+    "imageAltPL": "Aneks dyplomowy: otwarty protokół przekształcający opis obrazu od tysiąca słów do dwóch kluczowych wyrazów.",
+    "imageAltEN": "Diploma annex: an open protocol transforming an image description from one thousand words into two key terms."
+  }
+}

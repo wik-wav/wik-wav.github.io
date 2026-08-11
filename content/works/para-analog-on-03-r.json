@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 15,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/para-analog-on-03-r.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Gęsta czarno-biała kompozycja typograficzna z literą R i warstwami opisów.",
+      "altEN": "Dense black-and-white typographic composition with an R and layered descriptions.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/para-analog-on-03-r.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Gęsta czarno-biała kompozycja typograficzna z literą R i warstwami opisów.",
+      "altEN": "Dense black-and-white typographic composition with an R and layered descriptions.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "para-analog-on-03-r",
+  "project": "para-analog-on",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "poster",
+    "typography",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/para-analog-on-03-r.webp",
+    "ratio": "7/10",
+    "fit": "cover",
+    "altPL": "Gęsta czarno-biała kompozycja typograficzna z literą R i warstwami opisów.",
+    "altEN": "Dense black-and-white typographic composition with an R and layered descriptions.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "R",
+  "titleEN": "R",
+  "summaryPL": "Plansza 3 z czteroczęściowej realizacji protokołu Para-analog-on.",
+  "summaryEN": "Board 3 from the four-part Para-analog-on protocol execution.",
+  "altPL": "Gęsta czarno-biała kompozycja typograficzna z literą R i warstwami opisów.",
+  "altEN": "Dense black-and-white typographic composition with an R and layered descriptions.",
+  "captionPL": "Wiktor Sielaszuk, R, z cyklu „Para-analog-on”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, R, from the Para-analog-on series, digital artwork, 2026.",
+  "detailOnly": false
+}

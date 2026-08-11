@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 9,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-09-emergent-hardware-detail-1.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Pionowy detal w żółci i turkusie z geometrycznymi konturami oraz cyfrowymi śladami.",
+      "altEN": "Portrait detail in yellow and turquoise with geometric outlines and digital traces.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-09-emergent-hardware-detail-1.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Pionowy detal w żółci i turkusie z geometrycznymi konturami oraz cyfrowymi śladami.",
+      "altEN": "Portrait detail in yellow and turquoise with geometric outlines and digital traces.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "latentne-09-emergent-hardware-detail-1",
+  "project": "latentne",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/latentne-09-emergent-hardware-detail-1.webp",
+    "ratio": "7/10",
+    "fit": "cover",
+    "altPL": "Pionowy detal w żółci i turkusie z geometrycznymi konturami oraz cyfrowymi śladami.",
+    "altEN": "Portrait detail in yellow and turquoise with geometric outlines and digital traces.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Emergent Hardware — Detail 1",
+  "titleEN": "Emergent Hardware — Detail 1",
+  "summaryPL": "Praca 9 z 12-częściowego cyklu „Latentne”.",
+  "summaryEN": "Work 9 from the 12-part Latentne series.",
+  "altPL": "Pionowy detal w żółci i turkusie z geometrycznymi konturami oraz cyfrowymi śladami.",
+  "altEN": "Portrait detail in yellow and turquoise with geometric outlines and digital traces.",
+  "captionPL": "Wiktor Sielaszuk, Emergent Hardware — detal 1, z cyklu „Latentne”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, Emergent Hardware — Detail 1, from the Latentne series, digital artwork, 2026.",
+  "detailOnly": false
+}

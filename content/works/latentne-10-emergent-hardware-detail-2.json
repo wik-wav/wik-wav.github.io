@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 10,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-10-emergent-hardware-detail-2.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Pionowy żółty detal z drobną siecią linii i turkusowym obrzeżem.",
+      "altEN": "Portrait yellow detail with a fine line network and turquoise edge.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-10-emergent-hardware-detail-2.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Pionowy żółty detal z drobną siecią linii i turkusowym obrzeżem.",
+      "altEN": "Portrait yellow detail with a fine line network and turquoise edge.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "latentne-10-emergent-hardware-detail-2",
+  "project": "latentne",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/latentne-10-emergent-hardware-detail-2.webp",
+    "ratio": "7/10",
+    "fit": "cover",
+    "altPL": "Pionowy żółty detal z drobną siecią linii i turkusowym obrzeżem.",
+    "altEN": "Portrait yellow detail with a fine line network and turquoise edge.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Emergent Hardware — Detail 2",
+  "titleEN": "Emergent Hardware — Detail 2",
+  "summaryPL": "Praca 10 z 12-częściowego cyklu „Latentne”.",
+  "summaryEN": "Work 10 from the 12-part Latentne series.",
+  "altPL": "Pionowy żółty detal z drobną siecią linii i turkusowym obrzeżem.",
+  "altEN": "Portrait yellow detail with a fine line network and turquoise edge.",
+  "captionPL": "Wiktor Sielaszuk, Emergent Hardware — detal 2, z cyklu „Latentne”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, Emergent Hardware — Detail 2, from the Latentne series, digital artwork, 2026.",
+  "detailOnly": false
+}

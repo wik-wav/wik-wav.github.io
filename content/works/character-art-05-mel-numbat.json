@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 56,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-05-mel-numbat.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa postać o niebieskoszarym futrze, w szerokich spodniach i jasnym topie.",
+      "altEN": "Full-body blue-grey numbat character in wide trousers and a light top.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-05-mel-numbat.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa postać o niebieskoszarym futrze, w szerokich spodniach i jasnym topie.",
+      "altEN": "Full-body blue-grey numbat character in wide trousers and a light top.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "character-art-05-mel-numbat",
+  "project": "character-art",
+  "collections": [
+    "character-art"
+  ],
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "character-art",
+    "illustration"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-05-mel-numbat.webp",
+    "ratio": "7/10",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowa postać o niebieskoszarym futrze, w szerokich spodniach i jasnym topie.",
+    "altEN": "Full-body blue-grey numbat character in wide trousers and a light top.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.518,
+      "y": 0.238
+    }
+  },
+  "titlePL": "Mel — numbat",
+  "titleEN": "Mel — numbat",
+  "summaryPL": "Autorska ilustracja postaci.",
+  "summaryEN": "An original character illustration.",
+  "altPL": "Pełnopostaciowa postać o niebieskoszarym futrze, w szerokich spodniach i jasnym topie.",
+  "altEN": "Full-body blue-grey numbat character in wide trousers and a light top.",
+  "captionPL": "Mel — numbat — ilustracja cyfrowa.",
+  "captionEN": "Mel — numbat—digital illustration.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

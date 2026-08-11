@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 59,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-08-lem-wardrobe-turnaround.webp",
+      "ratio": "6/5",
+      "fit": "contain",
+      "altPL": "Plansza formy Mongoose postaci Lem z widokami sylwetki w stroju oraz zestawem elementów garderoby i paletą.",
+      "altEN": "Lem Mongoose-form sheet with dressed figure views plus wardrobe elements and a colour palette.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-08-lem-wardrobe-turnaround.webp",
+      "ratio": "6/5",
+      "fit": "contain",
+      "altPL": "Plansza formy Mongoose postaci Lem z widokami sylwetki w stroju oraz zestawem elementów garderoby i paletą.",
+      "altEN": "Lem Mongoose-form sheet with dressed figure views plus wardrobe elements and a colour palette.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "character-art-08-lem-wardrobe-turnaround",
+  "project": "lem",
+  "collections": [
+    "character-art"
+  ],
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "character-art",
+    "character-design"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-08-lem-wardrobe-turnaround.webp",
+    "ratio": "6/5",
+    "fit": "contain",
+    "altPL": "Plansza formy Mongoose postaci Lem z widokami sylwetki w stroju oraz zestawem elementów garderoby i paletą.",
+    "altEN": "Lem Mongoose-form sheet with dressed figure views plus wardrobe elements and a colour palette.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.75,
+      "y": 0.164
+    }
+  },
+  "titlePL": "Lem — Mongoose — plansza stroju",
+  "titleEN": "Lem — Mongoose wardrobe sheet",
+  "summaryPL": "Plansza dokumentująca strój, proporcje i elementy wizualne formy Mongoose postaci Lem.",
+  "summaryEN": "A sheet documenting the outfit, proportions, and visual elements of Lem’s Mongoose form.",
+  "altPL": "Plansza formy Mongoose postaci Lem z widokami sylwetki w stroju oraz zestawem elementów garderoby i paletą.",
+  "altEN": "Lem Mongoose-form sheet with dressed figure views plus wardrobe elements and a colour palette.",
+  "captionPL": "Forma Mongoose postaci Lem — plansza stroju.",
+  "captionEN": "Lem’s Mongoose form — wardrobe sheet.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

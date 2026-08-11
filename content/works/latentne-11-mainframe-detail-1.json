@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 11,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-11-mainframe-detail-1.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Pionowy detal z nakładającymi się turkusowymi i kobaltowymi prostokątami.",
+      "altEN": "Portrait detail with overlapping turquoise and cobalt rectangles.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-11-mainframe-detail-1.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Pionowy detal z nakładającymi się turkusowymi i kobaltowymi prostokątami.",
+      "altEN": "Portrait detail with overlapping turquoise and cobalt rectangles.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "latentne-11-mainframe-detail-1",
+  "project": "latentne",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/latentne-11-mainframe-detail-1.webp",
+    "ratio": "7/10",
+    "fit": "cover",
+    "altPL": "Pionowy detal z nakładającymi się turkusowymi i kobaltowymi prostokątami.",
+    "altEN": "Portrait detail with overlapping turquoise and cobalt rectangles.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Mainframe — Detail 1",
+  "titleEN": "Mainframe — Detail 1",
+  "summaryPL": "Praca 11 z 12-częściowego cyklu „Latentne”.",
+  "summaryEN": "Work 11 from the 12-part Latentne series.",
+  "altPL": "Pionowy detal z nakładającymi się turkusowymi i kobaltowymi prostokątami.",
+  "altEN": "Portrait detail with overlapping turquoise and cobalt rectangles.",
+  "captionPL": "Wiktor Sielaszuk, Mainframe — detal 1, z cyklu „Latentne”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, Mainframe — Detail 1, from the Latentne series, digital artwork, 2026.",
+  "detailOnly": false
+}

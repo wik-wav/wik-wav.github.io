@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 65,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-mockup-03.webp",
+      "ratio": "4/3",
+      "fit": "cover",
+      "altPL": "Mockup fioletowo-zielonej rozkładówki zina i tylnej okładki na szklanym stole.",
+      "altEN": "Mockup of a purple-and-green zine spread and back cover on a glass table.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-generated",
+        "shortPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+        "shortEN": "AI-generated image — zine visualisation.",
+        "detailPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+        "detailEN": "AI-generated image — zine visualisation."
+      },
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-mockup-03.webp",
+      "ratio": "4/3",
+      "fit": "cover",
+      "altPL": "Mockup fioletowo-zielonej rozkładówki zina i tylnej okładki na szklanym stole.",
+      "altEN": "Mockup of a purple-and-green zine spread and back cover on a glass table.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-generated",
+        "shortPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+        "shortEN": "AI-generated image — zine visualisation.",
+        "detailPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+        "detailEN": "AI-generated image — zine visualisation."
+      },
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": false,
+  "projectPageVisible": true,
+  "mediaType": "image",
+  "types": [],
+  "medium": "digital",
+  "year": "",
+  "summaryPL": "Wizualizacja prezentacyjna rozkładówki.",
+  "summaryEN": "Presentation visualisation of a spread.",
+  "altPL": "Mockup fioletowo-zielonej rozkładówki zina i tylnej okładki na szklanym stole.",
+  "altEN": "Mockup of a purple-and-green zine spread and back cover on a glass table.",
+  "id": "windows-zine-mockup-03",
+  "projectGroup": "windows-zine-mockups",
+  "projectGroupLabelPL": "Wizualizacje zina",
+  "projectGroupLabelEN": "Zine visualisations",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/windows-zine/windows-zine-mockup-03.webp",
+    "ratio": "4/3",
+    "fit": "cover",
+    "altPL": "Mockup fioletowo-zielonej rozkładówki zina i tylnej okładki na szklanym stole.",
+    "altEN": "Mockup of a purple-and-green zine spread and back cover on a glass table.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-generated",
+      "shortPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+      "shortEN": "AI-generated image — zine visualisation.",
+      "detailPL": "Obraz wygenerowany przez AI — wizualizacja zina.",
+      "detailEN": "AI-generated image — zine visualisation."
+    },
+    "transparencyMode": "auto"
+  },
+  "titlePL": "WIN / DOWS — wizualizacja 03",
+  "titleEN": "WIN / DOWS — visualisation 03",
+  "captionPL": "Wizualizacja prezentacyjna rozkładówki.",
+  "captionEN": "Presentation visualisation of a spread.",
+  "project": "windows-zine",
+  "detailOnly": true
+}

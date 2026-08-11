@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 39,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-page-02.webp",
+      "ratio": "10/7",
+      "fit": "contain",
+      "altPL": "Rozkładówka z tekstem, niebiesko-turkusową skanografią monitora i rozciągniętą typografią.",
+      "altEN": "Spread with text, blue-and-turquoise scanography of a monitor, and stretched typography.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-elements",
+        "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+        "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+      },
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/windows-zine/windows-zine-page-02.webp",
+      "ratio": "10/7",
+      "fit": "contain",
+      "altPL": "Rozkładówka z tekstem, niebiesko-turkusową skanografią monitora i rozciągniętą typografią.",
+      "altEN": "Spread with text, blue-and-turquoise scanography of a monitor, and stretched typography.",
+      "hasTransparency": false,
+      "disclosure": {
+        "kind": "ai-elements",
+        "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+        "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+        "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+      },
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "windows-zine-page-02",
+  "project": "windows-zine",
+  "year": "2023",
+  "medium": "digital",
+  "types": [
+    "editorial",
+    "scanography",
+    "typography",
+    "design"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/windows-zine/windows-zine-page-02.webp",
+    "ratio": "10/7",
+    "fit": "contain",
+    "altPL": "Rozkładówka z tekstem, niebiesko-turkusową skanografią monitora i rozciągniętą typografią.",
+    "altEN": "Spread with text, blue-and-turquoise scanography of a monitor, and stretched typography.",
+    "hasTransparency": false,
+    "disclosure": {
+      "kind": "ai-elements",
+      "shortPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+      "shortEN": "Contains AI-generated elements — ASCII art: ChatGPT.",
+      "detailPL": "Zawiera elementy wygenerowane przez AI — ASCII art: ChatGPT.",
+      "detailEN": "Contains AI-generated elements — ASCII art: ChatGPT."
+    },
+    "transparencyMode": "auto"
+  },
+  "titlePL": "WIN / DOWS — Rozkładówka otwierająca",
+  "titleEN": "WIN / DOWS — Opening spread",
+  "summaryPL": "Rozkładówka zina łączącego autorską redakcję i skanografię z ASCII artem powstałym w rozmowie z ChatGPT.",
+  "summaryEN": "A zine spread combining original editing and scanography with ASCII art created in conversation with ChatGPT.",
+  "altPL": "Rozkładówka z tekstem, niebiesko-turkusową skanografią monitora i rozciągniętą typografią.",
+  "altEN": "Spread with text, blue-and-turquoise scanography of a monitor, and stretched typography.",
+  "captionPL": "WIN / DOWS, rozkładówka otwierająca, 2023.",
+  "captionEN": "WIN / DOWS, opening spread, 2023.",
+  "provenance": {
+    "source": "XMP źródłowego pliku / source-file XMP",
+    "creationYear": "2023"
+  },
+  "detailOnly": false
+}

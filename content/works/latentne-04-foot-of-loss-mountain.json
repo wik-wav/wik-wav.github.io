@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 4,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-04-foot-of-loss-mountain.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Kobaltowa kompozycja z krystalicznymi strukturami, czarnymi płaszczyznami i turkusowymi refleksami.",
+      "altEN": "Cobalt composition with crystalline structures, black planes, and turquoise highlights.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-04-foot-of-loss-mountain.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Kobaltowa kompozycja z krystalicznymi strukturami, czarnymi płaszczyznami i turkusowymi refleksami.",
+      "altEN": "Cobalt composition with crystalline structures, black planes, and turquoise highlights.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "latentne-04-foot-of-loss-mountain",
+  "project": "latentne",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/latentne-04-foot-of-loss-mountain.webp",
+    "ratio": "10/7",
+    "fit": "cover",
+    "altPL": "Kobaltowa kompozycja z krystalicznymi strukturami, czarnymi płaszczyznami i turkusowymi refleksami.",
+    "altEN": "Cobalt composition with crystalline structures, black planes, and turquoise highlights.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Foot of Loss Mountain",
+  "titleEN": "Foot of Loss Mountain",
+  "summaryPL": "Praca 4 z 12-częściowego cyklu „Latentne”.",
+  "summaryEN": "Work 4 from the 12-part Latentne series.",
+  "altPL": "Kobaltowa kompozycja z krystalicznymi strukturami, czarnymi płaszczyznami i turkusowymi refleksami.",
+  "altEN": "Cobalt composition with crystalline structures, black planes, and turquoise highlights.",
+  "captionPL": "Wiktor Sielaszuk, Foot of Loss Mountain, z cyklu „Latentne”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, Foot of Loss Mountain, from the Latentne series, digital artwork, 2026.",
+  "detailOnly": false
+}

@@ -1,9 +1,13 @@
 import { defineConfig } from "vite";
 import { relative, resolve } from "node:path";
+import { readFileSync } from "node:fs";
 import { cp } from "node:fs/promises";
 import { ORIGIN, projectRoutes, routeMetadata } from "./seo-metadata.ts";
 
 const projectRoot = import.meta.dirname;
+const generatedManifest = JSON.parse(readFileSync(resolve(projectRoot, "generated/site-manifest.json"), "utf8")) as {
+  routes: Array<{ name: string; file: string }>;
+};
 const htmlEscape = (value: string) => value.replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]!);
 const routeForFile = (filename: string) => {
   const file = relative(projectRoot, filename).replaceAll("\\", "/").replace(/^\.\//, "");
@@ -15,8 +19,8 @@ const jsonLd = (route: string) => {
   const meta = routeMetadata[route];
   const person = { "@type": "Person", "@id": `${ORIGIN}/#person`, name: "Wiktor Sielaszuk", url: `${ORIGIN}/`, email: "mailto:wiktor.sielaszuk.22@gmail.com", sameAs: ["https://github.com/wik-wav", "https://www.linkedin.com/in/wiktor-sielaszuk"] };
   if (route === "/") return { "@context": "https://schema.org", "@graph": [person, { "@type": "WebSite", "@id": `${ORIGIN}/#website`, name: "Wiktor Sielaszuk — portfolio", url: `${ORIGIN}/`, inLanguage: ["pl", "en"], author: { "@id": `${ORIGIN}/#person` } }] };
-  if (route === "/portfolio/" || route === "/projects/") return { "@context": "https://schema.org", "@type": "CollectionPage", name: meta.titlePL, description: meta.descriptionPL, url: `${ORIGIN}${route.slice(1)}`, inLanguage: "pl", author: { "@id": `${ORIGIN}/#person` }, mainEntity: { "@type": "ItemList", itemListElement: projectRoutes.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: routeMetadata[item].titlePL.replace(" — Wiktor Sielaszuk", ""), url: `${ORIGIN}${item}` })) } };
-  return { "@context": "https://schema.org", "@type": "CreativeWork", name: meta.titlePL.replace(" — Wiktor Sielaszuk", ""), description: meta.descriptionPL, url: `${ORIGIN}${route.slice(1)}`, image: `${ORIGIN}${meta.image}`, inLanguage: ["pl", "en"], creator: { "@id": `${ORIGIN}/#person` }, ...(meta.year ? { dateCreated: meta.year } : {}) };
+  if (route === "/portfolio/" || route === "/projects/") return { "@context": "https://schema.org", "@type": "CollectionPage", name: meta.titlePL, description: meta.descriptionPL, url: `${ORIGIN}${route}`, inLanguage: ["pl", "en"], author: { "@id": `${ORIGIN}/#person` }, mainEntity: { "@type": "ItemList", itemListElement: projectRoutes.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: routeMetadata[item].titlePL.replace(" — Wiktor Sielaszuk", ""), url: `${ORIGIN}${item}` })) } };
+  return { "@context": "https://schema.org", "@type": "CreativeWork", name: meta.titlePL.replace(" — Wiktor Sielaszuk", ""), description: meta.descriptionPL, url: `${ORIGIN}${route}`, image: meta.image ? `${ORIGIN}/${meta.image.replace(/^public\//, "").replace(/^\//, "")}` : undefined, inLanguage: ["pl", "en"], creator: { "@id": `${ORIGIN}/#person` }, ...(meta.year ? { dateCreated: meta.year } : {}) };
 };
 
 const routeSeo = () => ({
@@ -24,12 +28,19 @@ const routeSeo = () => ({
   order: "post" as const,
   transformIndexHtml(html: string, context: { filename: string }) {
     const route = routeForFile(context.filename);
+    if (route.startsWith("/studio-preview/")) {
+      return html.replace("</head>", '  <meta name="robots" content="noindex,nofollow">\n</head>');
+    }
     const meta = routeMetadata[route];
     if (!meta) throw new Error(`Missing route metadata for ${route}`);
     const canonical = route === "/" ? `${ORIGIN}/` : `${ORIGIN}${route}`;
-    const social = `${ORIGIN}/og-social.png`;
-    const socialAltPL = "Wygenerowana przez AI wizualizacja podglądu portfolio Wiktora Sielaszuka.";
-    const socialAltEN = "AI-generated visualisation previewing Wiktor Sielaszuk’s portfolio.";
+    const socialPath = meta.image ? meta.image.replace(/^public\//, "").replace(/^\//, "") : "og-social.png";
+    const social = `${ORIGIN}/${socialPath}`;
+    const socialDimensions = socialPath === "og-social.png"
+      ? '\n  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'
+      : "";
+    const socialAltPL = meta.imageAltPL || "Podgląd portfolio Wiktora Sielaszuka.";
+    const socialAltEN = meta.imageAltEN || "Preview of Wiktor Sielaszuk’s portfolio.";
     html = html.replace(/<title[^>]*>[\s\S]*?<\/title>/i, `<title data-pl="${htmlEscape(meta.titlePL)}" data-en="${htmlEscape(meta.titleEN)}">${htmlEscape(meta.titlePL)}</title>`);
     html = html.replace(/<meta name="description"[^>]*>/i, `<meta name="description" content="${htmlEscape(meta.descriptionPL)}" data-content-pl="${htmlEscape(meta.descriptionPL)}" data-content-en="${htmlEscape(meta.descriptionEN)}">`);
     const tags = `
@@ -42,8 +53,7 @@ const routeSeo = () => ({
   <meta property="og:title" content="${htmlEscape(meta.titlePL)}" data-content-pl="${htmlEscape(meta.titlePL)}" data-content-en="${htmlEscape(meta.titleEN)}">
   <meta property="og:description" content="${htmlEscape(meta.descriptionPL)}" data-content-pl="${htmlEscape(meta.descriptionPL)}" data-content-en="${htmlEscape(meta.descriptionEN)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${social}">
-  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta property="og:image" content="${social}">${socialDimensions}
   <meta property="og:image:alt" content="${htmlEscape(socialAltPL)}" data-content-pl="${htmlEscape(socialAltPL)}" data-content-en="${htmlEscape(socialAltEN)}">
   <meta property="og:site_name" content="Wiktor Sielaszuk — portfolio">
   <meta property="og:locale" content="pl_PL"><meta property="og:locale:alternate" content="en_GB">
@@ -76,22 +86,7 @@ export default defineConfig({
   build: {
     outDir: "dist",
     rollupOptions: {
-      input: {
-        home: resolve(projectRoot, "index.html"),
-        portfolio: resolve(projectRoot, "portfolio/index.html"),
-        projects: resolve(projectRoot, "projects/index.html"),
-        latentne: resolve(projectRoot, "projects/latentne/index.html"),
-        paraAnalogOn: resolve(projectRoot, "projects/para-analog-on/index.html"),
-        gaijin: resolve(projectRoot, "projects/gaijin-no-mittsu-no-kuusou/index.html"),
-        lem: resolve(projectRoot, "projects/lem/index.html"),
-        lozengeT: resolve(projectRoot, "projects/lozenge-t/index.html"),
-        bookCover: resolve(projectRoot, "projects/book-cover/index.html"),
-        windowsZine: resolve(projectRoot, "projects/windows-zine/index.html"),
-        coverArt: resolve(projectRoot, "projects/cover-art/index.html"),
-        smallDesignProjects: resolve(projectRoot, "projects/small-design-projects/index.html"),
-        characterArt: resolve(projectRoot, "projects/character-art/index.html"),
-        dissonancePerspective: resolve(projectRoot, "projects/dissonance-perspective/index.html")
-      }
+      input: Object.fromEntries(generatedManifest.routes.map(route => [route.name, resolve(projectRoot, route.file)]))
     }
   }
 });

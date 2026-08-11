@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 34,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/phascogale-lem-holding-camera.webp",
+      "ratio": "10/7",
+      "fit": "contain",
+      "altPL": "Forma Phascogale postaci Lem trzyma aparat z obiektywem szerokokątnym, ubrana w krótką bluzę i spodnie dresowe.",
+      "altEN": "Lem’s Phascogale form holding a camera with a wide-angle lens, wearing a cropped hoodie and joggers.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/phascogale-lem-holding-camera.webp",
+      "ratio": "10/7",
+      "fit": "contain",
+      "altPL": "Forma Phascogale postaci Lem trzyma aparat z obiektywem szerokokątnym, ubrana w krótką bluzę i spodnie dresowe.",
+      "altEN": "Lem’s Phascogale form holding a camera with a wide-angle lens, wearing a cropped hoodie and joggers.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-14-phascogale-camera",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/phascogale-lem-holding-camera.webp",
+    "ratio": "10/7",
+    "fit": "contain",
+    "altPL": "Forma Phascogale postaci Lem trzyma aparat z obiektywem szerokokątnym, ubrana w krótką bluzę i spodnie dresowe.",
+    "altEN": "Lem’s Phascogale form holding a camera with a wide-angle lens, wearing a cropped hoodie and joggers.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.635,
+      "y": 0.211
+    }
+  },
+  "titlePL": "Phascogale — scena",
+  "titleEN": "Phascogale — scene",
+  "summaryPL": "Ilustracyjne zastosowanie formy Phascogale w scenie narracyjnej.",
+  "summaryEN": "An illustrative use of the Phascogale form in a narrative scene.",
+  "altPL": "Forma Phascogale postaci Lem trzyma aparat z obiektywem szerokokątnym, ubrana w krótką bluzę i spodnie dresowe.",
+  "altEN": "Lem’s Phascogale form holding a camera with a wide-angle lens, wearing a cropped hoodie and joggers.",
+  "captionPL": "Ilustracja formy Phascogale w scenie z aparatem.",
+  "captionEN": "Illustration of the Phascogale form in a camera scene.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 33,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/lem/lem-v3-utau-weasel-illustration.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa forma Weasel postaci Lem, uśmiechnięta, z uniesionymi rękami, w różowej wzorzystej koszulce i z dużą kokardą na ogonie.",
+      "altEN": "Full-body Lem Weasel form smiling with both arms raised, wearing a patterned pink shirt and a large bow on the tail.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/lem/lem-v3-utau-weasel-illustration.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa forma Weasel postaci Lem, uśmiechnięta, z uniesionymi rękami, w różowej wzorzystej koszulce i z dużą kokardą na ogonie.",
+      "altEN": "Full-body Lem Weasel form smiling with both arms raised, wearing a patterned pink shirt and a large bow on the tail.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "project": "lem",
+  "year": "",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "character-design",
+    "vocal-synthesis"
+  ],
+  "mediaType": "image",
+  "id": "lem-12-v3-weasel-illustration",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/lem/lem-v3-utau-weasel-illustration.webp",
+    "ratio": "7/10",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowa forma Weasel postaci Lem, uśmiechnięta, z uniesionymi rękami, w różowej wzorzystej koszulce i z dużą kokardą na ogonie.",
+    "altEN": "Full-body Lem Weasel form smiling with both arms raised, wearing a patterned pink shirt and a large bow on the tail.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.504,
+      "y": 0.261
+    }
+  },
+  "titlePL": "V3 Weasel — ilustracja",
+  "titleEN": "V3 Weasel — illustration",
+  "summaryPL": "Wizualna forma dla dziewięciotonowej biblioteki Japanese VCV.",
+  "summaryEN": "Visual form for the nine-pitch Japanese VCV voicebank.",
+  "altPL": "Pełnopostaciowa forma Weasel postaci Lem, uśmiechnięta, z uniesionymi rękami, w różowej wzorzystej koszulce i z dużą kokardą na ogonie.",
+  "altEN": "Full-body Lem Weasel form smiling with both arms raised, wearing a patterned pink shirt and a large bow on the tail.",
+  "captionPL": "V3 Weasel — Japanese VCV, dziewięć wysokości, G2–A4.",
+  "captionEN": "V3 Weasel—Japanese VCV, nine pitches, G2–A4.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

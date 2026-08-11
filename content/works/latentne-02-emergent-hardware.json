@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 2,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-02-emergent-hardware.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Gęsta kobaltowa kompozycja z turkusowymi liniami, blokami i rozproszonymi czarnymi modułami.",
+      "altEN": "Dense cobalt composition with turquoise lines, blocks, and scattered black modules.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-02-emergent-hardware.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Gęsta kobaltowa kompozycja z turkusowymi liniami, blokami i rozproszonymi czarnymi modułami.",
+      "altEN": "Dense cobalt composition with turquoise lines, blocks, and scattered black modules.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "latentne-02-emergent-hardware",
+  "project": "latentne",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/latentne-02-emergent-hardware.webp",
+    "ratio": "10/7",
+    "fit": "cover",
+    "altPL": "Gęsta kobaltowa kompozycja z turkusowymi liniami, blokami i rozproszonymi czarnymi modułami.",
+    "altEN": "Dense cobalt composition with turquoise lines, blocks, and scattered black modules.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Emergent Hardware",
+  "titleEN": "Emergent Hardware",
+  "summaryPL": "Praca 2 z 12-częściowego cyklu „Latentne”.",
+  "summaryEN": "Work 2 from the 12-part Latentne series.",
+  "altPL": "Gęsta kobaltowa kompozycja z turkusowymi liniami, blokami i rozproszonymi czarnymi modułami.",
+  "altEN": "Dense cobalt composition with turquoise lines, blocks, and scattered black modules.",
+  "captionPL": "Wiktor Sielaszuk, Emergent Hardware, z cyklu „Latentne”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, Emergent Hardware, from the Latentne series, digital artwork, 2026.",
+  "detailOnly": false
+}

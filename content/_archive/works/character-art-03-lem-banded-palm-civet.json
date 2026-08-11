@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 54,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-03-lem-banded-palm-civet.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa forma Lem w ciepłej palecie żółci, pomarańczu i różu, z długim ogonem.",
+      "altEN": "Full-body Lem form in a warm yellow, orange, and pink palette with a long tail.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-03-lem-banded-palm-civet.webp",
+      "ratio": "7/10",
+      "fit": "contain",
+      "altPL": "Pełnopostaciowa forma Lem w ciepłej palecie żółci, pomarańczu i różu, z długim ogonem.",
+      "altEN": "Full-body Lem form in a warm yellow, orange, and pink palette with a long tail.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "character-art-03-lem-banded-palm-civet",
+  "project": "lem",
+  "collections": [
+    "character-art"
+  ],
+  "year": null,
+  "medium": "digital",
+  "types": [
+    "character-art",
+    "illustration"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-03-lem-banded-palm-civet.webp",
+    "ratio": "7/10",
+    "fit": "contain",
+    "altPL": "Pełnopostaciowa forma Lem w ciepłej palecie żółci, pomarańczu i różu, z długim ogonem.",
+    "altEN": "Full-body Lem form in a warm yellow, orange, and pink palette with a long tail.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Lem — Banded Palm Civet",
+  "titleEN": "Lem — Banded Palm Civet",
+  "summaryPL": "Autorska ilustracja postaci.",
+  "summaryEN": "An original character illustration.",
+  "altPL": "Pełnopostaciowa forma Lem w ciepłej palecie żółci, pomarańczu i różu, z długim ogonem.",
+  "altEN": "Full-body Lem form in a warm yellow, orange, and pink palette with a long tail.",
+  "captionPL": "Lem — Banded Palm Civet — ilustracja cyfrowa.",
+  "captionEN": "Lem — Banded Palm Civet—digital illustration.",
+  "detailOnly": false,
+  "archivedAt": "2026-08-11T16:33:34.083Z"
+}

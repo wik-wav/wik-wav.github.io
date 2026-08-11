@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "deterministic",
+  "routes": [
+    {
+      "name": "home",
+      "route": "/",
+      "file": "index.html"
+    },
+    {
+      "name": "portfolio",
+      "route": "/portfolio/",
+      "file": "portfolio/index.html"
+    },
+    {
+      "name": "projects",
+      "route": "/projects/",
+      "file": "projects/index.html"
+    },
+    {
+      "name": "latentne",
+      "route": "/projects/latentne/",
+      "file": "projects/latentne/index.html",
+      "recordType": "project"
+    },
+    {
+      "name": "para-analog-on",
+      "route": "/projects/para-analog-on/",
+      "file": "projects/para-analog-on/index.html",
+      "recordType": "project"
+    },
+    {
+      "name": "gaijin-no-mittsu-no-kuusou",
+      "route": "/projects/gaijin-no-mittsu-no-kuusou/",
+      "file": "projects/gaijin-no-mittsu-no-kuusou/index.html",
+      "recordType": "project"
+    },
+    {
+      "name": "dissonance-perspective",
+      "route": "/projects/dissonance-perspective/",
+      "file": "projects/dissonance-perspective/index.html",
+      "recordType": "project"
+    },
+    {
+      "name": "lem",
+      "route": "/projects/lem/",
+      "file": "projects/lem/index.html",
+      "recordType": "project"
+    },
+    {
+      "name": "lozenge-t",
+      "route": "/projects/lozenge-t/",
+      "file": "projects/lozenge-t/index.html",
+      "recordType": "project"
+    },
+    {
+      "name": "book-cover",
+      "route": "/projects/book-cover/",
+      "file": "projects/book-cover/index.html",
+      "recordType": "project"
+    },
+    {
+      "name": "character-art",
+      "route": "/projects/character-art/",
+      "file": "projects/character-art/index.html",
+      "recordType": "collection"
+    },
+    {
+      "name": "cover-art",
+      "route": "/projects/cover-art/",
+      "file": "projects/cover-art/index.html",
+      "recordType": "collection"
+    },
+    {
+      "name": "small-design-projects",
+      "route": "/projects/small-design-projects/",
+      "file": "projects/small-design-projects/index.html",
+      "recordType": "collection"
+    },
+    {
+      "name": "windows-zine",
+      "route": "/projects/windows-zine/",
+      "file": "projects/windows-zine/index.html",
+      "recordType": "project"
+    }
+  ]
+}

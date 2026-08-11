@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "id": "test",
+  "order": 69,
+  "published": false,
+  "draft": true,
+  "titlePL": "test",
+  "titleEN": "test",
+  "project": "",
+  "collections": [],
+  "year": "",
+  "medium": "digital",
+  "types": [],
+  "mediaType": "image",
+  "galleryVisible": false,
+  "projectPageVisible": true,
+  "detailOnly": false,
+  "summaryPL": "",
+  "summaryEN": "",
+  "altPL": "",
+  "altEN": "",
+  "captionPL": "",
+  "captionEN": "",
+  "cover": {
+    "kind": "image",
+    "src": "",
+    "ratio": "4/3",
+    "fit": "contain",
+    "altPL": "",
+    "altEN": "",
+    "transparencyMode": "auto",
+    "focalPoint": {
+      "x": 0.5,
+      "y": 0.5
+    }
+  },
+  "gallery": [],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "",
+      "ratio": "4/3",
+      "fit": "contain",
+      "altPL": "",
+      "altEN": "",
+      "transparencyMode": "auto",
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "featured": false,
+  "archivedAt": "2026-08-11T17:19:04.007Z"
+}

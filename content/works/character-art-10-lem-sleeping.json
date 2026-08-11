@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 61,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-10-lem-sleeping.webp",
+      "ratio": "3/4",
+      "fit": "contain",
+      "altPL": "Monochromatyczna ilustracja tuszem i lawowaniem: skulona, śpiąca antropomorficzna postać obejmuje nogi obok kwiatu.",
+      "altEN": "Monochrome ink-and-wash illustration of a curled, sleeping anthropomorphic figure holding their legs beside a flower.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": "",
+    "id": "",
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/character-art/character-art-10-lem-sleeping.webp",
+      "ratio": "3/4",
+      "fit": "contain",
+      "altPL": "Monochromatyczna ilustracja tuszem i lawowaniem: skulona, śpiąca antropomorficzna postać obejmuje nogi obok kwiatu.",
+      "altEN": "Monochrome ink-and-wash illustration of a curled, sleeping anthropomorphic figure holding their legs beside a flower.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    },
+    "url": "",
+    "bandcampType": "",
+    "embedSize": "",
+    "transcriptPL": "",
+    "transcriptEN": "",
+    "creditsPL": "",
+    "creditsEN": ""
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "character-art-10-lem-sleeping",
+  "project": "lem",
+  "collections": [
+    "character-art"
+  ],
+  "year": "",
+  "medium": "traditional",
+  "types": [
+    "character-art",
+    "illustration"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/character-art/character-art-10-lem-sleeping.webp",
+    "ratio": "3/4",
+    "fit": "contain",
+    "altPL": "Monochromatyczna ilustracja tuszem i lawowaniem: skulona, śpiąca antropomorficzna postać obejmuje nogi obok kwiatu.",
+    "altEN": "Monochrome ink-and-wash illustration of a curled, sleeping anthropomorphic figure holding their legs beside a flower.",
+    "hasTransparency": false,
+    "transparencyMode": "auto",
+    "viewerBackground": "light",
+    "focalPoint": {
+      "x": 0.531,
+      "y": 0.241
+    }
+  },
+  "titlePL": "Lem — sen",
+  "titleEN": "Lem — sleeping",
+  "summaryPL": "Autorska ilustracja postaci.",
+  "summaryEN": "An original character illustration.",
+  "altPL": "Monochromatyczna ilustracja tuszem i lawowaniem: skulona, śpiąca antropomorficzna postać obejmuje nogi obok kwiatu.",
+  "altEN": "Monochrome ink-and-wash illustration of a curled, sleeping anthropomorphic figure holding their legs beside a flower.",
+  "captionPL": "Lem — sen — rysunek tradycyjny.",
+  "captionEN": "Lem — sleeping—traditional drawing.",
+  "detailOnly": false,
+  "detailMediaSize": "",
+  "projectPageVisible": true,
+  "videoWarningPL": "",
+  "videoWarningEN": "",
+  "provenance": {
+    "source": "",
+    "creationYear": ""
+  }
+}

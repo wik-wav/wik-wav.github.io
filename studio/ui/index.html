@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="studio-token" content="__STUDIO_TOKEN__">
+  <meta name="preview-origin" content="__PREVIEW_ORIGIN__">
+  <title>Portfolio Studio</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div><p class="overline">LOCAL CONTENT TOOL</p><h1>Portfolio Studio</h1></div>
+    <div class="header-actions">
+      <span class="save-state" data-save-state aria-live="polite">Loading…</span>
+      <button type="button" class="button secondary" data-validate>Validate</button>
+      <button type="button" class="button" data-publish>Build for publishing</button>
+    </div>
+  </header>
+  <main class="app-grid">
+    <aside class="library" aria-label="Content library">
+      <button class="site-settings" type="button" data-open-site><span>Global</span><strong>Site, home & footer</strong></button>
+      <section><div class="library-heading"><h2>Projects</h2><button type="button" data-create="project" aria-label="Create project">+</button></div><ol data-list="projects"></ol></section>
+      <section class="works-browser-section"><div class="library-heading"><h2>Works <span class="library-count" data-work-count aria-live="polite"></span></h2><button type="button" data-create="work" aria-label="Create work">+</button></div><label class="search"><span>Search works, IDs or projects</span><input type="search" data-work-search></label><ol class="works-list" data-list="works" aria-label="Visual works browser"></ol><details class="archived-works" data-archived-works><summary>Archived works <span class="library-count" data-archive-count aria-live="polite"></span></summary><ol data-list="archived-works" aria-label="Archived works"></ol></details></section>
+    </aside>
+    <section class="editor" aria-live="polite">
+      <div class="empty-editor" data-empty><p class="overline">STRUCTURED CONTENT</p><h2>Choose an item to edit.</h2><p>Projects, artworks, captions, crop settings and SEO all live here. Source files are generated automatically when you save.</p></div>
+      <form data-editor hidden></form>
+    </section>
+    <aside class="preview-panel">
+      <div class="preview-head"><div><p class="overline">LIVE PREVIEW</p><h2 data-preview-title>Site</h2></div><a class="button secondary" data-preview-open href="__PREVIEW_ORIGIN__" target="_blank" rel="noopener">Open tab</a></div>
+      <iframe data-preview src="__PREVIEW_ORIGIN__" title="Live portfolio preview"></iframe>
+      <section class="diagnostics"><h2>Checks</h2><div data-diagnostics><p class="muted">Validation results will appear here.</p></div></section>
+    </aside>
+  </main>
+  <dialog data-create-dialog>
+    <form method="dialog" class="dialog-card">
+      <p class="overline">NEW CONTENT</p><h2 data-dialog-title>Create item</h2>
+      <label><span>Polish title</span><textarea name="titlePL" rows="1" data-auto-grow data-title-field required></textarea></label>
+      <label><span>Stable slug</span><input name="id" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="generated-from-title"></label>
+      <div class="dialog-actions"><button type="button" class="button secondary" value="cancel" data-dialog-cancel>Cancel</button><button class="button" value="create" data-dialog-submit>Create draft</button></div>
+    </form>
+  </dialog>
+  <dialog data-delete-archive-dialog>
+    <form method="dialog" class="dialog-card archive-delete-card">
+      <p class="overline">PERMANENT ARCHIVE DELETION</p><h2>Delete archived work?</h2>
+      <p>This removes only its archived JSON record. Media files remain untouched, and a formerly published stable address remains reserved.</p>
+      <p>Type <code data-delete-archive-id></code> to confirm.</p>
+      <label><span>Exact stable ID</span><input name="confirmId" data-delete-archive-confirm autocomplete="off" spellcheck="false"></label>
+      <div class="dialog-actions"><button type="button" class="button secondary" data-delete-archive-cancel>Cancel</button><button type="button" class="button danger" data-delete-archive-submit disabled>Delete archived JSON</button></div>
+    </form>
+  </dialog>
+</body>
+</html>

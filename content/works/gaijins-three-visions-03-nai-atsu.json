@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 20,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/gaijins-three-visions-03-nai-atsu.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Ciemny plakat z japońskimi znakami 内圧 i zwartą, centralną strukturą.",
+      "altEN": "Dark poster with the Japanese characters 内圧 and a compact central structure.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/gaijins-three-visions-03-nai-atsu.webp",
+      "ratio": "7/10",
+      "fit": "cover",
+      "altPL": "Ciemny plakat z japońskimi znakami 内圧 i zwartą, centralną strukturą.",
+      "altEN": "Dark poster with the Japanese characters 内圧 and a compact central structure.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "gaijins-three-visions-03-nai-atsu",
+  "project": "gaijin-no-mittsu-no-kuusou",
+  "year": "2024",
+  "medium": "digital",
+  "types": [
+    "poster",
+    "illustration",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/gaijins-three-visions-03-nai-atsu.webp",
+    "ratio": "7/10",
+    "fit": "cover",
+    "altPL": "Ciemny plakat z japońskimi znakami 内圧 i zwartą, centralną strukturą.",
+    "altEN": "Dark poster with the Japanese characters 内圧 and a compact central structure.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "内圧 / Nai Atsu / Internal Pressure",
+  "titleEN": "内圧 / Nai Atsu / Internal Pressure",
+  "summaryPL": "Plakat 3 z tryptyku „A Gaijin’s Three Visions”.",
+  "summaryEN": "Poster 3 from the A Gaijin’s Three Visions triptych.",
+  "altPL": "Ciemny plakat z japońskimi znakami 内圧 i zwartą, centralną strukturą.",
+  "altEN": "Dark poster with the Japanese characters 内圧 and a compact central structure.",
+  "captionPL": "Wiktor Sielaszuk, 内圧 / Nai Atsu / Internal Pressure, z cyklu „A Gaijin’s Three Visions”, grafika cyfrowa, 100 × 70 cm, 2024.",
+  "captionEN": "Wiktor Sielaszuk, 内圧 / Nai Atsu / Internal Pressure, from A Gaijin’s Three Visions, digital artwork, 100 × 70 cm, 2024.",
+  "detailOnly": false
+}

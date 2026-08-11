@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 6,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-06-loss-mountain-up-close.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Żółta kompozycja z turkusowym prostokątnym polem i miękkimi, poziomymi smugami.",
+      "altEN": "Yellow composition with a turquoise rectangular field and soft horizontal traces.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-06-loss-mountain-up-close.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Żółta kompozycja z turkusowym prostokątnym polem i miękkimi, poziomymi smugami.",
+      "altEN": "Yellow composition with a turquoise rectangular field and soft horizontal traces.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "latentne-06-loss-mountain-up-close",
+  "project": "latentne",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/latentne-06-loss-mountain-up-close.webp",
+    "ratio": "10/7",
+    "fit": "cover",
+    "altPL": "Żółta kompozycja z turkusowym prostokątnym polem i miękkimi, poziomymi smugami.",
+    "altEN": "Yellow composition with a turquoise rectangular field and soft horizontal traces.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Loss Mountain Up Close",
+  "titleEN": "Loss Mountain Up Close",
+  "summaryPL": "Praca 6 z 12-częściowego cyklu „Latentne”.",
+  "summaryEN": "Work 6 from the 12-part Latentne series.",
+  "altPL": "Żółta kompozycja z turkusowym prostokątnym polem i miękkimi, poziomymi smugami.",
+  "altEN": "Yellow composition with a turquoise rectangular field and soft horizontal traces.",
+  "captionPL": "Wiktor Sielaszuk, Loss Mountain Up Close, z cyklu „Latentne”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, Loss Mountain Up Close, from the Latentne series, digital artwork, 2026.",
+  "detailOnly": false
+}

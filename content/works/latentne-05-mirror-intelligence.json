@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "recordType": "work",
+  "order": 5,
+  "published": true,
+  "gallery": [
+    {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-05-mirror-intelligence.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Ciemnoniebieski pejzaż cyfrowy z centralną, kanciastą czarno-białą strukturą.",
+      "altEN": "Dark-blue digital landscape with a central angular black-and-white structure.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  ],
+  "video": {
+    "provider": null,
+    "id": null,
+    "poster": {
+      "kind": "image",
+      "src": "assets/media/degree/latentne-05-mirror-intelligence.webp",
+      "ratio": "10/7",
+      "fit": "cover",
+      "altPL": "Ciemnoniebieski pejzaż cyfrowy z centralną, kanciastą czarno-białą strukturą.",
+      "altEN": "Dark-blue digital landscape with a central angular black-and-white structure.",
+      "hasTransparency": false,
+      "transparencyMode": "auto"
+    }
+  },
+  "featured": false,
+  "draft": false,
+  "galleryVisible": true,
+  "id": "latentne-05-mirror-intelligence",
+  "project": "latentne",
+  "year": "2026",
+  "medium": "digital",
+  "types": [
+    "illustration",
+    "generative"
+  ],
+  "mediaType": "image",
+  "cover": {
+    "kind": "image",
+    "src": "assets/media/degree/latentne-05-mirror-intelligence.webp",
+    "ratio": "10/7",
+    "fit": "cover",
+    "altPL": "Ciemnoniebieski pejzaż cyfrowy z centralną, kanciastą czarno-białą strukturą.",
+    "altEN": "Dark-blue digital landscape with a central angular black-and-white structure.",
+    "hasTransparency": false,
+    "transparencyMode": "auto"
+  },
+  "titlePL": "Mirror Intelligence",
+  "titleEN": "Mirror Intelligence",
+  "summaryPL": "Praca 5 z 12-częściowego cyklu „Latentne”.",
+  "summaryEN": "Work 5 from the 12-part Latentne series.",
+  "altPL": "Ciemnoniebieski pejzaż cyfrowy z centralną, kanciastą czarno-białą strukturą.",
+  "altEN": "Dark-blue digital landscape with a central angular black-and-white structure.",
+  "captionPL": "Wiktor Sielaszuk, Mirror Intelligence, z cyklu „Latentne”, grafika cyfrowa, 2026.",
+  "captionEN": "Wiktor Sielaszuk, Mirror Intelligence, from the Latentne series, digital artwork, 2026.",
+  "detailOnly": false
+}
