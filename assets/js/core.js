@@ -92,10 +92,18 @@
     return source
       .map((link, index) => ({
         id: String(link?.id || `social-${index + 1}`),
-        label: state.lang === "pl" ? link?.labelPL : link?.labelEN,
+        labelPL: String(link?.labelPL || "").trim(),
+        labelEN: String(link?.labelEN || "").trim(),
         href: safeSocialHref(link?.href)
       }))
-      .filter(link => link.href && String(link.label || "").trim());
+      .filter(link => link.href && link.labelPL && link.labelEN);
+  }
+
+  function footerEmailMarkup(value) {
+    const email = String(value || "").trim();
+    const separator = email.lastIndexOf("@");
+    if (separator <= 0 || separator >= email.length - 1) return `<span>${esc(email)}</span>`;
+    return `<span class="footer-email-local">${esc(email.slice(0, separator))}</span><span class="footer-email-domain">${esc(email.slice(separator))}</span>`;
   }
 
   function renderChrome() {
@@ -125,8 +133,8 @@
           <div class="footer-main">
             <div><p class="section-code">C.01 / ${t("nav.contact")}</p><h2 data-copy="footer.title">${t("footer.title")}</h2></div>
             <div class="footer-links">
-              <a href="mailto:${esc(site.profile?.email || "wiktor.sielaszuk.22@gmail.com")}">${esc(site.profile?.email || "wiktor.sielaszuk.22@gmail.com")}</a>
-              ${configuredSocialLinks().map(link => `<a href="${esc(link.href)}" target="_blank" rel="me noopener noreferrer">${esc(link.label)}</a>`).join("")}
+              <a class="footer-email" href="mailto:${esc(site.profile?.email || "wiktor.sielaszuk.22@gmail.com")}" aria-label="${esc(site.profile?.email || "wiktor.sielaszuk.22@gmail.com")}" data-no-typography>${footerEmailMarkup(site.profile?.email || "wiktor.sielaszuk.22@gmail.com")}</a>
+              ${configuredSocialLinks().map(link => `<a class="footer-social-link" href="${esc(link.href)}" target="_blank" rel="me noopener noreferrer" aria-label="${esc(state.lang === "pl" ? `${link.labelPL} (otwiera w nowej karcie)` : `${link.labelEN} (opens in a new tab)`)}" data-aria-pl="${esc(`${link.labelPL} (otwiera w nowej karcie)`)}" data-aria-en="${esc(`${link.labelEN} (opens in a new tab)`)}"><span data-pl="${esc(link.labelPL)}" data-en="${esc(link.labelEN)}">${esc(state.lang === "pl" ? link.labelPL : link.labelEN)}</span><span class="footer-external-mark" aria-hidden="true">↗</span></a>`).join("")}
               <a href="${url("portfolio/index.html")}" data-copy="nav.portfolio">${t("nav.portfolio")}</a>
               <a href="${url("projects/index.html")}" data-copy="nav.projects">${t("nav.projects")}</a>
               <a href="${url("activity/index.html")}" data-copy="nav.activity">${t("nav.activity")}</a>

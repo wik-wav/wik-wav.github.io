@@ -15,6 +15,59 @@
     "heroLineHeightPL": { "type": "number", "minimum": 0.8, "maximum": 1.4, "default": 1.12 },
     "heroLineHeightEN": { "type": "number", "minimum": 0.8, "maximum": 1.4, "default": 1.12 },
     "editorialPL": { "type": "string", "default": "" },
-    "editorialEN": { "type": "string", "default": "" }
+    "editorialEN": { "type": "string", "default": "" },
+    "detailSequenceIds": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+      "uniqueItems": true,
+      "default": []
+    },
+    "detailSequence": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sequenceNode" },
+      "default": []
+    },
+    "sequenceReveal": { "$ref": "#/$defs/sequenceReveal" }
+  },
+  "$defs": {
+    "sequenceNode": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["id", "kind", "workId"],
+          "properties": {
+            "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+            "kind": { "const": "work" },
+            "workId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["id", "kind", "bodyPL", "bodyEN"],
+          "properties": {
+            "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+            "kind": { "const": "text" },
+            "headingPL": { "type": "string", "default": "" },
+            "headingEN": { "type": "string", "default": "" },
+            "bodyPL": { "type": "string" },
+            "bodyEN": { "type": "string" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "sequenceReveal": {
+      "type": "object",
+      "required": ["enabled", "afterId", "peekHeight"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "afterId": { "type": "string", "pattern": "^(?:|[a-z0-9]+(?:-[a-z0-9]+)*)$" },
+        "peekHeight": { "enum": ["compact", "standard", "tall"] }
+      },
+      "if": { "properties": { "enabled": { "const": true } } },
+      "then": { "properties": { "afterId": { "minLength": 1 } } },
+      "additionalProperties": false
+    }
   }
 }

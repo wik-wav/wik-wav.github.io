@@ -110,6 +110,7 @@ test("applies one shared, display-only typography pass across every route", asyn
 test("builds complete route-specific production SEO for every canonical page", async () => {
   const titles = new Set();
   const descriptions = new Set();
+  const canonicalUrls = [];
   for (const page of pages) {
     const output = await read(path.posix.join("dist", page));
     const route = page === "index.html" ? "/" : `/${page.replace(/index\.html$/, "")}`;
@@ -120,8 +121,11 @@ test("builds complete route-specific production SEO for every canonical page", a
     assert.ok(!titles.has(title), `${page} title is unique`);
     assert.ok(!descriptions.has(description), `${page} description is unique`);
     titles.add(title); descriptions.add(description);
-    assert.match(output, new RegExp(`<link rel="canonical" href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}">`));
-    for (const marker of ['name="robots" content="index,follow,max-image-preview:large"', 'property="og:title"', 'property="og:description"', 'property="og:url"', 'property="og:image" content="https://wik-wav.github.io/', 'property="og:site_name"', 'property="og:locale" content="pl_PL"', 'property="og:locale:alternate" content="en_GB"', 'name="twitter:card" content="summary_large_image"', 'name="twitter:image:alt"', 'rel="manifest" href="/site.webmanifest"']) assert.ok(output.includes(marker), `${page} has ${marker}`);
+    const canonicalMatches = [...output.matchAll(/<link rel="canonical" href="([^"]+)">/g)].map(match => match[1]);
+    assert.deepEqual(canonicalMatches, [canonical], `${page} has exactly one absolute canonical URL`);
+    canonicalUrls.push(canonical);
+    for (const marker of ['rel="author" href="https://wik-wav.github.io/"', 'rel="me" href="https://github.com/wik-wav"', 'rel="me" href="https://www.youtube.com/@wik_wav"', 'rel="me" href="https://wik-wav.bandcamp.com/"', 'name="robots" content="index,follow,max-image-preview:large"', 'name="author" content="Wiktor Sielaszuk"', 'name="copyright" content="© Wiktor Sielaszuk"', 'property="og:title"', 'property="og:description"', 'property="og:url"', 'property="og:image" content="https://wik-wav.github.io/', 'property="og:site_name"', 'property="og:locale" content="pl_PL"', 'property="og:locale:alternate" content="en_GB"', 'name="twitter:card" content="summary_large_image"', 'name="twitter:image:alt"', 'rel="manifest" href="/site.webmanifest"']) assert.ok(output.includes(marker), `${page} has ${marker}`);
+    assert.equal(output.match(/<meta property="og:url" content="([^"]+)">/)?.[1], canonical, `${page} Open Graph URL matches its canonical URL`);
     const imageTag = output.match(/<meta property="og:image"[^>]+>/)?.[0] || "";
     const hasDefaultSocialImage = imageTag.includes("/og-social.png");
     assert.equal(output.includes('property="og:image:width" content="1200"'), hasDefaultSocialImage, `${page} only declares dimensions for the 1200x630 social image`);
@@ -130,12 +134,39 @@ test("builds complete route-specific production SEO for every canonical page", a
     assert.doesNotMatch(output.match(/<(?:link rel="canonical"|meta property="og:url")[^>]+>/g)?.join("\n") || "", /[?&](?:page|size|per|project|type|medium|year|collection|work)=/);
     const json = output.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
     const schema = JSON.parse(json);
-    if (route === "/") assert.ok(schema["@graph"].some(item => item["@type"] === "Person") && schema["@graph"].some(item => item["@type"] === "WebSite"));
-    else if (["/portfolio/", "/projects/", "/activity/"].includes(route)) assert.equal(schema["@type"], "CollectionPage");
-    else assert.equal(schema["@type"], "CreativeWork");
+    assert.equal(schema["@context"], "https://schema.org");
+    const graph = schema["@graph"];
+    assert.ok(Array.isArray(graph), `${page} exposes a connected identity graph`);
+    const person = graph.find(item => item["@id"] === "https://wik-wav.github.io/#person");
+    const website = graph.find(item => item["@id"] === "https://wik-wav.github.io/#website");
+    const pageNode = graph.find(item => item["@id"] === `${canonical}#webpage`);
+    assert.equal(person?.name, "Wiktor Sielaszuk");
+    assert.deepEqual(person?.sameAs, [
+      "https://www.linkedin.com/in/wiktor-sielaszuk",
+      "https://github.com/wik-wav",
+      "https://www.youtube.com/@wik_wav",
+      "https://wik-wav.bandcamp.com/"
+    ]);
+    assert.equal(website?.url, "https://wik-wav.github.io/");
+    assert.deepEqual(website?.author, { "@id": person["@id"] });
+    assert.equal(pageNode?.url, canonical, `${page} JSON-LD page URL matches its canonical URL`);
+    assert.deepEqual(pageNode?.isPartOf, { "@id": website["@id"] });
+    assert.deepEqual(pageNode?.author, { "@id": person["@id"] });
+    if (route === "/") assert.equal(pageNode?.["@type"], "ProfilePage");
+    else if (["/portfolio/", "/projects/", "/activity/"].includes(route)) assert.equal(pageNode?.["@type"], "CollectionPage");
+    else {
+      assert.equal(pageNode?.["@type"], "WebPage");
+      const work = graph.find(item => item["@type"] === "CreativeWork");
+      assert.equal(work?.url, canonical);
+      assert.deepEqual(work?.creator, { "@id": person["@id"] });
+      assert.deepEqual(work?.mainEntityOfPage, { "@id": pageNode["@id"] });
+    }
   }
   assert.equal(titles.size, pages.length);
   assert.equal(descriptions.size, pages.length);
+  const sitemap = await read("dist/sitemap.xml");
+  const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+  assert.deepEqual(sitemapUrls, canonicalUrls, "the sitemap and page canonicals are the same ordered route set");
 });
 
 test("ships crawl, manifest, icon, and disclosed social assets", async () => {
@@ -451,6 +482,9 @@ test("shows every surviving Lem work in the gallery and keeps the authored detai
   assert.equal(project.thumbnail.fit, authoredProject.thumbnail.fit);
   assert.equal(project.thumbnail.noPadding, true);
   assert.deepEqual(Array.from(project.detailSequenceIds), authoredProject.detailSequenceIds);
+  assert.deepEqual(Array.from(project.detailSequence, node => node.kind === "work" ? node.workId : node.id), authoredProject.detailSequence.map(node => node.kind === "work" ? node.workId : node.id));
+  assert.equal(project.sequenceReveal.enabled, true);
+  assert.equal(project.sequenceReveal.afterId, "work-lem-09-phascogale-sideview");
   for (const relative of [project.hero.src, project.thumbnail.src]) {
     await access(path.join(root, relative));
     await access(path.join(root, "dist", relative));
@@ -470,6 +504,20 @@ test("shows every surviving Lem work in the gallery and keeps the authored detai
   assert.match(detail, /sequenceUnits/);
   assert.match(detail, /data-project-group/);
   assert.match(detail, /sequence-group-grid/);
+  assert.match(detail, /sequence-text-block/);
+  assert.match(detail, /data-sequence-continuation-toggle/);
+  assert.match(detail, /inert aria-hidden/);
+  assert.match(detail, /tailNodeIds/);
+  assert.match(css, /\.sequence-continuation-control[\s\S]*linear-gradient/);
+  assert.match(css, /\.sequence-continuation-toggle\s*\{\s*width:\s*min\(320px, 100%\);\s*max-width:\s*100%;\s*min-width:\s*0;/);
+  assert.match(css, /\.curated-sequence\s*\{\s*display:\s*grid;\s*min-width:\s*0;/);
+  assert.match(css, /\.sequence-item\s*\{[^}]*width:\s*100%;[^}]*min-width:\s*0;[^}]*margin:\s*0;/);
+  assert.match(css, /@media\s*\(max-width:\s*980px\)[\s\S]*\.sequence-item,\s*\.sequence-item:nth-child\(even\)\s*\{\s*grid-template-columns:\s*minmax\(0,\s*1fr\);/);
+  assert.match(css, /@media print[\s\S]*\.sequence-continuation-body/);
+  const book = JSON.parse(await read("content/projects/book-cover.json"));
+  assert.equal(book.sequenceReveal.enabled, false);
+  const lemPage = await read("projects/lem/index.html");
+  assert.match(lemPage, /data-project-post-sequence/);
 });
 
 test("keeps paired copy and every referenced media file in source and dist", async () => {
@@ -995,6 +1043,13 @@ test("supports bounded keyboard and pointer zoom while preserving current projec
   assert.match(viewer, /document\.activeElement === root \|\| !root\.contains\(document\.activeElement\)/);
   assert.match(viewer, /focusTarget = document\.querySelector\("main"\)/);
   assert.match(css, /\.viewer-top-actions::after[^}]*content:\s*attr\(data-peek-label\)/);
+  assert.match(viewer, /class="viewer-bottom-controls"[\s\S]*?viewer-nav-prev[\s\S]*?viewer-zoom-controls[\s\S]*?viewer-nav-next/);
+  assert.match(css, /\.media-viewer\.has-transparent-media\[data-viewer-background="light"\][^}]*--viewer-ui-surface:\s*var\(--viewer-art-surface\)[^}]*--viewer-ui-text:\s*var\(--ink\)/);
+  assert.match(css, /\.viewer-zoom-controls button, \.viewer-top-actions button, \.viewer-nav[^}]*background:\s*var\(--viewer-ui-surface\)[^}]*color:\s*var\(--viewer-ui-text\)/);
+  assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.viewer-bottom-controls \{[^}]*bottom:\s*0[^}]*grid-template-columns:\s*minmax\(44px, 1fr\) auto minmax\(44px, 1fr\)/);
+  assert.match(css, /\.viewer-bottom-controls \.viewer-nav-prev[^}]*grid-column:\s*1/);
+  assert.match(css, /\.viewer-bottom-controls \.viewer-zoom-controls[^}]*grid-column:\s*2/);
+  assert.match(css, /\.viewer-bottom-controls \.viewer-nav-next[^}]*grid-column:\s*3/);
   assert.match(css, /@media \(max-width: 360px\)[\s\S]*?\.viewer-top-actions button[^}]*font-size:\s*10px/);
   assert.doesNotMatch(css, /\.viewer-(?:zoom-controls|top-actions)::after[^}]*background:\s*var\(--acid\)/);
   assert.match(css, /\.viewer-artwork img[^}]*-webkit-user-drag:\s*none/);

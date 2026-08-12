@@ -18,6 +18,18 @@ window.PORTFOLIO_SITE = {
         "labelPL": "GitHub",
         "labelEN": "GitHub",
         "href": "https://github.com/wik-wav"
+      },
+      {
+        "id": "youtube",
+        "labelPL": "YouTube",
+        "labelEN": "YouTube",
+        "href": "https://www.youtube.com/@wik_wav"
+      },
+      {
+        "id": "bandcamp",
+        "labelPL": "Bandcamp",
+        "labelEN": "Bandcamp",
+        "href": "https://wik-wav.bandcamp.com/"
       }
     ]
   },

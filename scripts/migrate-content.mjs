@@ -176,6 +176,15 @@ async function main() {
         .filter(item => (item.project === record.id || item.collections?.includes(record.id)) && item.projectPageVisible !== false)
         .map(item => item.id);
     }
+    record.detailSequence = Array.isArray(record.detailSequence)
+      ? record.detailSequence
+      : record.detailSequenceIds.map(workId => ({ id: `work-${workId}`, kind: "work", workId }));
+    record.detailSequenceIds = record.detailSequence
+      .filter(node => node?.kind === "work" && typeof node.workId === "string")
+      .map(node => node.workId);
+    record.sequenceReveal ??= record.id === "lem"
+      ? { enabled: true, afterId: "work-lem-09-phascogale-sideview", peekHeight: "standard" }
+      : { enabled: false, afterId: "", peekHeight: "standard" };
     const defaultHeroLineHeight = record.id === "gaijin-no-mittsu-no-kuusou" ? 1.3 : 1.12;
     record.heroLineHeightPL ??= record.heroLineHeight ?? defaultHeroLineHeight;
     record.heroLineHeightEN ??= record.heroLineHeight ?? defaultHeroLineHeight;

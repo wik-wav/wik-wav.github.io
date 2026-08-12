@@ -89,6 +89,18 @@
   "detailSequenceIds": [
     "book-cover-2025"
   ],
+  "detailSequence": [
+    {
+      "id": "work-book-cover-2025",
+      "kind": "work",
+      "workId": "book-cover-2025"
+    }
+  ],
+  "sequenceReveal": {
+    "enabled": false,
+    "afterId": "",
+    "peekHeight": "standard"
+  },
   "seo": {
     "titlePL": "Książka, której nie napisałem — Wiktor Sielaszuk",
     "titleEN": "The Book I Did Not Write — Wiktor Sielaszuk",

@@ -39,11 +39,94 @@ const configuredSameAs = () => {
 const jsonLd = (route: string) => {
   const meta = routeMetadata[route];
   const profile = siteSettings.profile || {};
-  const person = { "@type": "Person", "@id": `${ORIGIN}/#person`, name: profile.name || "Wiktor Sielaszuk", url: `${ORIGIN}/`, email: `mailto:${profile.email || "wiktor.sielaszuk.22@gmail.com"}`, ...(configuredSameAs().length ? { sameAs: configuredSameAs() } : {}) };
-  if (route === "/") return { "@context": "https://schema.org", "@graph": [person, { "@type": "WebSite", "@id": `${ORIGIN}/#website`, name: "Wiktor Sielaszuk — portfolio", url: `${ORIGIN}/`, inLanguage: ["pl", "en"], author: { "@id": `${ORIGIN}/#person` } }] };
-  if (route === "/portfolio/" || route === "/projects/") return { "@context": "https://schema.org", "@type": "CollectionPage", name: meta.titlePL, description: meta.descriptionPL, url: `${ORIGIN}${route}`, inLanguage: ["pl", "en"], author: { "@id": `${ORIGIN}/#person` }, mainEntity: { "@type": "ItemList", itemListElement: projectRoutes.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: routeMetadata[item].titlePL.replace(" — Wiktor Sielaszuk", ""), url: `${ORIGIN}${item}` })) } };
-  if (route === "/activity/") return { "@context": "https://schema.org", "@type": "CollectionPage", name: meta.titlePL, description: meta.descriptionPL, url: `${ORIGIN}${route}`, inLanguage: ["pl", "en"], author: { "@id": `${ORIGIN}/#person` } };
-  return { "@context": "https://schema.org", "@type": "CreativeWork", name: meta.titlePL.replace(" — Wiktor Sielaszuk", ""), description: meta.descriptionPL, url: `${ORIGIN}${route}`, image: meta.image ? `${ORIGIN}/${meta.image.replace(/^public\//, "").replace(/^\//, "")}` : undefined, inLanguage: ["pl", "en"], creator: { "@id": `${ORIGIN}/#person` }, ...(meta.year ? { dateCreated: meta.year } : {}) };
+  const canonical = route === "/" ? `${ORIGIN}/` : `${ORIGIN}${route}`;
+  const personId = `${ORIGIN}/#person`;
+  const websiteId = `${ORIGIN}/#website`;
+  const pageId = `${canonical}#webpage`;
+  const person = {
+    "@type": "Person",
+    "@id": personId,
+    name: profile.name || "Wiktor Sielaszuk",
+    url: `${ORIGIN}/`,
+    email: `mailto:${profile.email || "wiktor.sielaszuk.22@gmail.com"}`,
+    ...(configuredSameAs().length ? { sameAs: configuredSameAs() } : {})
+  };
+  const website = {
+    "@type": "WebSite",
+    "@id": websiteId,
+    name: "Wiktor Sielaszuk — portfolio",
+    url: `${ORIGIN}/`,
+    inLanguage: ["pl", "en"],
+    author: { "@id": personId },
+    copyrightHolder: { "@id": personId }
+  };
+  if (route === "/") {
+    return {
+      "@context": "https://schema.org",
+      "@graph": [person, website, {
+        "@type": "ProfilePage",
+        "@id": pageId,
+        name: meta.titlePL,
+        description: meta.descriptionPL,
+        url: canonical,
+        inLanguage: ["pl", "en"],
+        isPartOf: { "@id": websiteId },
+        author: { "@id": personId },
+        mainEntity: { "@id": personId }
+      }]
+    };
+  }
+  if (["/portfolio/", "/projects/", "/activity/"].includes(route)) {
+    const page = {
+      "@type": "CollectionPage",
+      "@id": pageId,
+      name: meta.titlePL,
+      description: meta.descriptionPL,
+      url: canonical,
+      inLanguage: ["pl", "en"],
+      isPartOf: { "@id": websiteId },
+      author: { "@id": personId },
+      copyrightHolder: { "@id": personId },
+      ...(["/portfolio/", "/projects/"].includes(route) ? {
+        mainEntity: {
+          "@type": "ItemList",
+          itemListElement: projectRoutes.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: routeMetadata[item].titlePL.replace(" — Wiktor Sielaszuk", ""),
+            url: `${ORIGIN}${item}`
+          }))
+        }
+      } : {})
+    };
+    return { "@context": "https://schema.org", "@graph": [person, website, page] };
+  }
+  const creativeWork = {
+    "@type": "CreativeWork",
+    "@id": `${canonical}#creative-work`,
+    name: meta.titlePL.replace(" — Wiktor Sielaszuk", ""),
+    description: meta.descriptionPL,
+    url: canonical,
+    image: meta.image ? `${ORIGIN}/${meta.image.replace(/^public\//, "").replace(/^\//, "")}` : undefined,
+    inLanguage: ["pl", "en"],
+    isPartOf: { "@id": websiteId },
+    mainEntityOfPage: { "@id": pageId },
+    creator: { "@id": personId },
+    copyrightHolder: { "@id": personId },
+    ...(meta.year ? { dateCreated: meta.year } : {})
+  };
+  const webPage = {
+    "@type": "WebPage",
+    "@id": pageId,
+    name: meta.titlePL,
+    description: meta.descriptionPL,
+    url: canonical,
+    inLanguage: ["pl", "en"],
+    isPartOf: { "@id": websiteId },
+    author: { "@id": personId },
+    mainEntity: { "@id": creativeWork["@id"] }
+  };
+  return { "@context": "https://schema.org", "@graph": [person, website, webPage, creativeWork] };
 };
 
 const routeSeo = () => ({
@@ -64,12 +147,15 @@ const routeSeo = () => ({
       : "";
     const socialAltPL = meta.imageAltPL || "Podgląd portfolio Wiktora Sielaszuka.";
     const socialAltEN = meta.imageAltEN || "Preview of Wiktor Sielaszuk’s portfolio.";
+    const identityLinks = configuredSameAs().map(href => `\n  <link rel="me" href="${htmlEscape(href)}">`).join("");
     html = html.replace(/<title[^>]*>[\s\S]*?<\/title>/i, `<title data-pl="${htmlEscape(meta.titlePL)}" data-en="${htmlEscape(meta.titleEN)}">${htmlEscape(meta.titlePL)}</title>`);
     html = html.replace(/<meta name="description"[^>]*>/i, `<meta name="description" content="${htmlEscape(meta.descriptionPL)}" data-content-pl="${htmlEscape(meta.descriptionPL)}" data-content-en="${htmlEscape(meta.descriptionEN)}">`);
     const tags = `
   <link rel="canonical" href="${canonical}">
+  <link rel="author" href="${ORIGIN}/">${identityLinks}
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="author" content="Wiktor Sielaszuk">
+  <meta name="copyright" content="© Wiktor Sielaszuk">
   <meta name="theme-color" content="#F8F9F8">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta property="og:type" content="${route.startsWith("/projects/") && route !== "/projects/" ? "article" : "website"}">

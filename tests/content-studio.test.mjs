@@ -85,7 +85,7 @@ test("validation rejects unsafe fields, invalid URLs, ratios, focal points and m
 test("profile social links are bilingual HTTPS records with a deliberate empty-state and legacy fallback", async () => {
   const bundle = await loadContent(root);
   assert.equal((await validateContent(bundle,{root,checkFiles:false})).valid,true);
-  assert.deepEqual(bundle.site.profile.socialLinks.map(link => link.id),["linkedin","github"]);
+  assert.deepEqual(bundle.site.profile.socialLinks.map(link => link.id),["linkedin","github","youtube","bandcamp"]);
 
   bundle.site.profile.socialLinks = [];
   assert.equal((await validateContent(bundle,{root,checkFiles:false})).valid,true);
@@ -100,6 +100,18 @@ test("profile social links are bilingual HTTPS records with a deliberate empty-s
   const invalid = await validateContent(bundle,{root,checkFiles:false});
   assert.ok(invalid.errors.some(issue => issue.code === "invalid-social-link"));
   assert.ok(invalid.errors.some(issue => issue.code === "duplicate-social-link-id"));
+});
+
+test("locks the public canonical identity against accidental Studio or content edits", async () => {
+  const bundle = await loadContent(root);
+  bundle.site.origin = "https://portfolio-copy.example";
+  const result = await validateContent(bundle,{root,checkFiles:false});
+  assert.ok(result.errors.some(issue => issue.code === "canonical-origin-mismatch"));
+
+  const app = await readFile(path.join(root,"studio/ui/app.js"),"utf8");
+  const schema = JSON.parse(await readFile(path.join(root,"content/schemas/site.schema.json"),"utf8"));
+  assert.match(app,/field\("origin","Canonical public origin · locked",record\.origin,\{readonly:true\}\)/);
+  assert.equal(schema.properties.origin.const,"https://wik-wav.github.io");
 });
 
 test("embed allowlist accepts SoundCloud and Bandcamp while rejecting lookalike hosts", async () => {
@@ -146,7 +158,28 @@ test("reference graph protects ownership, related routes, collections and sequen
   assert.ok(lemRefs.some(reference => reference.type === "work" && reference.field === "project"));
   assert.ok(lemRefs.some(reference => reference.field === "related"));
   const workId = bundle.projects.find(item => item.id === "latentne").detailSequenceIds[0];
-  assert.ok(referencesFor(bundle,"work",workId).some(reference => reference.id === "latentne" && reference.field === "detailSequenceIds"));
+  assert.ok(referencesFor(bundle,"work",workId).some(reference => reference.id === "latentne" && ["detailSequence","detailSequenceIds"].includes(reference.field)));
+});
+
+test("mixed project sequences validate text blocks and stable Show more boundaries", async () => {
+  const bundle = await loadContent(root);
+  const route = bundle.projects.find(item => item.id === "latentne");
+  const workId = route.detailSequenceIds[0];
+  route.detailSequence = [
+    { id:"text-context",kind:"text",headingPL:"Kontekst",headingEN:"Context",bodyPL:"Opis poniższej pracy.",bodyEN:"Description of the work below." },
+    { id:`work-${workId}`,kind:"work",workId }
+  ];
+  route.detailSequenceIds = [workId];
+  route.sequenceReveal = { enabled:true,afterId:"text-context",peekHeight:"compact" };
+  let result = await validateContent(bundle,{root,checkFiles:false});
+  assert.equal(result.errors.length,0,JSON.stringify(result.errors,null,2));
+  route.sequenceReveal.afterId = `work-${workId}`;
+  result = await validateContent(bundle,{root,checkFiles:false});
+  assert.ok(result.errors.some(issue => issue.code === "empty-sequence-reveal-tail"));
+  route.sequenceReveal.afterId = "text-context";
+  route.detailSequence[0].bodyEN = "";
+  result = await validateContent(bundle,{root,checkFiles:false});
+  assert.ok(result.errors.some(issue => issue.code === "missing-translation"));
 });
 
 test("validation rejects duplicate, foreign, and draft sequence members", async () => {
@@ -442,9 +475,23 @@ test("public footer and Person SEO derive social links from configured profile d
   assert.match(core,/function configuredSocialLinks\(/);
   assert.match(core,/profile\.socialLinks === undefined/);
   assert.match(core,/target="_blank" rel="me noopener noreferrer"/);
+  assert.match(core,/footer-social-link/);
+  assert.match(core,/opens in a new tab/);
+  assert.match(core,/data-aria-pl/);
+  assert.match(core,/data-pl=/);
   assert.match(core,/function safeSocialHref\(/);
+  assert.match(core,/function footerEmailMarkup\(/);
+  assert.match(core,/class="footer-email"[^>]*aria-label=[^>]*data-no-typography/);
+  assert.match(core,/class="footer-email-local"/);
+  assert.match(core,/class="footer-email-domain"/);
   assert.match(vite,/const configuredSameAs = \(\) =>/);
   assert.match(vite,/socialLinks/);
   assert.doesNotMatch(vite,/sameAs:\s*\["https:\/\/github\.com\/wik-wav",\s*"https:\/\/www\.linkedin\.com/);
   assert.match(schema,/"socialLinks"/);
+
+  const css = await readFile(path.join(root,"assets/css/site.css"),"utf8");
+  assert.match(css,/\.footer-links \{[^}]*repeat\(auto-fit, minmax\(min\(100%, 11rem\), 1fr\)\)/s);
+  assert.match(css,/\.footer-links a \{[^}]*overflow-wrap: anywhere/s);
+  assert.match(css,/\.footer-email \{[^}]*flex-wrap: wrap[^}]*gap: 0 !important[^}]*overflow-wrap: normal !important/s);
+  assert.match(css,/\.footer-email-domain \{[^}]*flex: 0 0 auto/s);
 });

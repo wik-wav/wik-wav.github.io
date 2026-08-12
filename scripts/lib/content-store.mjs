@@ -11,6 +11,7 @@ export const RECORD_FOLDERS = Object.freeze({
   update: "updates"
 });
 export const DETAIL_MEDIA_SIZES = Object.freeze(["compact", "standard", "large", "full"]);
+export const SEQUENCE_REVEAL_PEEK_HEIGHTS = Object.freeze(["compact", "standard", "tall"]);
 export const VIDEO_PROVIDERS = Object.freeze(["youtube", "vimeo", "soundcloud", "bandcamp"]);
 export const AUDIO_EMBED_SIZES = Object.freeze(["compact", "standard", "expanded"]);
 export const MEDIA_FITS = Object.freeze(["cover", "contain"]);
@@ -30,6 +31,34 @@ export function slugify(value) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 80);
+}
+
+/**
+ * Return the authored project-page sequence while keeping legacy records usable.
+ * `detailSequence` is authoritative whenever it is present, including when it is
+ * an intentionally empty array. Older records continue to resolve their
+ * `detailSequenceIds` as work nodes with stable `work-<workId>` node IDs.
+ */
+export function resolveDetailSequence(record) {
+  if (record && Object.prototype.hasOwnProperty.call(record, "detailSequence")) return Array.isArray(record.detailSequence) ? record.detailSequence : [];
+  if (!Array.isArray(record?.detailSequenceIds)) return [];
+  return record.detailSequenceIds.map(workId => ({ id: `work-${workId}`, kind: "work", workId }));
+}
+
+export function detailSequenceWorkIds(record) {
+  return resolveDetailSequence(record)
+    .filter(node => node?.kind === "work" && typeof node.workId === "string")
+    .map(node => node.workId);
+}
+
+/**
+ * Browser-facing Studio code cannot import this Node module, but server-side
+ * migrations and maintenance scripts can use this helper before persisting a
+ * record. Validation still reports a mismatch when hand-authored mirrors drift.
+ */
+export function withMirroredDetailSequenceIds(record) {
+  if (!record || !Array.isArray(record.detailSequence)) return record;
+  return { ...record, detailSequenceIds: detailSequenceWorkIds(record) };
 }
 
 export function recordPath(type, id, root = PROJECT_ROOT) {
@@ -322,6 +351,7 @@ function validateSite(site, errors) {
     const origin = new URL(site.origin);
     if (origin.protocol !== "https:" || origin.origin !== site.origin) throw new Error("invalid origin");
   } catch { addIssue(errors, "site.origin", "invalid-origin", "The public site origin must be an HTTPS origin without a path."); }
+  if (site.origin !== "https://wik-wav.github.io") addIssue(errors, "site.origin", "canonical-origin-mismatch", "This portfolio's canonical public identity is locked to https://wik-wav.github.io.");
   if (!site.profile || !nonEmpty(site.profile.name) || !nonEmpty(site.profile.email)) addIssue(errors, "site.profile", "missing-profile", "Profile name and email are required.");
   else validateSocialLinks(site.profile, errors);
   for (const [index, item] of (site.navigation || []).entries()) {
@@ -468,21 +498,79 @@ export async function validateContent(bundle, { root = PROJECT_ROOT, checkFiles 
       else if (!containerIds.has(id)) addIssue(target, `${here}.related`, "missing-reference", `Related item ${id} does not exist.`);
       else if (isPublic(record) && !isPublic(containerById.get(id))) addIssue(target, `${here}.related`, "unpublished-reference", `Related item ${id} must be published and not a draft.`);
     }
-    const sequenceSeen = new Set();
-    for (const id of record.detailSequenceIds || []) {
-      if (sequenceSeen.has(id)) {
-        addIssue(target, `${here}.detailSequenceIds`, "duplicate-reference", `Sequence work ${id} is listed more than once.`);
-        continue;
+    const legacySequence = record.detailSequenceIds;
+    if (legacySequence != null && !Array.isArray(legacySequence)) addIssue(target, `${here}.detailSequenceIds`, "invalid-detail-sequence-mirror", "The legacy sequence mirror must be an array of work IDs.");
+    if (record.detailSequence != null && !Array.isArray(record.detailSequence)) addIssue(target, `${here}.detailSequence`, "invalid-detail-sequence", "Project-page sequence content must be an array.");
+
+    const hasAuthoredSequence = Object.prototype.hasOwnProperty.call(record, "detailSequence");
+    const authoredSequence = hasAuthoredSequence
+      ? (Array.isArray(record.detailSequence) ? record.detailSequence : [])
+      : (Array.isArray(legacySequence) ? legacySequence.map(workId => ({ id: `work-${workId}`, kind: "work", workId })) : []);
+    const sequenceNodeIds = new Set();
+    const sequenceWorkIds = [];
+    const sequenceWorksSeen = new Set();
+    const validateSequenceWork = (id, pathName) => {
+      if (!slugPattern.test(String(id || ""))) {
+        addIssue(target, pathName, "invalid-sequence-work-id", "Sequence work IDs use lowercase letters, digits, and single hyphens only.");
+        return;
       }
-      sequenceSeen.add(id);
+      if (sequenceWorksSeen.has(id)) {
+        addIssue(target, pathName, "duplicate-reference", `Sequence work ${id} is listed more than once.`);
+        return;
+      }
+      sequenceWorksSeen.add(id);
+      sequenceWorkIds.push(id);
       if (!workIds.has(id)) {
-        addIssue(target, `${here}.detailSequenceIds`, "missing-reference", `Sequence work ${id} does not exist.`);
-        continue;
+        addIssue(target, pathName, "missing-reference", `Sequence work ${id} does not exist.`);
+        return;
       }
       const work = workById.get(id);
       const belongs = work.project === record.id || (work.collections || []).includes(record.id);
-      if (!belongs) addIssue(target, `${here}.detailSequenceIds`, "foreign-sequence-work", `Sequence work ${id} does not belong to ${record.id}.`);
-      if (isPublic(record) && !isPublic(work)) addIssue(target, `${here}.detailSequenceIds`, "unpublished-sequence-work", `Published route ${record.id} cannot include unpublished or draft work ${id}.`);
+      if (!belongs) addIssue(target, pathName, "foreign-sequence-work", `Sequence work ${id} does not belong to ${record.id}.`);
+      if (isPublic(record) && !isPublic(work)) addIssue(target, pathName, "unpublished-sequence-work", `Published route ${record.id} cannot include unpublished or draft work ${id}.`);
+    };
+
+    authoredSequence.forEach((node, nodeIndex) => {
+      const nodePath = `${here}.${Array.isArray(record.detailSequence) ? "detailSequence" : "detailSequenceIds"}[${nodeIndex}]`;
+      if (!node || typeof node !== "object" || Array.isArray(node)) {
+        addIssue(target, nodePath, "invalid-sequence-node", "Sequence entries must be work or text objects.");
+        return;
+      }
+      if (!slugPattern.test(String(node.id || ""))) addIssue(target, `${nodePath}.id`, "invalid-sequence-node-id", "Sequence-node IDs use lowercase letters, digits, and single hyphens only.");
+      else if (sequenceNodeIds.has(node.id)) addIssue(target, `${nodePath}.id`, "duplicate-sequence-node-id", `Sequence node ID ${node.id} is used more than once.`);
+      else sequenceNodeIds.add(node.id);
+
+      if (node.kind === "work") {
+        if (node.id !== `work-${node.workId}`) addIssue(target, `${nodePath}.id`, "sequence-work-node-id-mismatch", `Work sequence node ID must be work-${node.workId || "<work-id>"}.`);
+        validateSequenceWork(node.workId, Array.isArray(record.detailSequence) ? `${nodePath}.workId` : nodePath);
+        if (["headingPL", "headingEN", "bodyPL", "bodyEN"].some(key => node[key] != null)) addIssue(target, nodePath, "unexpected-sequence-field", "Work sequence nodes cannot contain text-block fields.");
+        return;
+      }
+      if (node.kind === "text") {
+        if (node.headingPL || node.headingEN) requiredPair(node, "heading", nodePath, target);
+        requiredPair(node, "body", nodePath, target);
+        if (node.workId != null) addIssue(target, `${nodePath}.workId`, "unexpected-sequence-field", "Text sequence nodes cannot reference a work.");
+        return;
+      }
+      addIssue(target, `${nodePath}.kind`, "invalid-sequence-node-kind", "Sequence entries must be work or text nodes.");
+    });
+
+    if (Array.isArray(record.detailSequence) && Array.isArray(legacySequence)) {
+      const mirrorsMatch = legacySequence.length === sequenceWorkIds.length && legacySequence.every((id, mirrorIndex) => id === sequenceWorkIds[mirrorIndex]);
+      if (!mirrorsMatch) addIssue(target, `${here}.detailSequenceIds`, "detail-sequence-mismatch", "detailSequenceIds must mirror the work nodes in detailSequence, in the same order.");
+    }
+
+    if (record.sequenceReveal != null) {
+      const reveal = record.sequenceReveal;
+      if (!reveal || typeof reveal !== "object" || Array.isArray(reveal)) addIssue(target, `${here}.sequenceReveal`, "invalid-sequence-reveal", "Sequence reveal settings must be an object.");
+      else {
+        if (typeof reveal.enabled !== "boolean") addIssue(target, `${here}.sequenceReveal.enabled`, "invalid-sequence-reveal", "Sequence reveal enabled must be true or false.");
+        if (!SEQUENCE_REVEAL_PEEK_HEIGHTS.includes(reveal.peekHeight)) addIssue(target, `${here}.sequenceReveal.peekHeight`, "invalid-sequence-peek-height", "Choose compact, standard, or tall for the collapsed preview height.");
+        const afterId = String(reveal.afterId || "");
+        if (reveal.enabled === true && !nonEmpty(afterId)) addIssue(target, `${here}.sequenceReveal.afterId`, "missing-sequence-reveal-boundary", "An enabled sequence reveal needs a boundary node.");
+        else if (nonEmpty(afterId) && !sequenceNodeIds.has(afterId)) addIssue(target, `${here}.sequenceReveal.afterId`, "missing-sequence-node", `Sequence reveal boundary ${afterId} does not exist in the authored sequence.`);
+        else if (reveal.enabled === true && authoredSequence.at(-1)?.id === afterId) addIssue(target, `${here}.sequenceReveal.afterId`, "empty-sequence-reveal-tail", "The Show more boundary must leave at least one sequence block below it.");
+      }
     }
     validateExternalLinks(record.externalLinks, `${here}.externalLinks`, target);
   });
@@ -571,7 +659,7 @@ export function referencesFor(bundle, type, id) {
     });
   } else if (type === "work") {
     containers.forEach(record => {
-      if (record.detailSequenceIds?.includes(id)) references.push({ type: record.recordType, id: record.id, field: "detailSequenceIds" });
+      if (detailSequenceWorkIds(record).includes(id)) references.push({ type: record.recordType, id: record.id, field: Array.isArray(record.detailSequence) ? "detailSequence" : "detailSequenceIds" });
     });
   } else if (type === "update" && bundle.site.activity?.featuredUpdateId === id) {
     references.push({ type: "site", id: "site", field: "activity.featuredUpdateId" });

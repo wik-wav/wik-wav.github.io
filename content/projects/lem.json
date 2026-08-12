@@ -130,6 +130,88 @@
     "character-art-09-lem-base-turnaround",
     "character-art-10-lem-sleeping"
   ],
+  "detailSequence": [
+    {
+      "id": "work-lem-01-civet-identity",
+      "kind": "work",
+      "workId": "lem-01-civet-identity"
+    },
+    {
+      "id": "work-lem-02-quoll-identity",
+      "kind": "work",
+      "workId": "lem-02-quoll-identity"
+    },
+    {
+      "id": "work-lem-03-phascogale-identity",
+      "kind": "work",
+      "workId": "lem-03-phascogale-identity"
+    },
+    {
+      "id": "work-feat-lem-v4bi-audio",
+      "kind": "work",
+      "workId": "feat-lem-v4bi-audio"
+    },
+    {
+      "id": "work-lem-07-civet-sideview",
+      "kind": "work",
+      "workId": "lem-07-civet-sideview"
+    },
+    {
+      "id": "work-lem-08-quoll-sideview",
+      "kind": "work",
+      "workId": "lem-08-quoll-sideview"
+    },
+    {
+      "id": "work-lem-09-phascogale-sideview",
+      "kind": "work",
+      "workId": "lem-09-phascogale-sideview"
+    },
+    {
+      "id": "work-lem-10-mongoose-transparent",
+      "kind": "work",
+      "workId": "lem-10-mongoose-transparent"
+    },
+    {
+      "id": "work-lem-11-mongoose-illustration",
+      "kind": "work",
+      "workId": "lem-11-mongoose-illustration"
+    },
+    {
+      "id": "work-lem-12-v3-weasel-illustration",
+      "kind": "work",
+      "workId": "lem-12-v3-weasel-illustration"
+    },
+    {
+      "id": "work-lem-14-phascogale-camera",
+      "kind": "work",
+      "workId": "lem-14-phascogale-camera"
+    },
+    {
+      "id": "work-lem-15-opaque-application",
+      "kind": "work",
+      "workId": "lem-15-opaque-application"
+    },
+    {
+      "id": "work-character-art-08-lem-wardrobe-turnaround",
+      "kind": "work",
+      "workId": "character-art-08-lem-wardrobe-turnaround"
+    },
+    {
+      "id": "work-character-art-09-lem-base-turnaround",
+      "kind": "work",
+      "workId": "character-art-09-lem-base-turnaround"
+    },
+    {
+      "id": "work-character-art-10-lem-sleeping",
+      "kind": "work",
+      "workId": "character-art-10-lem-sleeping"
+    }
+  ],
+  "sequenceReveal": {
+    "enabled": true,
+    "afterId": "work-lem-09-phascogale-sideview",
+    "peekHeight": "standard"
+  },
   "seo": {
     "titlePL": "Lem — synteza głosu i system postaci — Wiktor Sielaszuk",
     "titleEN": "Lem — voice synthesis and character system — Wiktor Sielaszuk",

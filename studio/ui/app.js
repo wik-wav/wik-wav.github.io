@@ -36,9 +36,9 @@
     const typographyAttribute = typographyEnabled ? " data-typography-input" : "";
     const multilineTitle = !options.readonly && !options.options && (!options.type || options.type === "text") && (options.title === true || /\b(?:title|headline|heading)\b/i.test(label));
     if (options.options) {
-      control = '<select name="' + esc(name) + '">' + options.options.map(pair => '<option value="' + esc(pair[0]) + '"' + (String(value == null ? "" : value) === String(pair[0]) ? " selected" : "") + ">" + esc(pair[1]) + "</option>").join("") + "</select>";
+      control = '<select name="' + esc(name) + '"' + (options.required ? " required" : "") + '>' + options.options.map(pair => '<option value="' + esc(pair[0]) + '"' + (String(value == null ? "" : value) === String(pair[0]) ? " selected" : "") + ">" + esc(pair[1]) + "</option>").join("") + "</select>";
     } else if (options.area || multilineTitle) {
-      control = '<textarea name="' + esc(name) + '" rows="' + (multilineTitle ? "1" : "3") + '" data-auto-grow' + (multilineTitle ? " data-title-field" : "") + typographyAttribute + '>' + esc(value) + "</textarea>";
+      control = '<textarea name="' + esc(name) + '" rows="' + (multilineTitle ? "1" : "3") + '" data-auto-grow' + (multilineTitle ? " data-title-field" : "") + typographyAttribute + (options.required ? " required" : "") + '>' + esc(value) + "</textarea>";
     } else {
       control = '<input name="' + esc(name) + '" type="' + esc(options.type || "text") + '" value="' + esc(value) + '"' + (options.min != null ? ' min="' + esc(options.min) + '"' : "") + (options.max != null ? ' max="' + esc(options.max) + '"' : "") + (options.step != null ? ' step="' + esc(options.step) + '"' : "") + (options.readonly ? " readonly" : "") + typographyAttribute + '>';
     }
@@ -410,15 +410,90 @@
       "</div></div>" + groupTools + "</fieldset>";
   }
 
+  function sequenceIdBase(value) {
+    return String(value || "item").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || "item";
+  }
+
+  function uniqueSequenceId(base, used) {
+    const stem = sequenceIdBase(base);
+    const numbered = stem.match(/^(.*?)-(\d+)$/);
+    const prefix = numbered ? numbered[1] : stem;
+    let suffix = numbered ? Number(numbered[2]) : 1;
+    let id = stem;
+    while (used.has(id)) id = prefix + "-" + ++suffix;
+    used.add(id);
+    return id;
+  }
+
+  function normalizeDetailSequence(record, repairReveal = false) {
+    const legacyIds = Array.isArray(record.detailSequenceIds) ? record.detailSequenceIds.filter(id => typeof id === "string" && id) : [];
+    const source = Array.isArray(record.detailSequence)
+      ? record.detailSequence
+      : legacyIds.map(workId => ({ kind:"work",workId }));
+    const used = new Set();
+    record.detailSequence = source.flatMap(node => {
+      if (!node || typeof node !== "object") return [];
+      if (node.kind === "work" && typeof node.workId === "string" && node.workId) {
+        return [{ id:uniqueSequenceId(node.id || "work-" + node.workId,used),kind:"work",workId:node.workId }];
+      }
+      if (node.kind === "text") {
+        return [{
+          id:uniqueSequenceId(node.id || "text-1",used),
+          kind:"text",
+          headingPL:String(node.headingPL || ""),
+          headingEN:String(node.headingEN || ""),
+          bodyPL:String(node.bodyPL || ""),
+          bodyEN:String(node.bodyEN || "")
+        }];
+      }
+      return [];
+    });
+    record.detailSequenceIds = record.detailSequence.filter(node => node.kind === "work").map(node => node.workId);
+    const reveal = record.sequenceReveal && typeof record.sequenceReveal === "object" ? record.sequenceReveal : {};
+    const previousAfterId = typeof reveal.afterId === "string" ? reveal.afterId : "";
+    record.sequenceReveal = {
+      enabled:Boolean(reveal.enabled),
+      afterId:previousAfterId,
+      peekHeight:["compact","standard","tall"].includes(reveal.peekHeight) ? reveal.peekHeight : "standard"
+    };
+    if (repairReveal) {
+      const eligibleIds = record.detailSequence.slice(0,-1).map(node => node.id);
+      if (!eligibleIds.length) {
+        record.sequenceReveal.enabled = false;
+        record.sequenceReveal.afterId = "";
+      } else if (!eligibleIds.includes(record.sequenceReveal.afterId)) {
+        const previousIndex = source.findIndex(node => node && node.id === previousAfterId);
+        const preferredIndex = Math.max(0, Math.min(previousIndex, record.detailSequence.length - 2));
+        record.sequenceReveal.afterId = eligibleIds[preferredIndex] || eligibleIds[eligibleIds.length - 1];
+      }
+    }
+    return record.detailSequence;
+  }
+
+  function sequenceNodeLabel(node, works) {
+    if (node.kind === "work") {
+      const item = works.find(work => work.id === node.workId);
+      return item ? titleOf(item) : "Missing work: " + node.workId;
+    }
+    return node.headingPL || node.headingEN || "Text between works";
+  }
+
   function renderSequence(record) {
     const works = state.bootstrap.summaries.works;
-    const ids = record.detailSequenceIds || [];
-    const rows = ids.map((id, index) => {
-      const item = works.find(work => work.id === id);
-      return "<li><span>" + String(index + 1).padStart(2, "0") + "</span><strong>" + esc(item ? titleOf(item) : id) + '</strong><span><button type="button" data-sequence-move="up" data-index="' + index + '"' + (index === 0 ? " disabled" : "") + '>↑</button><button type="button" data-sequence-move="down" data-index="' + index + '"' + (index === ids.length - 1 ? " disabled" : "") + '>↓</button><button type="button" data-sequence-remove data-index="' + index + '">×</button></span></li>';
+    const nodes = normalizeDetailSequence(record);
+    const workIds = nodes.filter(node => node.kind === "work").map(node => node.workId);
+    const rows = nodes.map((node,index) => {
+      const controls = '<span class="sequence-block-actions"><button type="button" data-sequence-move="up" data-index="' + index + '" aria-label="Move block up"' + (index === 0 ? " disabled" : "") + '>↑</button><button type="button" data-sequence-move="down" data-index="' + index + '" aria-label="Move block down"' + (index === nodes.length - 1 ? " disabled" : "") + '>↓</button><button type="button" data-sequence-remove data-index="' + index + '" aria-label="Remove block">Remove</button></span>';
+      const summary = '<div class="sequence-block-summary"><span class="sequence-block-number">' + String(index + 1).padStart(2,"0") + '</span><span class="sequence-block-copy"><strong>' + esc(sequenceNodeLabel(node,works)) + '</strong><small>' + (node.kind === "work" ? "WORK" : "TEXT") + ' · ' + esc(node.id) + '</small></span>' + controls + '</div>';
+      if (node.kind === "work") return '<li class="sequence-block-row sequence-work-row">' + summary + '</li>';
+      return '<li class="sequence-block-row sequence-text-row">' + summary + '<div class="sequence-text-editor field-grid">' + pair("detailSequence." + index + ".heading","Optional heading",node) + pair("detailSequence." + index + ".body","Body text",node,{area:true,required:true}) + '</div></li>';
     }).join("");
-    const available = works.filter(work => !ids.includes(work.id));
-    return '<fieldset><legend>Project-page sequence</legend><ol class="sequence-list">' + (rows || "<li><span>—</span><span>No works in this sequence.</span></li>") + '</ol><div class="sequence-picker"><select data-sequence-add-select><option value="">Choose a work…</option>' + available.map(item => '<option value="' + esc(item.id) + '">' + esc(titleOf(item)) + '</option>').join("") + '</select><button type="button" class="button secondary" data-sequence-add>Add</button></div></fieldset>';
+    const available = works.filter(work => !workIds.includes(work.id));
+    const eligible = nodes.slice(0,-1);
+    const reveal = record.sequenceReveal;
+    const missingBoundary = Boolean(reveal.afterId && !eligible.some(node => node.id === reveal.afterId));
+    return '<fieldset><legend>Project-page sequence</legend><p class="muted">Works and text blocks share one order. A text block appears directly above the work it describes; move either block with the arrow controls.</p><ol class="sequence-block-list">' + (rows || '<li class="sequence-block-empty">No content blocks in this sequence.</li>') + '</ol><div class="sequence-adders"><div class="sequence-picker"><select data-sequence-add-select><option value="">Choose a work…</option>' + available.map(item => '<option value="' + esc(item.id) + '">' + esc(titleOf(item)) + '</option>').join("") + '</select><button type="button" class="button secondary" data-sequence-add-work>Add work</button></div><button type="button" class="button secondary" data-sequence-add-text>Add text block</button></div></fieldset>' +
+      '<fieldset class="sequence-reveal-editor"><legend>Show-more boundary</legend><p class="muted">When enabled, the public page shows a short preview of everything after the selected block behind a fading gradient and a Show more button. The last block is excluded because it leaves nothing to reveal. Disable this for short project pages.</p><div class="checkbox-row">' + checkbox("sequenceReveal.enabled","Enable Show more on this project",reveal.enabled) + '</div><div class="field-grid sequence-reveal-fields">' + field("sequenceReveal.afterId","Place boundary",reveal.afterId,{required:reveal.enabled,options:[["","Choose a block…"]].concat(eligible.map((node,index) => [node.id,"After " + String(index + 1).padStart(2,"0") + " · " + sequenceNodeLabel(node,works)]))}) + field("sequenceReveal.peekHeight","Visible preview height",reveal.peekHeight,{options:[["compact","Compact"],["standard","Standard"],["tall","Tall"]]}) + '</div>' + (missingBoundary ? '<p class="sequence-reveal-warning">The saved boundary no longer matches an eligible block. Choose a new boundary before enabling the feature.</p>' : "") + (!eligible.length ? '<p class="sequence-reveal-warning">Add at least two content blocks to create a useful reveal boundary.</p>' : "") + '</fieldset>';
   }
 
   function renderExternalLinks(record) {
@@ -539,7 +614,7 @@
     const activity = record.activity || {};
     const updateOptions = [["","No featured update"]].concat((state.bootstrap.summaries.updates || []).filter(item => item.published && !item.draft).map(item => [item.id,(item.date ? item.date + " · " : "") + titleOf(item)]));
     return '<div class="editor-head"><div><p class="overline">GLOBAL SITE CONTENT</p><h2>' + esc(record.profile.name) + "</h2></div></div>" +
-      '<fieldset><legend>Profile & public origin</legend><div class="field-grid">' + field("origin","Public site origin",record.origin) + field("profile.name","Name",record.profile.name) + field("profile.email","Email",record.profile.email,{type:"email"}) + "</div></fieldset>" +
+      '<fieldset><legend>Profile & canonical identity</legend><div class="field-grid">' + field("origin","Canonical public origin · locked",record.origin,{readonly:true}) + field("profile.name","Name",record.profile.name) + field("profile.email","Email",record.profile.email,{type:"email"}) + "</div></fieldset>" +
       renderSocialLinks(record) +
       renderNavigation(record) +
       '<fieldset><legend>Home page</legend><div class="field-grid">' + pair("home.eyebrow","Eyebrow",home) + home.heroLines.map((line,index) => field("home.heroLines." + index + ".pl","Headline " + (index + 1) + " · PL",line.pl) + field("home.heroLines." + index + ".en","Headline " + (index + 1) + " · EN",line.en)).join("") + field("home.heroLineHeight","Hero headline line spacing (0.80–1.40)",home.heroLineHeight ?? 1.02,{type:"number",min:0.8,max:1.4,step:0.01}) + pair("home.intro","Introduction",home,{area:true}) + pair("home.disciplinesHeading","Disciplines heading",home,{area:true}) + pair("home.disciplinesIntro","Disciplines introduction",home,{area:true}) + home.disciplines.map((item,index) => field("home.disciplines." + index + ".titlePL","Discipline " + (index + 1) + " title · PL",item.titlePL) + field("home.disciplines." + index + ".titleEN","Discipline " + (index + 1) + " title · EN",item.titleEN) + field("home.disciplines." + index + ".textPL","Discipline " + (index + 1) + " text · PL",item.textPL,{area:true}) + field("home.disciplines." + index + ".textEN","Discipline " + (index + 1) + " text · EN",item.textEN,{area:true})).join("") + "</div></fieldset>" +
@@ -673,6 +748,7 @@
     }
     if (state.type === "work") normalizeHostedAudioEmbed(record);
     if (state.type === "update") normalizeUpdateEmbeds(record);
+    if (["project","collection"].includes(state.type)) normalizeDetailSequence(record);
     return record;
   }
 
@@ -750,6 +826,10 @@
       if (event.target.name === "draft" && event.target.checked) {
         const published = form.elements.namedItem("published");
         if (published) published.checked = false;
+      }
+      if (event.target.name === "sequenceReveal.enabled") {
+        const boundary = form.elements.namedItem("sequenceReveal.afterId");
+        if (boundary) boundary.required = event.target.checked;
       }
     });
     form.addEventListener("submit",saveCurrent);
@@ -854,15 +934,37 @@
     const archive = form.querySelector("[data-archive]");
     if (archive) archive.addEventListener("click",archiveCurrent);
     form.querySelectorAll("[data-sequence-move]").forEach(button => button.addEventListener("click",() => moveSequence(Number(button.dataset.index),button.dataset.sequenceMove)));
-    form.querySelectorAll("[data-sequence-remove]").forEach(button => button.addEventListener("click",() => { state.record = collectForm(); state.record.detailSequenceIds.splice(Number(button.dataset.index),1); renderEditor(); markDirty(); }));
-    const sequenceAdd = form.querySelector("[data-sequence-add]");
+    form.querySelectorAll("[data-sequence-remove]").forEach(button => button.addEventListener("click",() => {
+      state.record = collectForm();
+      const nodes = normalizeDetailSequence(state.record);
+      nodes.splice(Number(button.dataset.index),1);
+      normalizeDetailSequence(state.record,true);
+      renderEditor();
+      markDirty();
+    }));
+    const sequenceAdd = form.querySelector("[data-sequence-add-work]");
     if (sequenceAdd) sequenceAdd.addEventListener("click",() => {
       const select = form.querySelector("[data-sequence-add-select]");
       if (!select.value) return;
       state.record = collectForm();
-      state.record.detailSequenceIds.push(select.value);
+      const nodes = normalizeDetailSequence(state.record);
+      const used = new Set(nodes.map(node => node.id));
+      nodes.push({ id:uniqueSequenceId("work-" + select.value,used),kind:"work",workId:select.value });
+      normalizeDetailSequence(state.record,true);
       renderEditor();
       markDirty();
+    });
+    const sequenceAddText = form.querySelector("[data-sequence-add-text]");
+    if (sequenceAddText) sequenceAddText.addEventListener("click",() => {
+      state.record = collectForm();
+      const nodes = normalizeDetailSequence(state.record);
+      const used = new Set(nodes.map(node => node.id));
+      nodes.push({ id:uniqueSequenceId("text-1",used),kind:"text",headingPL:"",headingEN:"",bodyPL:"",bodyEN:"" });
+      normalizeDetailSequence(state.record,true);
+      renderEditor();
+      markDirty();
+      const newIndex = state.record.detailSequence.length - 1;
+      $("[data-editor]")?.querySelector('[name="detailSequence.' + newIndex + '.bodyPL"]')?.focus();
     });
     form.querySelectorAll("[data-link-move]").forEach(button => button.addEventListener("click",() => {
       state.record = collectForm(); const links = state.record.externalLinks || []; const index = Number(button.dataset.index); const next = button.dataset.linkMove === "up" ? index - 1 : index + 1; [links[index],links[next]] = [links[next],links[index]]; renderEditor(); markDirty();
@@ -914,8 +1016,9 @@
   function moveSequence(index,direction) {
     state.record = collectForm();
     const next = direction === "up" ? index - 1 : index + 1;
-    const ids = state.record.detailSequenceIds;
-    [ids[index],ids[next]] = [ids[next],ids[index]];
+    const nodes = normalizeDetailSequence(state.record);
+    [nodes[index],nodes[next]] = [nodes[next],nodes[index]];
+    normalizeDetailSequence(state.record,true);
     renderEditor();
     markDirty();
   }

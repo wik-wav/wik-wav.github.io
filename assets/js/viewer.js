@@ -31,24 +31,26 @@
     root.dataset.odId = "shared-media-viewer";
     root.innerHTML = `
       <div class="viewer-stage" data-viewer-stage>
-        <div class="viewer-zoom-controls" role="group" data-viewer-zoom-group>
-          <button type="button" data-viewer-zoom="out">−</button>
-          <button type="button" data-viewer-zoom="reset">0</button>
-          <button type="button" data-viewer-zoom="in">+</button>
-          <output class="viewer-zoom-readout" data-viewer-zoom-readout aria-live="polite">100%</output>
+        <div class="viewer-bottom-controls">
+          <button class="viewer-nav viewer-nav-prev" type="button" data-viewer-prev>←</button>
+          <div class="viewer-zoom-controls" role="group" data-viewer-zoom-group>
+            <button type="button" data-viewer-zoom="out">−</button>
+            <button type="button" data-viewer-zoom="reset">0</button>
+            <button type="button" data-viewer-zoom="in">+</button>
+            <output class="viewer-zoom-readout" data-viewer-zoom-readout aria-live="polite">100%</output>
+          </div>
+          <button class="viewer-nav viewer-nav-next" type="button" data-viewer-next>→</button>
         </div>
         <div class="viewer-top-actions">
           <button type="button" data-viewer-background-toggle hidden></button>
           <button type="button" data-viewer-details aria-expanded="false" aria-controls="shared-viewer-details"></button>
           <button class="viewer-close" type="button" data-viewer-close></button>
         </div>
-        <button class="viewer-nav viewer-nav-prev" type="button" data-viewer-prev>←</button>
         <div class="viewer-canvas" data-viewer-canvas>
           <div class="viewer-transform" data-viewer-transform>
             <div class="viewer-artwork" data-viewer-media></div>
           </div>
         </div>
-        <button class="viewer-nav viewer-nav-next" type="button" data-viewer-next>→</button>
         <aside class="viewer-details" id="shared-viewer-details" data-viewer-details-panel hidden>
           <div><h2 data-viewer-title></h2><p data-viewer-caption></p><div class="sequence-links" data-viewer-links></div><div data-viewer-disclosure></div></div>
           <span class="viewer-counter" data-viewer-counter></span>

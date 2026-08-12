@@ -7,13 +7,25 @@
   const detailMedia = window.PORTFOLIO_DATA.detailMedia || [];
   const allDetailItems = [...allWorks, ...detailMedia];
   const memberWorks = allWorks.filter(item => (item.project === projectId || item.collections?.includes(projectId)) && !item.draft && item.projectPageVisible !== false);
-  const projectWorks = project.detailSequenceIds
-    ? project.detailSequenceIds.map(id => allDetailItems.find(item => item.id === id)).filter(Boolean)
-    : memberWorks;
+  const rawSequence = Array.isArray(project.detailSequence)
+    ? project.detailSequence
+    : (project.detailSequenceIds || memberWorks.map(item => item.id)).map(workId => ({ id: `work-${workId}`, kind: "work", workId }));
+  const sequenceEntries = rawSequence.map((entry, index) => {
+    if (typeof entry === "string") return { id: `work-${entry}`, kind: "work", workId: entry };
+    if (!entry || typeof entry !== "object") return null;
+    if (entry.kind === "work") return { ...entry, id: entry.id || `work-${entry.workId}` };
+    if (entry.kind === "text") return { ...entry, id: entry.id || `text-${index + 1}` };
+    return null;
+  }).filter(Boolean);
+  const projectWorks = sequenceEntries
+    .filter(entry => entry.kind === "work")
+    .map(entry => allDetailItems.find(item => item.id === entry.workId))
+    .filter(Boolean);
   const imageSequence = projectWorks.filter(item => item.mediaType !== "video");
   const detailMediaSizes = ["compact", "standard", "large", "full"];
   const detailHeightLimits = { compact: 70, standard: 76, large: 82, full: 86 };
   const viewer = window.PortfolioViewer.create();
+  let continuationExpanded = false;
 
   function detailMediaSize(item) {
     if (detailMediaSizes.includes(item?.detailMediaSize)) return item.detailMediaSize;
@@ -53,22 +65,37 @@
     });
   }
 
-  function sequenceUnits(items) {
+  function sequenceUnits(entries) {
     const units = [];
-    for (let index = 0; index < items.length;) {
-      const item = items[index];
+    let workIndex = 0;
+    for (let index = 0; index < entries.length;) {
+      const entry = entries[index];
+      if (entry.kind === "text") {
+        units.push({ type: "text", entry, nodeIds: [entry.id] });
+        index += 1;
+        continue;
+      }
+      const item = allDetailItems.find(candidate => candidate.id === entry.workId);
+      if (!item) {
+        index += 1;
+        continue;
+      }
       if (!item.projectGroup) {
-        units.push({ type: "item", item, index });
+        units.push({ type: "item", item, index: workIndex, entry, nodeIds: [entry.id] });
+        workIndex += 1;
         index += 1;
         continue;
       }
       const grouped = [];
       let cursor = index;
-      while (cursor < items.length && items[cursor].projectGroup === item.projectGroup) {
-        grouped.push({ item: items[cursor], index: cursor });
+      while (cursor < entries.length && entries[cursor].kind === "work") {
+        const groupedItem = allDetailItems.find(candidate => candidate.id === entries[cursor].workId);
+        if (!groupedItem || groupedItem.projectGroup !== item.projectGroup) break;
+        grouped.push({ item: groupedItem, index: workIndex, entry: entries[cursor] });
+        workIndex += 1;
         cursor += 1;
       }
-      units.push({ type: "group", id: item.projectGroup, label: P.field(item, "projectGroupLabel"), items: grouped });
+      units.push({ type: "group", id: item.projectGroup, label: P.field(item, "projectGroupLabel"), items: grouped, nodeIds: grouped.map(groupedEntry => groupedEntry.entry.id) });
       index = cursor;
     }
     return units;
@@ -106,12 +133,22 @@
       }).join("")}</div>`;
   }
 
-  function renderSequence(items) {
+  function renderSequence(units) {
     const sequenceLabel = P.state.lang === "pl" ? "SEKWENCJA" : "SEQUENCE";
-    return sequenceUnits(items).map(unit => {
+    const contextLabel = P.state.lang === "pl" ? "O PONIŻSZEJ PRACY" : "ABOUT THE WORK BELOW";
+    return units.map(unit => {
+      if (unit.type === "text") {
+        const heading = P.field(unit.entry, "heading");
+        const body = P.field(unit.entry, "body");
+        return `<aside class="sequence-text-block" id="sequence-node-${P.esc(unit.entry.id)}" data-sequence-node-id="${P.esc(unit.entry.id)}">
+          <p class="section-code">${P.esc(contextLabel)}</p>
+          ${heading ? `<h3>${P.esc(heading)}</h3>` : ""}
+          <p class="sequence-text-copy">${P.esc(body)}</p>
+        </aside>`;
+      }
       if (unit.type === "item") {
         const number = String(unit.index + 1).padStart(2, "0");
-        return `<figure class="sequence-item" data-od-id="sequence-${P.esc(project.id)}-${number}">
+        return `<figure class="sequence-item" id="sequence-node-${P.esc(unit.entry.id)}" data-sequence-node-id="${P.esc(unit.entry.id)}" data-od-id="sequence-${P.esc(project.id)}-${number}">
           <div class="sequence-media">${sequenceMedia(unit.item, unit.index)}</div>
           <figcaption class="sequence-caption">
             <p class="section-code">${number} / ${P.esc(sequenceLabel)}</p>
@@ -123,15 +160,92 @@
       }
       const first = unit.items[0].index + 1;
       const last = unit.items.at(-1).index + 1;
-      return `<section class="sequence-group" data-project-group="${P.esc(unit.id)}" data-od-id="sequence-group-${P.esc(unit.id)}">
+      return `<section class="sequence-group" data-sequence-node-ids="${P.esc(unit.nodeIds.join(" "))}" data-project-group="${P.esc(unit.id)}" data-od-id="sequence-group-${P.esc(unit.id)}">
         <header class="sequence-group-heading"><p class="section-code">${String(first).padStart(2, "0")}–${String(last).padStart(2, "0")} / ${P.esc(sequenceLabel)}</p><h3>${P.esc(unit.label)}</h3></header>
-        <div class="sequence-group-grid" data-group-count="${unit.items.length}">${unit.items.map(({ item, index }) => `
-          <figure class="sequence-group-card" data-od-id="sequence-${P.esc(project.id)}-${String(index + 1).padStart(2, "0")}">
+        <div class="sequence-group-grid" data-group-count="${unit.items.length}">${unit.items.map(({ item, index, entry }) => `
+          <figure class="sequence-group-card" id="sequence-node-${P.esc(entry.id)}" data-sequence-node-id="${P.esc(entry.id)}" data-od-id="sequence-${P.esc(project.id)}-${String(index + 1).padStart(2, "0")}">
             ${sequenceMedia(item, index)}
             <figcaption><p class="section-code">${String(index + 1).padStart(2, "0")}</p><h4>${P.esc(P.text(item))}</h4><p>${P.esc(P.field(item, "caption"))}</p>${externalLinks(item)}</figcaption>
           </figure>`).join("")}</div>
       </section>`;
     }).join("");
+  }
+
+  function sequenceRevealParts(units) {
+    const reveal = project.sequenceReveal;
+    if (!reveal?.enabled || !reveal.afterId) return { enabled: false, before: renderSequence(units), tail: "" };
+    const boundary = units.findIndex(unit => unit.nodeIds?.includes(reveal.afterId));
+    if (boundary < 0 || boundary >= units.length - 1) return { enabled: false, before: renderSequence(units), tail: "" };
+    return {
+      enabled: true,
+      before: renderSequence(units.slice(0, boundary + 1)),
+      tail: renderSequence(units.slice(boundary + 1)),
+      peekHeight: reveal.peekHeight || "standard",
+      tailNodeIds: units.slice(boundary + 1).flatMap(unit => unit.nodeIds || [])
+    };
+  }
+
+  function renderContinuation(parts, sequenceSection, postSequence) {
+    const bodyId = `sequence-continuation-${project.id}`;
+    const moreLabel = P.state.lang === "pl" ? "Pokaż więcej" : "Show more";
+    const lessLabel = P.state.lang === "pl" ? "Pokaż mniej" : "Show less";
+    const wrapper = document.createElement("section");
+    wrapper.className = `sequence-continuation is-${parts.peekHeight}${continuationExpanded ? " is-expanded" : ""}`;
+    wrapper.dataset.sequenceContinuation = "";
+    wrapper.dataset.continuationReady = "";
+    wrapper.dataset.expanded = String(continuationExpanded);
+    wrapper.innerHTML = `
+      <div class="sequence-continuation-control">
+        <button class="cta secondary sequence-continuation-toggle" type="button" data-sequence-continuation-toggle aria-controls="${P.esc(bodyId)}" aria-expanded="${continuationExpanded}">${P.esc(continuationExpanded ? lessLabel : moreLabel)}</button>
+      </div>
+      <div class="sequence-continuation-body" id="${P.esc(bodyId)}"${continuationExpanded ? "" : " inert aria-hidden=\"true\""}>
+        <section class="page-shell section project-sequence-tail"><div class="curated-sequence">${parts.tail}</div></section>
+      </div>`;
+    sequenceSection.after(wrapper);
+    if (postSequence) wrapper.querySelector(".sequence-continuation-body")?.append(postSequence);
+  }
+
+  function hashTargetId() {
+    if (!location.hash) return "";
+    try { return decodeURIComponent(location.hash.slice(1)); }
+    catch { return ""; }
+  }
+
+  function hashTarget() {
+    return document.getElementById(hashTargetId());
+  }
+
+  function tailContainsHashTarget() {
+    const target = hashTarget();
+    return Boolean(target?.closest("[data-sequence-continuation]"));
+  }
+
+  function removeCollapsedStateForPrint() {
+    document.querySelectorAll(".sequence-continuation-body[inert]").forEach(body => {
+      body.removeAttribute("inert");
+      body.removeAttribute("aria-hidden");
+    });
+  }
+
+  function setContinuationExpanded(expanded, { preserveControl = true } = {}) {
+    const root = document.querySelector("[data-sequence-continuation]");
+    const body = root?.querySelector(".sequence-continuation-body");
+    const toggle = root?.querySelector("[data-sequence-continuation-toggle]");
+    if (!root || !body || !toggle) return;
+    const beforeTop = toggle.getBoundingClientRect().top;
+    continuationExpanded = expanded;
+    root.classList.toggle("is-expanded", expanded);
+    root.dataset.expanded = String(expanded);
+    toggle.setAttribute("aria-expanded", String(expanded));
+    toggle.textContent = P.state.lang === "pl" ? (expanded ? "Pokaż mniej" : "Pokaż więcej") : (expanded ? "Show less" : "Show more");
+    body.toggleAttribute("inert", !expanded);
+    if (expanded) body.removeAttribute("aria-hidden");
+    else body.setAttribute("aria-hidden", "true");
+    if (preserveControl) {
+      const afterTop = toggle.getBoundingClientRect().top;
+      window.scrollBy({ top: afterTop - beforeTop, left: 0, behavior: "auto" });
+    }
+    toggle.focus({ preventScroll: true });
   }
 
   function render() {
@@ -159,7 +273,18 @@
 
     const sequence = document.querySelector("[data-curated-sequence]");
     if (sequence) {
-      sequence.innerHTML = renderSequence(projectWorks);
+      const sequenceSection = sequence.closest(".section");
+      const existingContinuation = document.querySelector("[data-sequence-continuation]");
+      const postSequence = document.querySelector("[data-project-post-sequence]");
+      if (postSequence && existingContinuation?.contains(postSequence)) sequenceSection?.after(postSequence);
+      existingContinuation?.remove();
+      const units = sequenceUnits(sequenceEntries);
+      const parts = sequenceRevealParts(units);
+      const requestedId = hashTargetId().replace(/^sequence-node-/, "");
+      const shouldExpandForHash = parts.enabled && (parts.tailNodeIds?.includes(requestedId) || postSequence?.contains(hashTarget()));
+      if (shouldExpandForHash) continuationExpanded = true;
+      sequence.innerHTML = parts.before;
+      if (parts.enabled && sequenceSection) renderContinuation(parts, sequenceSection, postSequence);
     }
 
     const overview = document.querySelector("[data-project-overview]");
@@ -221,11 +346,29 @@
     }
   }
 
-  window.addEventListener("portfolio:language", render);
+  window.addEventListener("portfolio:language", () => {
+    const previousScroll = window.scrollY;
+    render();
+    window.scrollTo({ top: previousScroll, left: 0, behavior: "auto" });
+  });
   document.addEventListener("click", event => {
+    const continuationToggle = event.target.closest("[data-sequence-continuation-toggle]");
+    if (continuationToggle) {
+      setContinuationExpanded(!continuationExpanded);
+      return;
+    }
     const opener = event.target.closest("[data-open-sequence]");
     if (!opener) return;
     viewer.open({ items: imageSequence, id: opener.dataset.openSequence, opener });
   });
+  window.addEventListener("hashchange", () => {
+    if (!continuationExpanded && tailContainsHashTarget()) {
+      continuationExpanded = true;
+      render();
+      requestAnimationFrame(() => hashTarget()?.scrollIntoView({ block: "start" }));
+    }
+  });
+  window.addEventListener("beforeprint", removeCollapsedStateForPrint);
+  window.addEventListener("afterprint", () => { if (!continuationExpanded) render(); });
   render();
 })();
