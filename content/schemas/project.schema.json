@@ -13,6 +13,8 @@
     "draft": { "type": "boolean" },
     "detailMediaSize": { "enum": ["compact", "standard", "large", "full"] },
     "heroLineHeightPL": { "type": "number", "minimum": 0.8, "maximum": 1.4, "default": 1.12 },
-    "heroLineHeightEN": { "type": "number", "minimum": 0.8, "maximum": 1.4, "default": 1.12 }
+    "heroLineHeightEN": { "type": "number", "minimum": 0.8, "maximum": 1.4, "default": 1.12 },
+    "editorialPL": { "type": "string", "default": "" },
+    "editorialEN": { "type": "string", "default": "" }
   }
 }

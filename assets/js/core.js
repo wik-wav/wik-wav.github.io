@@ -5,6 +5,7 @@
     "nav.home": { pl: "Profil", en: "Profile" },
     "nav.portfolio": { pl: "Portfolio", en: "Portfolio" },
     "nav.projects": { pl: "Projekty", en: "Projects" },
+    "nav.activity": { pl: "Aktywność", en: "Activity" },
     "nav.contact": { pl: "Kontakt", en: "Contact" },
     "nav.menu": { pl: "MENU", en: "MENU" },
     "nav.close": { pl: "ZAMKNIJ", en: "CLOSE" },
@@ -53,6 +54,23 @@
     return `<a href="${url(path)}" data-copy="${key}"${current}>${t(key)}</a>`;
   }
 
+  function configuredNavigation() {
+    const items = Array.isArray(site.navigation) && site.navigation.length
+      ? site.navigation
+      : [
+          { id: "home", href: "index.html" },
+          { id: "portfolio", href: "portfolio/index.html" },
+          { id: "projects", href: "projects/index.html" },
+          { id: "activity", href: "activity/index.html" },
+          { id: "contact", href: "#contact" }
+        ];
+    return items.map(item => {
+      const href = String(item.href || "").startsWith("#") ? item.href : url(item.href);
+      const current = document.body.dataset.page === item.id ? ' aria-current="page"' : "";
+      return `<a href="${esc(href)}" data-copy="nav.${esc(item.id)}"${current}>${t(`nav.${item.id}`)}</a>`;
+    }).join("");
+  }
+
   function renderChrome() {
     const header = document.querySelector("[data-site-header]");
     const footer = document.querySelector("[data-site-footer]");
@@ -64,10 +82,7 @@
             <span class="register-mark" aria-hidden="true"></span><span>${esc(site.profile?.name || "Wiktor Sielaszuk")}</span>
           </a>
           <nav class="primary-nav" id="primary-nav" aria-label="${t("nav.menu")}" data-aria-pl="Nawigacja główna" data-aria-en="Primary navigation" data-od-id="primary-navigation">
-            ${navLink("index.html", "nav.home", "home")}
-            ${navLink("portfolio/index.html", "nav.portfolio", "portfolio")}
-            ${navLink("projects/index.html", "nav.projects", "projects")}
-            <a href="#contact" data-copy="nav.contact">${t("nav.contact")}</a>
+            ${configuredNavigation()}
           </nav>
           <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-copy="nav.menu" data-od-id="mobile-menu-toggle">${t("nav.menu")}</button>
           <div class="lang-switch" role="group" aria-label="${t("language")}" data-aria-pl="Język" data-aria-en="Language" data-od-id="language-switcher">
@@ -87,6 +102,7 @@
               <a href="${esc(site.profile?.linkedIn || "https://www.linkedin.com/in/wiktor-sielaszuk")}" rel="me">LinkedIn</a>
               <a href="${url("portfolio/index.html")}" data-copy="nav.portfolio">${t("nav.portfolio")}</a>
               <a href="${url("projects/index.html")}" data-copy="nav.projects">${t("nav.projects")}</a>
+              <a href="${url("activity/index.html")}" data-copy="nav.activity">${t("nav.activity")}</a>
             </div>
           </div>
         </div>

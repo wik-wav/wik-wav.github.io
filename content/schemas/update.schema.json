@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "portfolio-update.schema.json",
+  "title": "Portfolio activity update",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "recordType",
+    "id",
+    "order",
+    "published",
+    "draft",
+    "date",
+    "titlePL",
+    "titleEN",
+    "summaryPL",
+    "summaryEN",
+    "types",
+    "projectIds",
+    "blocks"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "recordType": { "const": "update" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "order": { "type": "number" },
+    "published": { "type": "boolean" },
+    "draft": { "type": "boolean" },
+    "date": { "type": "string", "format": "date" },
+    "titlePL": { "type": "string" },
+    "titleEN": { "type": "string" },
+    "summaryPL": { "type": "string" },
+    "summaryEN": { "type": "string" },
+    "types": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" } },
+    "projectIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" } },
+    "blocks": { "type": "array", "minItems": 1 }
+  }
+}

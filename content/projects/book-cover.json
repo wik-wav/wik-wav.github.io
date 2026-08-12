@@ -4,6 +4,8 @@
   "order": 7,
   "published": true,
   "draft": false,
+  "editorialPL": "Okładka przekłada osobisty, literacki tytuł na uporządkowany układ typograficzny. Projekt prowadzi wzrok między tytułem, nazwiskiem autora i obrazem, zachowując czytelność w druku oraz rozpoznawalność w małej skali.",
+  "editorialEN": "The cover translates a personal, literary title into a structured typographic composition. It guides the eye between the title, the author’s name, and the image while remaining legible in print and recognisable at a small scale.",
   "pageCode": "P.08",
   "pageLabelPL": "PROJEKT KURATORSKI",
   "pageLabelEN": "CURATED PROJECT",

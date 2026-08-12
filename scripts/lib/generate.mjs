@@ -35,6 +35,17 @@ function compileRuntimeRecord(record) {
   return output;
 }
 
+function compileUpdate(record) {
+  const output = runtimeRecord(record);
+  output.blocks = (output.blocks || []).map(block => {
+    const compiled = structuredClone(block);
+    if (compiled.kind === "media" && compiled.media) compiled.media = compileMedia(compiled.media);
+    if (compiled.kind === "embed" && compiled.embed?.poster) compiled.embed.poster = compileMedia(compiled.embed.poster);
+    return compiled;
+  });
+  return output;
+}
+
 function orderedContainers(bundle, { publicOnly = false } = {}) {
   return [...bundle.projects, ...bundle.collections]
     .filter(record => !publicOnly || (record.published === true && record.draft !== true))
@@ -60,7 +71,15 @@ export function compileRuntimeData(bundle, { includeDrafts = false } = {}) {
     .filter(record => record.detailOnly && (includeDrafts || (record.published === true && record.draft !== true)))
     .sort((a, b) => Number(a.order) - Number(b.order) || a.id.localeCompare(b.id))
     .map(compile);
-  return { projects: containers, collectionIds, works: publicWorks, detailMedia };
+  const updates = (bundle.updates || [])
+    .filter(record => includeDrafts || (record.published === true && record.draft !== true))
+    .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")) || Number(a.order) - Number(b.order) || a.id.localeCompare(b.id))
+    .map(record => {
+      const output = compileUpdate(record);
+      if (includeDrafts) output.draft = false;
+      return output;
+    });
+  return { projects: containers, collectionIds, works: publicWorks, detailMedia, updates };
 }
 
 function previewDocument(html, kind) {
@@ -81,7 +100,8 @@ function routeMeta(bundle) {
   const output = {
     "/": site.pages.home,
     "/portfolio/": site.pages.portfolio,
-    "/projects/": site.pages.projects
+    "/projects/": site.pages.projects,
+    "/activity/": site.pages.activity
   };
   for (const record of orderedContainers(bundle, { publicOnly: true })) {
     output[`/projects/${record.id}/`] = {
@@ -187,6 +207,20 @@ function renderProjects(bundle) {
 `;
 }
 
+function renderActivity(bundle) {
+  const page = bundle.site.pages.activity;
+  const activity = bundle.site.activity || {};
+  return `${documentHead({ ...page, depth: 1, scripts: ["assets/js/viewer.js", "assets/js/activity.js"] })}
+<body data-base=".." data-page="activity"><div data-site-header></div><main id="main" class="page-shell">
+  <header class="portfolio-head activity-head"><div><p class="section-code">A.01 / <span ${bilingualAttributes(activity.eyebrowPL || "DZIENNIK AKTYWNOŚCI", activity.eyebrowEN || "ACTIVITY LOG")}>${escapeHtml(activity.eyebrowPL || "DZIENNIK AKTYWNOŚCI")}</span></p><h1 ${bilingualAttributes(activity.headingPL || "Aktywność", activity.headingEN || "Activity")}>${escapeHtml(activity.headingPL || "Aktywność")}</h1></div><p class="lead" ${bilingualAttributes(activity.introPL || "", activity.introEN || "")}>${escapeHtml(activity.introPL || "")}</p></header>
+  <section class="activity-featured" data-activity-featured hidden></section>
+  <section class="section activity-log" aria-labelledby="activity-log-heading"><div class="activity-log-head"><div><p class="section-code">01 / <span data-pl="WPISY" data-en="UPDATES">WPISY</span></p><h2 id="activity-log-heading" data-pl="Ostatnia aktywność" data-en="Latest activity">Ostatnia aktywność</h2></div><span class="result-count" data-activity-count aria-live="polite"></span></div><div class="activity-filters" data-activity-filters></div><div class="activity-feed" data-activity-feed></div><div class="pagination" data-activity-pagination></div></section>
+</main><div data-site-footer></div></body></html>
+`;
+}
+
+export const renderActivityPage = renderActivity;
+
 function renderBrandMark(record) {
   if (!record.brandMark) return "";
   const mark = record.brandMark;
@@ -208,10 +242,10 @@ function renderProject(record) {
   return `${documentHead({ ...seo, depth: 2, scripts: ["assets/js/viewer.js", "assets/js/project-detail.js"] })}
 <body data-base="../.." data-page="projects" data-project="${escapeHtml(record.id)}"><div data-site-header></div><main id="main"><article>
   <header class="page-shell project-hero" style="--project-hero-line-height-pl:${heroLineHeightPL};--project-hero-line-height-en:${heroLineHeightEN}"><p class="section-code">${escapeHtml(record.pageCode || "P.03")} / <span ${bilingualAttributes(record.pageLabelPL || "PROJEKT KURATORSKI", record.pageLabelEN || "CURATED PROJECT")}>${escapeHtml(record.pageLabelPL || "PROJEKT KURATORSKI")}</span></p><div class="project-hero-grid"><div><h1 data-project-title></h1><p class="lead" data-project-summary></p></div><dl class="project-meta"><div><dt data-pl="Rok" data-en="Year">Rok</dt><dd data-project-year></dd></div><div><dt data-pl="Dyscypliny" data-en="Disciplines">Dyscypliny</dt><dd data-project-disciplines></dd></div><div><dt>Format</dt><dd data-project-format></dd></div></dl></div>${renderBrandMark(record)}${cover}</header>
-  <section class="page-shell section project-overview"><div><p class="section-code">01 / <span data-pl="ZAŁOŻENIA" data-en="CONCEPT">ZAŁOŻENIA</span></p><h2 data-pl="Założenia, proces i zakres." data-en="Concept, process, and scope.">Założenia, proces i zakres.</h2></div><div><p class="lead" data-project-overview></p>${projectLinks}<dl class="project-meta"><div><dt data-pl="Rola / zakres" data-en="Role / scope">Rola / zakres</dt><dd data-project-role></dd></div><div><dt data-pl="Media" data-en="Media">Media</dt><dd data-project-media></dd></div></dl></div></section>
+  <section class="page-shell section project-overview"><div><p class="section-code">01 / <span data-pl="ZAŁOŻENIA" data-en="CONCEPT">ZAŁOŻENIA</span></p><h2 data-pl="Założenia, proces i zakres." data-en="Concept, process, and scope.">Założenia, proces i zakres.</h2></div><div><p class="lead" data-project-overview></p><p class="project-editorial-copy" data-project-editorial hidden></p>${projectLinks}<dl class="project-meta"><div><dt data-pl="Rola / zakres" data-en="Role / scope">Rola / zakres</dt><dd data-project-role></dd></div><div><dt data-pl="Media" data-en="Media">Media</dt><dd data-project-media></dd></div></dl></div></section>
   ${script}
   <section class="page-shell section"><p class="section-code">${sequenceNumber} / <span data-pl="SEKWENCJA PRAC" data-en="WORK SEQUENCE">SEKWENCJA PRAC</span></p><div class="curated-sequence" data-curated-sequence></div></section>
-  <section class="page-shell section" data-process-section><p class="section-code">${processNumber} / <span data-pl="PROCES I KREDYTY" data-en="PROCESS AND CREDITS">PROCES I KREDYTY</span></p><div class="project-overview"><h2 data-project-process-heading></h2><div class="detail-copy"><p class="lead" data-project-process></p><p data-project-credits></p></div></div></section>
+  <section class="page-shell section" data-process-section><p class="section-code">${processNumber} / <span data-pl="PROCES I WSPÓŁTWÓRCY" data-en="PROCESS AND CONTRIBUTORS">PROCES I WSPÓŁTWÓRCY</span></p><div class="project-overview"><h2 data-project-process-heading></h2><div class="detail-copy"><p class="lead" data-project-process></p><p data-project-credits></p></div></div></section>
   <section class="page-shell section related-projects-section" aria-labelledby="related-heading-${escapeHtml(record.id)}"><h2 class="section-code related-section-heading" id="related-heading-${escapeHtml(record.id)}">${relatedNumber} / <span data-pl="POWIĄZANE PROJEKTY" data-en="RELATED PROJECTS">POWIĄZANE PROJEKTY</span></h2><div class="related-grid" data-related-projects></div></section>
 </article></main><div data-site-footer></div></body></html>
 `;
@@ -237,6 +271,7 @@ function buildManifest(bundle) {
       { name: "home", route: "/", file: "index.html" },
       { name: "portfolio", route: "/portfolio/", file: "portfolio/index.html" },
       { name: "projects", route: "/projects/", file: "projects/index.html" },
+      { name: "activity", route: "/activity/", file: "activity/index.html" },
       ...containers.map(record => ({ name: record.id, route: `/projects/${record.id}/`, file: `projects/${record.id}/index.html`, recordType: record.recordType }))
     ]
   };
@@ -277,7 +312,8 @@ export async function generateSite(bundle, { root = PROJECT_ROOT, check = false,
     ["public/sitemap.xml", buildSitemap(bundle)],
     ["index.html", renderHome(bundle)],
     ["portfolio/index.html", renderPortfolio(bundle)],
-    ["projects/index.html", renderProjects(bundle)]
+    ["projects/index.html", renderProjects(bundle)],
+    ["activity/index.html", renderActivity(bundle)]
   ]);
   for (const record of orderedContainers(bundle, { publicOnly: true })) outputs.set(`projects/${record.id}/index.html`, renderProject(record));
   if (preview && !check) {
@@ -285,6 +321,7 @@ export async function generateSite(bundle, { root = PROJECT_ROOT, check = false,
     outputs.set("studio-preview/data.js", `// Local draft preview; never publish.\nwindow.PORTFOLIO_DATA = ${escapeScriptJson(previewRuntime)};\n`);
     outputs.set("studio-preview/portfolio/index.html", previewDocument(renderPortfolio(bundle), "index"));
     outputs.set("studio-preview/projects/index.html", previewDocument(renderProjects(bundle), "index"));
+    outputs.set("studio-preview/activity/index.html", previewDocument(renderActivity(bundle), "index"));
     for (const record of orderedContainers(bundle)) outputs.set(`studio-preview/projects/${record.id}/index.html`, previewDocument(renderProject(record), "project"));
   }
 

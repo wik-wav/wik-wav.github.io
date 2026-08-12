@@ -82,11 +82,82 @@ function listSummaries(bundle) {
       ...summary(record),
       project: record.project || "",
       mediaType: record.mediaType || "image",
+      videoProvider: record.video?.provider || "",
       galleryVisible: record.galleryVisible !== false,
       detailOnly: record.detailOnly === true,
       coverPreview: summaryMedia(record.cover)
+    })),
+    updates: (bundle.updates || []).map(record => ({
+      ...summary(record),
+      date: record.date || "",
+      types: Array.isArray(record.types) ? record.types : [],
+      projectIds: Array.isArray(record.projectIds) ? record.projectIds : []
     }))
   };
+}
+
+function orderedContainers(bundle) {
+  return [...bundle.projects, ...bundle.collections]
+    .sort((a, b) => Number(a.order) - Number(b.order) || a.recordType.localeCompare(b.recordType) || a.id.localeCompare(b.id));
+}
+
+function containerOrderRevision(bundle) {
+  return revision(orderedContainers(bundle).map(record => ({
+    recordType: record.recordType,
+    id: record.id,
+    order: Number(record.order)
+  })));
+}
+
+function assertExactContainerOrder(input, records) {
+  if (!Array.isArray(input.items) || input.items.length !== records.length) {
+    throw Object.assign(new Error("Container order must contain every project and collection exactly once."), { status: 422 });
+  }
+  const expected = new Set(records.map(record => `${record.recordType}:${record.id}`));
+  const received = input.items.map(item => {
+    if (!item || !["project", "collection"].includes(item.recordType) || typeof item.id !== "string") {
+      throw Object.assign(new Error("Each container order item needs a project or collection recordType and an id."), { status: 422 });
+    }
+    return `${item.recordType}:${item.id}`;
+  });
+  if (new Set(received).size !== records.length || received.some(key => !expected.has(key))) {
+    throw Object.assign(new Error("Container order must contain every project and collection exactly once."), { status: 422 });
+  }
+}
+
+async function persistContainerOrder(input, expectedRevision) {
+  const bundle = await loadContent();
+  const records = orderedContainers(bundle);
+  if (!expectedRevision || expectedRevision !== containerOrderRevision(bundle)) {
+    throw Object.assign(new Error("The project order changed in another Studio window. The latest order has been reloaded."), { status: 412 });
+  }
+  assertExactContainerOrder(input, records);
+  const byKey = new Map(records.map(record => [`${record.recordType}:${record.id}`, record]));
+  const snapshots = records.map(record => structuredClone(record));
+  try {
+    for (const [index, item] of input.items.entries()) {
+      const record = byKey.get(`${item.recordType}:${item.id}`);
+      record.order = index + 1;
+      await saveRecord(record.recordType, record.id, record);
+    }
+    const refreshed = await loadContent();
+    const validation = await validateContent(refreshed);
+    if (!validation.valid) {
+      throw Object.assign(new Error("Order change rejected by content validation."), { status: 422, validation });
+    }
+    await generateAndNotify(refreshed);
+    return {
+      summaries: listSummaries(refreshed),
+      orderRevision: containerOrderRevision(refreshed),
+      validation
+    };
+  } catch (error) {
+    for (const snapshot of snapshots) {
+      await saveRecord(snapshot.recordType, snapshot.id, snapshot).catch(() => {});
+    }
+    try { await generateAndNotify(await loadContent()); } catch { /* best-effort generated-output rollback */ }
+    throw error;
+  }
 }
 
 function archivedWorkSummaries(records) {
@@ -109,9 +180,14 @@ function workTypeTaxonomy(bundle, archivedWorks = []) {
     .sort((a, b) => a.localeCompare(b, "en"));
 }
 
+function updateTypeTaxonomy(bundle) {
+  return [...new Set((bundle.updates || []).flatMap(record => Array.isArray(record.types) ? record.types : []))]
+    .sort((a, b) => a.localeCompare(b, "en"));
+}
+
 function recordFromBundle(bundle, type, id) {
   if (type === "site") return bundle.site;
-  const plural = type === "project" ? "projects" : type === "collection" ? "collections" : type === "work" ? "works" : null;
+  const plural = type === "project" ? "projects" : type === "collection" ? "collections" : type === "work" ? "works" : type === "update" ? "updates" : null;
   return plural ? bundle[plural].find(record => record.id === id) : null;
 }
 
@@ -122,7 +198,12 @@ function defaultImage() {
 function createDraft(type, id, title) {
   const base = { schemaVersion: 1, recordType: type, id, order: Date.now(), published: false, draft: true, titlePL: title, titleEN: title };
   if (type === "work") return { ...base, project: "", collections: [], year: "", medium: "digital", types: [], mediaType: "image", galleryVisible: false, projectPageVisible: true, detailOnly: false, summaryPL: "", summaryEN: "", altPL: "", altEN: "", captionPL: "", captionEN: "", cover: defaultImage(), gallery: [], video: { provider: null, id: null, url: null, bandcampType: null, embedSize: null, poster: defaultImage() }, featured: false };
-  return { ...base, summaryPL: "", summaryEN: "", overviewPL: "", overviewEN: "", yearPL: "", yearEN: "", disciplinesPL: "", disciplinesEN: "", formatPL: "", formatEN: "", rolePL: "", roleEN: "", processHeadingPL: "", processHeadingEN: "", processPL: "", processEN: "", creditsPL: "", creditsEN: "", detailMediaSize: "standard", heroLineHeightPL: 1.12, heroLineHeightEN: 1.12, cover: defaultImage(), hero: defaultImage(), thumbnail: defaultImage(), related: [], detailSequenceIds: [], externalLinks: [], seo: { titlePL: `${title} — Wiktor Sielaszuk`, titleEN: `${title} — Wiktor Sielaszuk`, descriptionPL: "", descriptionEN: "", image: "public/og-social.png", imageAltPL: "", imageAltEN: "" }, pageCode: "P.NEW", pageLabelPL: type === "collection" ? "KOLEKCJA" : "PROJEKT KURATORSKI", pageLabelEN: type === "collection" ? "COLLECTION" : "CURATED PROJECT" };
+  if (type === "update") {
+    const formatter = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Warsaw", year: "numeric", month: "2-digit", day: "2-digit" });
+    const date = formatter.format(new Date());
+    return { ...base, date, summaryPL: "", summaryEN: "", types: [], projectIds: [], blocks: [{ id: "text-1", kind: "text", headingPL: "", headingEN: "", bodyPL: "", bodyEN: "" }] };
+  }
+  return { ...base, summaryPL: "", summaryEN: "", overviewPL: "", overviewEN: "", editorialPL: "", editorialEN: "", yearPL: "", yearEN: "", disciplinesPL: "", disciplinesEN: "", formatPL: "", formatEN: "", rolePL: "", roleEN: "", processHeadingPL: "", processHeadingEN: "", processPL: "", processEN: "", creditsPL: "", creditsEN: "", detailMediaSize: "standard", heroLineHeightPL: 1.12, heroLineHeightEN: 1.12, cover: defaultImage(), hero: defaultImage(), thumbnail: defaultImage(), related: [], detailSequenceIds: [], externalLinks: [], seo: { titlePL: `${title} — Wiktor Sielaszuk`, titleEN: `${title} — Wiktor Sielaszuk`, descriptionPL: "", descriptionEN: "", image: "public/og-social.png", imageAltPL: "", imageAltEN: "" }, pageCode: "P.NEW", pageLabelPL: type === "collection" ? "KOLEKCJA" : "PROJEKT KURATORSKI", pageLabelEN: type === "collection" ? "COLLECTION" : "CURATED PROJECT" };
 }
 
 async function generateAndNotify(bundle) {
@@ -268,7 +349,8 @@ const server = createServer(async (request, response) => {
         site: bundle.site,
         summaries: listSummaries(bundle),
         archives: { works: archivedWorkSummaries(archivedWorks) },
-        taxonomy: { workTypes: workTypeTaxonomy(bundle, archivedWorks) },
+        taxonomy: { workTypes: workTypeTaxonomy(bundle, archivedWorks), updateTypes: updateTypeTaxonomy(bundle) },
+        orderRevision: containerOrderRevision(bundle),
         validation,
         previewOrigin: PREVIEW_ORIGIN,
         imageMagick: magick,
@@ -285,7 +367,7 @@ const server = createServer(async (request, response) => {
       return json(response, 200, { ...result, revision: revision(result.record) });
     }
 
-    let match = url.pathname.match(/^\/api\/entities\/(project|collection|work)\/([a-z0-9-]+)$/);
+    let match = url.pathname.match(/^\/api\/entities\/(project|collection|work|update)\/([a-z0-9-]+)$/);
     if (match && request.method === "GET") {
       const bundle = await loadContent();
       const record = recordFromBundle(bundle, match[1], match[2]);
@@ -297,14 +379,14 @@ const server = createServer(async (request, response) => {
       return json(response, 200, { ...result, revision: revision(result.record) });
     }
 
-    match = url.pathname.match(/^\/api\/entities\/(project|collection|work)$/);
+    match = url.pathname.match(/^\/api\/entities\/(project|collection|work|update)$/);
     if (match && request.method === "POST") {
       const input = await readJsonBody(request);
       const result = await enqueue(async () => {
         const bundle = await loadContent();
         const id = await uniqueId(input.id || input.titlePL || input.titleEN || "untitled", bundle);
         const record = createDraft(match[1], id, input.titlePL || input.titleEN || "Untitled");
-        const orderedPeers = match[1] === "work" ? bundle.works : [...bundle.projects, ...bundle.collections];
+        const orderedPeers = match[1] === "work" ? bundle.works : match[1] === "update" ? bundle.updates : [...bundle.projects, ...bundle.collections];
         record.order = orderedPeers.reduce((max, item) => Math.max(max, Number(item.order) || 0), 0) + 1;
         await saveRecord(match[1], id, record);
         await generateAndNotify(await loadContent());
@@ -313,7 +395,7 @@ const server = createServer(async (request, response) => {
       return json(response, 201, { record: result, revision: revision(result) });
     }
 
-    match = url.pathname.match(/^\/api\/entities\/(project|collection|work)\/([a-z0-9-]+)\/duplicate$/);
+    match = url.pathname.match(/^\/api\/entities\/(project|collection|work|update)\/([a-z0-9-]+)\/duplicate$/);
     if (match && request.method === "POST") {
       const result = await enqueue(async () => {
         const bundle = await loadContent();
@@ -321,7 +403,7 @@ const server = createServer(async (request, response) => {
         if (!source) throw Object.assign(new Error("Content record not found."), { status: 404 });
         const id = await uniqueId(`${source.id}-copy`, bundle);
         const copy = structuredClone(source);
-        const orderedPeers = match[1] === "work" ? bundle.works : [...bundle.projects, ...bundle.collections];
+        const orderedPeers = match[1] === "work" ? bundle.works : match[1] === "update" ? bundle.updates : [...bundle.projects, ...bundle.collections];
         copy.id = id; copy.published = false; copy.draft = true; copy.order = Math.max(0, ...orderedPeers.map(item => Number(item.order) || 0)) + 1;
         await saveRecord(match[1], id, copy);
         await generateAndNotify(await loadContent());
@@ -330,7 +412,7 @@ const server = createServer(async (request, response) => {
       return json(response, 201, { record: result, revision: revision(result) });
     }
 
-    match = url.pathname.match(/^\/api\/entities\/(project|collection|work)\/([a-z0-9-]+)\/archive(?:\/preview)?$/);
+    match = url.pathname.match(/^\/api\/entities\/(project|collection|work|update)\/([a-z0-9-]+)\/archive(?:\/preview)?$/);
     if (match && request.method === "GET") {
       const bundle = await loadContent();
       return json(response, 200, { references: referencesFor(bundle, match[1], match[2]) });
@@ -343,7 +425,12 @@ const server = createServer(async (request, response) => {
       return json(response, 200, await enqueue(() => deleteArchivedWork(match[1], request.headers["if-match"], input.confirmId)));
     }
 
-    match = url.pathname.match(/^\/api\/order\/(project|collection|work)$/);
+    if (url.pathname === "/api/order/containers" && request.method === "PUT") {
+      const input = await readJsonBody(request);
+      return json(response, 200, await enqueue(() => persistContainerOrder(input, request.headers["if-match"])));
+    }
+
+    match = url.pathname.match(/^\/api\/order\/(work)$/);
     if (match && request.method === "PUT") {
       const input = await readJsonBody(request);
       const result = await enqueue(async () => {

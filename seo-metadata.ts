@@ -20,6 +20,12 @@ export const routeMetadata: Record<string, RouteMeta> = {
     "descriptionPL": "Wybrane projekty Wiktora Sielaszuka z opisami założeń, procesu, roli i mediów.",
     "descriptionEN": "Selected projects by Wiktor Sielaszuk with context on concept, process, role, and media."
   },
+  "/activity/": {
+    "titlePL": "Aktywność — Wiktor Sielaszuk",
+    "titleEN": "Activity — Wiktor Sielaszuk",
+    "descriptionPL": "Aktualności o projektach, publikacjach, wystąpieniach i bieżącej pracy Wiktora Sielaszuka.",
+    "descriptionEN": "Updates on Wiktor Sielaszuk’s projects, publications, appearances, and current work."
+  },
   "/projects/latentne/": {
     "titlePL": "Latentne — Wiktor Sielaszuk",
     "titleEN": "Latentne — Wiktor Sielaszuk",
@@ -60,15 +66,6 @@ export const routeMetadata: Record<string, RouteMeta> = {
     "imageAltEN": "White concentric rings on black from Dissonance Perspective.",
     "year": "2026"
   },
-  "/projects/lem/": {
-    "titlePL": "Lem — synteza głosu i system postaci — Wiktor Sielaszuk",
-    "titleEN": "Lem — voice synthesis and character system — Wiktor Sielaszuk",
-    "descriptionPL": "Modularny system postaci i rodzina bezpłatnych głosów dla OpenUTAU, UTAU i DiffSinger, rozwijane jako jedna zmienna tożsamość.",
-    "descriptionEN": "A modular character system and family of free voices for OpenUTAU, UTAU, and DiffSinger, developed as one variable identity.",
-    "image": "assets/media/lem/lem-three-forms-thumbnail.webp",
-    "imageAltPL": "Trzy pełnopostaciowe formy Lem: Civet, Quoll i Phascogale, ustawione obok siebie.",
-    "imageAltEN": "Three full-body Lem forms—Civet, Quoll, and Phascogale—arranged side by side."
-  },
   "/projects/lozenge-t/": {
     "titlePL": "Lozenge T. — Wiktor Sielaszuk",
     "titleEN": "Lozenge T. — Wiktor Sielaszuk",
@@ -77,6 +74,15 @@ export const routeMetadata: Record<string, RouteMeta> = {
     "image": "assets/media/lozenge-t/lozenge-t-pabaka-alphabet.webp",
     "imageAltPL": "Plansza alfabetu Pabaka z zestawem znaków pisma języka Asaxi.",
     "imageAltEN": "Pabaka alphabet board showing the character set of the Asaxi script."
+  },
+  "/projects/lem/": {
+    "titlePL": "Lem — synteza głosu i system postaci — Wiktor Sielaszuk",
+    "titleEN": "Lem — voice synthesis and character system — Wiktor Sielaszuk",
+    "descriptionPL": "Modularny system postaci i rodzina bezpłatnych głosów dla OpenUTAU, UTAU i DiffSinger, rozwijane jako jedna zmienna tożsamość.",
+    "descriptionEN": "A modular character system and family of free voices for OpenUTAU, UTAU, and DiffSinger, developed as one variable identity.",
+    "image": "assets/media/lem/lem-three-forms-thumbnail.webp",
+    "imageAltPL": "Trzy pełnopostaciowe formy Lem: Civet, Quoll i Phascogale, ustawione obok siebie.",
+    "imageAltEN": "Three full-body Lem forms—Civet, Quoll, and Phascogale—arranged side by side."
   },
   "/projects/book-cover/": {
     "titlePL": "Książka, której nie napisałem — Wiktor Sielaszuk",

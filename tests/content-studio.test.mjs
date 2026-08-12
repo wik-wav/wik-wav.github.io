@@ -18,9 +18,10 @@ test("migrated JSON is the valid source of truth", async () => {
   assert.equal(result.counts.projects, bundle.projects.length);
   assert.equal(result.counts.collections, bundle.collections.length);
   assert.equal(result.counts.works, bundle.works.length);
+  assert.equal(result.counts.updates, bundle.updates.length);
   assert.ok(result.counts.media > 0);
   const registered = new Set(bundle.registry.published.map(entry => `${entry.recordType}:${entry.id}`));
-  for (const record of [...bundle.projects, ...bundle.collections, ...bundle.works].filter(item => item.published === true)) {
+  for (const record of [...bundle.projects, ...bundle.collections, ...bundle.works, ...bundle.updates].filter(item => item.published === true)) {
     assert.ok(registered.has(`${record.recordType}:${record.id}`), `${record.recordType}/${record.id} is registered`);
   }
 });
@@ -41,6 +42,30 @@ test("draft translation gaps are warnings while published gaps are errors", asyn
   result = await validateContent(bundle,{root,checkFiles:false});
   assert.equal(result.valid,false);
   assert.ok(result.errors.some(issue => issue.code === "missing-translation"));
+});
+
+test("activity updates validate as first-class bilingual block records", async () => {
+  const bundle = await loadContent(root);
+  const update = {
+    schemaVersion:1, recordType:"update", id:"activity-model-test", order:1,
+    published:false, draft:true, date:"2026-08-12",
+    titlePL:"Aktualizacja", titleEN:"Update", summaryPL:"Podsumowanie.", summaryEN:"Summary.",
+    types:["publication"], projectIds:[bundle.projects[0].id],
+    blocks:[
+      {id:"text-1",kind:"text",headingPL:"Nagłówek",headingEN:"Heading",bodyPL:"Treść.",bodyEN:"Body."},
+      {id:"link-2",kind:"link",labelPL:"Czytaj",labelEN:"Read",href:"https://example.com"}
+    ]
+  };
+  bundle.updates.push(update);
+  let result = await validateContent(bundle,{root,checkFiles:false});
+  assert.equal(result.valid,true);
+  assert.equal(compileRuntimeData(bundle,{includeDrafts:true}).updates[0].id,"activity-model-test");
+  update.blocks[0].bodyEN = "";
+  result = await validateContent(bundle,{root,checkFiles:false});
+  assert.ok(result.warnings.some(issue => issue.path.endsWith("blocks[0].bodyEN")));
+  update.draft = false;
+  result = await validateContent(bundle,{root,checkFiles:false});
+  assert.ok(result.errors.some(issue => issue.path.endsWith("blocks[0].bodyEN")));
 });
 
 test("validation rejects unsafe fields, invalid URLs, ratios, focal points and media paths", async () => {
@@ -227,7 +252,7 @@ test("Studio UI exposes structured bilingual, sequence, crop, fit, background, m
   assert.match(app,/video\.poster = structuredClone\(record\.cover\)/);
   assert.match(app,/video\.provider && video\.provider !== detected\.provider/);
   assert.match(app,/video\.embedSize = video\.embedSize \|\| "standard"/);
-  assert.match(app,/\["soundcloud", "bandcamp"\]\.includes\(item\.video\?\.provider\) \? "AUDIO" : "VIDEO"/);
+  assert.match(app,/\["soundcloud", "bandcamp"\]\.includes\(item\.videoProvider\) \? "AUDIO" : "VIDEO"/);
   assert.match(app,/const editLabel = \["Edit " \+ titleOf\(item\), mediaBadge\]/);
   assert.match(app,/data-typography-input/);
   assert.match(app,/data-typography-action="keep"/);

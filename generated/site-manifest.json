@@ -18,6 +18,11 @@
       "file": "projects/index.html"
     },
     {
+      "name": "activity",
+      "route": "/activity/",
+      "file": "activity/index.html"
+    },
+    {
       "name": "latentne",
       "route": "/projects/latentne/",
       "file": "projects/latentne/index.html",
@@ -42,15 +47,15 @@
       "recordType": "project"
     },
     {
-      "name": "lem",
-      "route": "/projects/lem/",
-      "file": "projects/lem/index.html",
-      "recordType": "project"
-    },
-    {
       "name": "lozenge-t",
       "route": "/projects/lozenge-t/",
       "file": "projects/lozenge-t/index.html",
+      "recordType": "project"
+    },
+    {
+      "name": "lem",
+      "route": "/projects/lem/",
+      "file": "projects/lem/index.html",
       "recordType": "project"
     },
     {

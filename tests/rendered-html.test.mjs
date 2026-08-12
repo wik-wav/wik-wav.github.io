@@ -27,7 +27,7 @@ test("keeps index.html primary and registers every generated route", async () =>
   const { projects, works } = await loadData();
   const publicWorks = works.filter(item => !item.draft && item.galleryVisible !== false);
   assert.equal(pages[0], "index.html");
-  assert.equal(pages.length, 3 + projects.length);
+  assert.equal(pages.length, 4 + projects.length);
   assert.equal(publicWorks.length, works.filter(item => !item.draft && item.galleryVisible !== false).length);
   for (const page of pages) await access(path.join(root, page));
 
@@ -78,7 +78,7 @@ test("keeps the Open Design raw preview dependency graph flat and directly addre
     }
   }
 
-  for (const file of ["typography.js", "core.js", "viewer.js", "portfolio.js", "projects.js", "project-detail.js"]) {
+  for (const file of ["typography.js", "core.js", "viewer.js", "portfolio.js", "projects.js", "project-detail.js", "activity.js"]) {
     assert.doesNotMatch(await read(`assets/js/${file}`), /^\s*import\s/m, `${file} has no nested browser imports`);
   }
 });
@@ -107,7 +107,7 @@ test("applies one shared, display-only typography pass across every route", asyn
   assert.doesNotMatch(css, /\.project-row p, \.project-row \.tag\s*\{[^}]*overflow-wrap:\s*anywhere/);
 });
 
-test("builds complete route-specific production SEO for all fourteen canonical pages", async () => {
+test("builds complete route-specific production SEO for every canonical page", async () => {
   const titles = new Set();
   const descriptions = new Set();
   for (const page of pages) {
@@ -131,19 +131,19 @@ test("builds complete route-specific production SEO for all fourteen canonical p
     const json = output.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
     const schema = JSON.parse(json);
     if (route === "/") assert.ok(schema["@graph"].some(item => item["@type"] === "Person") && schema["@graph"].some(item => item["@type"] === "WebSite"));
-    else if (["/portfolio/", "/projects/"].includes(route)) assert.equal(schema["@type"], "CollectionPage");
+    else if (["/portfolio/", "/projects/", "/activity/"].includes(route)) assert.equal(schema["@type"], "CollectionPage");
     else assert.equal(schema["@type"], "CreativeWork");
   }
-  assert.equal(titles.size, 14);
-  assert.equal(descriptions.size, 14);
+  assert.equal(titles.size, pages.length);
+  assert.equal(descriptions.size, pages.length);
 });
 
 test("ships crawl, manifest, icon, and disclosed social assets", async () => {
   for (const file of ["robots.txt", "sitemap.xml", "site.webmanifest", "favicon-32.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "og-social.png"]) await access(path.join(root, "dist", file));
   const sitemap = await read("dist/sitemap.xml");
   const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
-  assert.equal(urls.length, 14);
-  assert.equal(new Set(urls).size, 14);
+  assert.equal(urls.length, pages.length);
+  assert.equal(new Set(urls).size, pages.length);
   assert.ok(urls.every(url => url.startsWith("https://wik-wav.github.io/") && !url.includes("?")));
   const manifest = JSON.parse(await read("dist/site.webmanifest"));
   assert.deepEqual(manifest.icons.map(icon => icon.sizes), ["192x192", "512x512"]);

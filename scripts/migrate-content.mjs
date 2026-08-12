@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import vm from "node:vm";
 import { CONTENT_ROOT, PROJECT_ROOT, atomicWriteJson } from "./lib/content-store.mjs";
@@ -63,6 +63,7 @@ function siteRecord() {
       { id: "home", href: "index.html", labelPL: "Profil", labelEN: "Profile" },
       { id: "portfolio", href: "portfolio/index.html", labelPL: "Portfolio", labelEN: "Portfolio" },
       { id: "projects", href: "projects/index.html", labelPL: "Projekty", labelEN: "Projects" },
+      { id: "activity", href: "activity/index.html", labelPL: "Aktywność", labelEN: "Activity" },
       { id: "contact", href: "#contact", labelPL: "Kontakt", labelEN: "Contact" }
     ],
     copy: {
@@ -70,6 +71,7 @@ function siteRecord() {
       "nav.home": { pl: "Profil", en: "Profile" },
       "nav.portfolio": { pl: "Portfolio", en: "Portfolio" },
       "nav.projects": { pl: "Projekty", en: "Projects" },
+      "nav.activity": { pl: "Aktywność", en: "Activity" },
       "nav.contact": { pl: "Kontakt", en: "Contact" },
       "nav.menu": { pl: "MENU", en: "MENU" },
       "nav.close": { pl: "ZAMKNIJ", en: "CLOSE" },
@@ -107,7 +109,16 @@ function siteRecord() {
     pages: {
       home: { titlePL: "Wiktor Sielaszuk — profil", titleEN: "Wiktor Sielaszuk — profile", descriptionPL: "Profil Wiktora Sielaszuka: projektowanie, sztuka, systemy wizualne i badania.", descriptionEN: "Wiktor Sielaszuk’s profile: design, art, visual systems, and research." },
       portfolio: { titlePL: "Portfolio — Wiktor Sielaszuk", titleEN: "Portfolio — Wiktor Sielaszuk", descriptionPL: "Wszystkie publiczne prace Wiktora Sielaszuka z filtrowaniem według projektu, roku, medium i typu.", descriptionEN: "All public work by Wiktor Sielaszuk, filterable by project, year, medium, and type." },
-      projects: { titlePL: "Projekty — Wiktor Sielaszuk", titleEN: "Projects — Wiktor Sielaszuk", descriptionPL: "Wybrane projekty Wiktora Sielaszuka z opisami założeń, procesu, roli i mediów.", descriptionEN: "Selected projects by Wiktor Sielaszuk with context on concept, process, role, and media." }
+      projects: { titlePL: "Projekty — Wiktor Sielaszuk", titleEN: "Projects — Wiktor Sielaszuk", descriptionPL: "Wybrane projekty Wiktora Sielaszuka z opisami założeń, procesu, roli i mediów.", descriptionEN: "Selected projects by Wiktor Sielaszuk with context on concept, process, role, and media." },
+      activity: { titlePL: "Aktywność — Wiktor Sielaszuk", titleEN: "Activity — Wiktor Sielaszuk", descriptionPL: "Aktualności dotyczące projektów, publikacji, wydarzeń i rozwijanych narzędzi.", descriptionEN: "Updates on projects, publications, events, and tools in development." }
+    },
+    activity: {
+      eyebrowPL: "DZIENNIK AKTYWNOŚCI", eyebrowEN: "ACTIVITY LOG",
+      headingPL: "Aktywność", headingEN: "Activity",
+      introPL: "Aktualności dotyczące projektów, publikacji, wydarzeń i rozwijanych narzędzi.",
+      introEN: "Updates on projects, publications, events, and tools in development.",
+      featuredUpdateId: "", itemsPerPage: 10,
+      emptyPL: "Nie ma jeszcze opublikowanych aktualizacji.", emptyEN: "There are no published updates yet."
     },
     footer: {
       headingPL: "Porozmawiajmy o projekcie albo współpracy.",
@@ -127,12 +138,17 @@ async function ensureEmptyOrForced() {
 
 async function main() {
   await ensureEmptyOrForced();
+  let retainedUpdates = [];
+  try {
+    const files = (await readdir(path.join(CONTENT_ROOT,"updates"))).filter(file => file.endsWith(".json"));
+    retainedUpdates = await Promise.all(files.map(file => readFile(path.join(CONTENT_ROOT,"updates",file),"utf8").then(JSON.parse)));
+  } catch (error) { if (error.code !== "ENOENT") throw error; }
   const legacy = await loadLegacyData();
   const projectsById = new Map(legacy.projects.map(item => [item.id, item]));
   const sequenceOwner = new Map();
   for (const project of legacy.projects) for (const id of project.detailSequenceIds || []) sequenceOwner.set(id, project.id);
 
-  for (const folder of ["projects", "collections", "works", "_archive/projects", "_archive/collections", "_archive/works", "schemas"]) {
+  for (const folder of ["projects", "collections", "works", "updates", "_archive/projects", "_archive/collections", "_archive/works", "_archive/updates", "schemas"]) {
     await mkdir(path.join(CONTENT_ROOT, folder), { recursive: true });
   }
   await atomicWriteJson(path.join(CONTENT_ROOT, "site.json"), siteRecord());
@@ -159,6 +175,8 @@ async function main() {
     const defaultHeroLineHeight = record.id === "gaijin-no-mittsu-no-kuusou" ? 1.3 : 1.12;
     record.heroLineHeightPL ??= record.heroLineHeight ?? defaultHeroLineHeight;
     record.heroLineHeightEN ??= record.heroLineHeight ?? defaultHeroLineHeight;
+    record.editorialPL ??= "";
+    record.editorialEN ??= "";
     record.seo = seoFor(record);
     if (record.id === "lem") record.brandMark = {
       src: "assets/media/lem/lem-jp-logo.svg",
@@ -207,7 +225,8 @@ async function main() {
     schemaVersion: 1,
     published: [
       ...legacy.projects.map(item => ({ id: item.id, recordType: COLLECTION_IDS.has(item.id) ? "collection" : "project" })),
-      ...allWorks.map(item => ({ id: item.id, recordType: "work" }))
+      ...allWorks.map(item => ({ id: item.id, recordType: "work" })),
+      ...retainedUpdates.filter(item => item.published === true).map(item => ({ id: item.id, recordType: "update" }))
     ]
   });
   await writeFile(path.join(CONTENT_ROOT, "README.md"), "# Portfolio content\n\nThese JSON files are the source of truth. Edit them through `npm run studio`; generated HTML and runtime data should not be edited manually.\n", "utf8");

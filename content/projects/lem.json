@@ -1,9 +1,11 @@
 {
   "schemaVersion": 1,
   "recordType": "project",
-  "order": 5,
+  "order": 6,
   "published": true,
   "draft": false,
+  "editorialPL": "Lem jest równocześnie systemem postaci i rodziną narzędzi głosowych. Zmiennokształtne formy porządkują różne warianty wokalne, a ilustracja, dokumentacja i dane fonetyczne budują jedną tożsamość działającą w wielu językach i środowiskach syntezy.",
+  "editorialEN": "Lem is both a character system and a family of voice tools. Shapeshifting forms organise distinct vocal variants, while illustration, documentation, and phonetic data build one identity that operates across languages and synthesis environments.",
   "pageCode": "P.06",
   "pageLabelPL": "PROJEKT KURATORSKI",
   "pageLabelEN": "CURATED PROJECT",

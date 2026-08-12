@@ -2,7 +2,7 @@
 
 ## Portfolio Studio
 
-Treść strony jest teraz oddzielona od kodu. Źródłem prawdy są pliki w `content/`: ustawienia globalne w `content/site.json`, projekty w `content/projects/`, kolekcje w `content/collections/`, a prace w `content/works/`. Pliki HTML, `assets/js/data.js`, `assets/js/site-data.js`, `seo-metadata.ts`, mapa witryny i manifest tras są generowane — nie należy edytować ich ręcznie.
+Treść strony jest teraz oddzielona od kodu. Źródłem prawdy są pliki w `content/`: ustawienia globalne w `content/site.json`, projekty w `content/projects/`, kolekcje w `content/collections/`, prace w `content/works/`, a wpisy Aktywności w `content/updates/`. Pliki HTML, `assets/js/data.js`, `assets/js/site-data.js`, `seo-metadata.ts`, mapa witryny i manifest tras są generowane — nie należy edytować ich ręcznie.
 
 Uruchomienie na Windows:
 
@@ -16,7 +16,8 @@ Polecenie otwiera dwa lokalne adresy: Portfolio Studio (`127.0.0.1:4310`) i podg
 
 W Studio można:
 
-- tworzyć, duplikować, porządkować i archiwizować projekty oraz prace; istniejące kolekcje i ich relacje pozostają zachowane w danych;
+- tworzyć, duplikować, porządkować i archiwizować projekty oraz prace; projekty i kolekcje można układać przez przeciąganie, przyciski albo wpisanie pozycji;
+- tworzyć, edytować, duplikować i archiwizować wpisy Aktywności z uporządkowanymi blokami tekstu, obrazu, osadzenia audio/wideo i linku;
 - edytować teksty PL/EN, podpisy, opisy alternatywne, tagi wybierane z listy lub dodawane jako nowe, medium, rok, SEO i kolejność sekwencji;
 - przypisywać niezależne okładki, hero i miniatury oraz ustawiać `cover`/`contain`, punkt kadrowania, rozmiar na stronie projektu i jasne/ciemne tło przezroczystych prac;
 - upuszczać obrazy do importu. Oryginał trafia do zewnętrznego magazynu masterów, a do repozytorium — zoptymalizowany WebP bez metadanych, maksymalnie 2400 px;
@@ -82,17 +83,18 @@ Pole projektu `detailMediaSize` steruje domyślną skalą naturalnych obrazów w
 
 ### Przyszła aktualizacja
 
-Portfolio Studio jest lokalnym narzędziem aktualizacji. Dane w `content/` są źródłem prawdy, a narracja, kolejność mediów, proces, kredyty i powiązane prace są generowane z tych danych.
+Portfolio Studio jest lokalnym narzędziem aktualizacji. Dane w `content/` są źródłem prawdy, a narracja, tekst redakcyjny, kolejność mediów, proces, współtwórcy i powiązane prace są generowane z tych danych.
 
 ## EN
 
-Static, multi-page portfolio prepared for a future GitHub Pages site. The home page, filterable gallery, project index, and eleven curated views share one token layer, paired PL/EN data, and a persistent language switcher. The project contains 14 routes and 62 public gallery works.
+Static, multi-page portfolio prepared for GitHub Pages. The home page, activity log, filterable gallery, project index, and eleven curated views share one token layer, paired PL/EN data, and a persistent language switcher. The project contains 15 routes and 66 public gallery works.
 
 Routes:
 
 - `index.html` — profile;
 - `portfolio/index.html` — gallery with filters and preview;
 - `projects/index.html` — index of eleven projects;
+- `activity/index.html` — bilingual activity and status updates;
 - `projects/latentne/index.html`;
 - `projects/para-analog-on/index.html`;
 - `projects/gaijin-no-mittsu-no-kuusou/index.html`;
@@ -129,13 +131,13 @@ The project-level `detailMediaSize` field controls the default scale of natural-
 
 ### Future updates
 
-Portfolio Studio is the local update pipeline. Data in `content/` is authoritative; narrative, media order, process, credits, related work, routes, and SEO are generated from it.
+Portfolio Studio is the local update pipeline. Data in `content/` is authoritative; narrative, editorial text, activity blocks, media order, process, contributors, related work, routes, and SEO are generated from it.
 
 ## SEO and GitHub Pages / SEO i GitHub Pages
 
-Metadane wszystkich 14 tras są utrzymywane centralnie w `seo-metadata.ts` i wstrzykiwane podczas builda. Jedynym originem kanonicznym jest `https://wik-wav.github.io`; adresy kanoniczne mają końcowy slash i nigdy nie zawierają parametrów filtrów, paginacji ani viewera. Polski pozostaje językiem początkowego HTML, a przełącznik PL/EN aktualizuje tytuł, opis i obsługiwane metadane. Osobno indeksowalna wersja angielska wymagałaby w przyszłości tras `/en/` i nie jest częścią tej wersji.
+Metadane wszystkich 15 tras są utrzymywane centralnie w `seo-metadata.ts` i wstrzykiwane podczas builda. Jedynym originem kanonicznym jest `https://wik-wav.github.io`; adresy kanoniczne mają końcowy slash i nigdy nie zawierają parametrów filtrów, paginacji ani viewera. Polski pozostaje językiem początkowego HTML, a przełącznik PL/EN aktualizuje tytuł, opis i obsługiwane metadane. Osobno indeksowalna wersja angielska wymagałaby w przyszłości tras `/en/` i nie jest częścią tej wersji.
 
-Metadata for all 14 routes is maintained in `seo-metadata.ts` and injected at build time. The sole canonical origin is `https://wik-wav.github.io`; canonical URLs use trailing slashes and never contain filter, pagination, or viewer parameters. Polish remains the initial HTML language, while the PL/EN switch updates the title, description, and supported metadata. Fully indexable English content would require separate `/en/` routes in a later release.
+Metadata for all 15 routes is maintained in `seo-metadata.ts` and injected at build time. The sole canonical origin is `https://wik-wav.github.io`; canonical URLs use trailing slashes and never contain filter, pagination, or viewer parameters. Polish remains the initial HTML language, while the PL/EN switch updates the title, description, and supported metadata. Fully indexable English content would require separate `/en/` routes in a later release.
 
 `public/og-social.png` jest wygenerowaną przez AI wizualizacją podglądu portfolio i zachowuje widoczne oznaczenie pochodzenia. The social card is an AI-generated portfolio preview visualisation and retains its visible disclosure.
 

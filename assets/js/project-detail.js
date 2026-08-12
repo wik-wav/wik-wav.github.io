@@ -139,6 +139,12 @@
     set("[data-project-title]", P.text(project));
     set("[data-project-summary]", P.field(project, "summary"));
     set("[data-project-overview]", P.field(project, "overview"));
+    const editorial = document.querySelector("[data-project-editorial]");
+    if (editorial) {
+      const editorialCopy = P.field(project, "editorial");
+      editorial.textContent = editorialCopy;
+      editorial.hidden = !editorialCopy;
+    }
     setOptionalRow("[data-project-year]", P.field(project, "year"));
     setOptionalRow("[data-project-disciplines]", P.field(project, "disciplines"));
     setOptionalRow("[data-project-format]", P.field(project, "format"));

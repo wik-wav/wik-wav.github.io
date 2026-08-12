@@ -27,6 +27,12 @@ window.PORTFOLIO_SITE = {
       "labelEN": "Projects"
     },
     {
+      "id": "activity",
+      "href": "activity/index.html",
+      "labelPL": "Aktywność",
+      "labelEN": "Activity"
+    },
+    {
       "id": "contact",
       "href": "#contact",
       "labelPL": "Kontakt",
@@ -49,6 +55,10 @@ window.PORTFOLIO_SITE = {
     "nav.projects": {
       "pl": "Projekty",
       "en": "Projects"
+    },
+    "nav.activity": {
+      "pl": "Aktywność",
+      "en": "Activity"
     },
     "nav.contact": {
       "pl": "Kontakt",
@@ -169,7 +179,25 @@ window.PORTFOLIO_SITE = {
       "titleEN": "Projects — Wiktor Sielaszuk",
       "descriptionPL": "Wybrane projekty Wiktora Sielaszuka z opisami założeń, procesu, roli i mediów.",
       "descriptionEN": "Selected projects by Wiktor Sielaszuk with context on concept, process, role, and media."
+    },
+    "activity": {
+      "titlePL": "Aktywność — Wiktor Sielaszuk",
+      "titleEN": "Activity — Wiktor Sielaszuk",
+      "descriptionPL": "Aktualności o projektach, publikacjach, wystąpieniach i bieżącej pracy Wiktora Sielaszuka.",
+      "descriptionEN": "Updates on Wiktor Sielaszuk’s projects, publications, appearances, and current work."
     }
+  },
+  "activity": {
+    "eyebrowPL": "DZIENNIK AKTYWNOŚCI",
+    "eyebrowEN": "ACTIVITY LOG",
+    "headingPL": "Aktywność",
+    "headingEN": "Activity",
+    "introPL": "Aktualności dotyczące projektów, publikacji, wydarzeń i rozwijanych narzędzi.",
+    "introEN": "Updates on projects, publications, events, and tools in development.",
+    "featuredUpdateId": "",
+    "itemsPerPage": 10,
+    "emptyPL": "Nie ma jeszcze opublikowanych aktualizacji.",
+    "emptyEN": "There are no published updates yet."
   },
   "footer": {
     "headingPL": "Porozmawiajmy o projekcie albo współpracy.",

@@ -3,6 +3,8 @@ window.PORTFOLIO_DATA = {
   "projects": [
     {
       "draft": false,
+      "editorialPL": "Cykl pyta, gdzie w procesie generatywnym znajduje się decyzja artysty. Fraktalne dane, malarstwo cyfrowe i dyfuzja AI są tu kolejnymi warstwami narzędzia; ostateczny obraz wynika z selekcji, korekty i świadomie prowadzonego procesu.",
+      "editorialEN": "The series asks where artistic decision-making resides within a generative process. Fractal data, digital painting, and AI diffusion become successive layers of a tool; the final image emerges through selection, correction, and deliberate direction.",
       "id": "latentne",
       "detailMediaSize": "standard",
       "titlePL": "Latentne",
@@ -73,6 +75,8 @@ window.PORTFOLIO_DATA = {
     },
     {
       "draft": false,
+      "editorialPL": "Para-analog-on przedstawia protokół jako samodzielne dzieło. Obraz zostaje opisany, rozwinięty do rozbudowanego tekstu, a następnie stopniowo zredukowany; kolejne etapy pokazują, jak język filtruje i przekształca to, co widzimy.",
+      "editorialEN": "Para-analog-on presents a protocol as an artwork in its own right. An image is described, expanded into an extensive text, and then gradually reduced; each stage shows how language filters and transforms what we see.",
       "id": "para-analog-on",
       "detailMediaSize": "standard",
       "titlePL": "Para-analog-on",
@@ -170,6 +174,8 @@ window.PORTFOLIO_DATA = {
     },
     {
       "draft": false,
+      "editorialPL": "Tryptyk audiowizualny przekłada trzy doświadczenia graniczne związane ze snem na muzykę, ruchomy obraz i plakat. Każda część działa samodzielnie, ale razem tworzą zapis stanów, w których codzienna percepcja traci stabilność.",
+      "editorialEN": "This audiovisual triptych translates three sleep-related liminal experiences into music, moving image, and poster design. Each part stands on its own, while together they record states in which everyday perception loses its stability.",
       "id": "gaijin-no-mittsu-no-kuusou",
       "detailMediaSize": "standard",
       "heroLineHeightPL": 1.11,
@@ -264,6 +270,8 @@ window.PORTFOLIO_DATA = {
     },
     {
       "draft": false,
+      "editorialPL": "Realizacja traktuje dźwięk i animowany obraz jako jeden układ napięć. Geometryczne struktury, rytm montażu i autorska muzyka prowadzą widza między porządkiem a zakłóceniem, harmonią a szumem.",
+      "editorialEN": "The work treats sound and animated image as one system of tensions. Geometric structures, editing rhythm, and original music move the viewer between order and disruption, harmony and noise.",
       "id": "dissonance-perspective",
       "detailMediaSize": "large",
       "titlePL": "Dissonance Perspective",
@@ -340,119 +348,8 @@ window.PORTFOLIO_DATA = {
     },
     {
       "draft": false,
-      "id": "lem",
-      "detailMediaSize": "compact",
-      "heroLineHeightPL": 1.02,
-      "heroLineHeightEN": 1.2,
-      "titlePL": "Lem — synteza głosu i system \npostaci",
-      "titleEN": "Lem — voice synthesis and character system",
-      "summaryPL": "Modularny system postaci i rodzina bezpłatnych głosów dla OpenUTAU, UTAU i DiffSinger, rozwijane jako jedna zmienna tożsamość.",
-      "summaryEN": "A modular character system and family of free voices for OpenUTAU, UTAU, and DiffSinger, developed as one variable identity.",
-      "overviewPL": "Lem (Lem.ma / 澪夢レム) łączy wielojęzyczne biblioteki głosu z modułową, zmiennokształtną postacią. Warianty wokalne otrzymują odrębne formy — Civet, Quoll, Phascogale, Mongoose, Weasel i Marten — pozostając częścią jednego systemu.",
-      "overviewEN": "Lem (Lem.ma / 澪夢レム) combines multilingual voice libraries with a modular shapeshifting character. Vocal variants take distinct forms—Civet, Quoll, Phascogale, Mongoose, Weasel, and Marten—while remaining part of one system.",
-      "yearPL": "",
-      "yearEN": "",
-      "disciplinesPL": "system postaci, ilustracja, synteza głosu",
-      "disciplinesEN": "character system, illustration, voice synthesis",
-      "formatPL": "biblioteki głosu, model DiffSinger, identyfikacja i dokumentacja",
-      "formatEN": "voicebanks, DiffSinger model, identity, and documentation",
-      "rolePL": "projekt postaci i systemu wizualnego, ilustracja, nagrania, etykietowanie fonetyczne, konfiguracja, dokumentacja, strojenie i ewaluacja",
-      "roleEN": "character and visual-system design, illustration, recording, phonetic labelling, configuration, documentation, tuning, and evaluation",
-      "processHeadingPL": "Głos, dane i warianty postaci.",
-      "processHeadingEN": "Voice, data, and character variants.",
-      "processPL": "Biblioteka obejmuje wielotonowe głosy angielskie i japońskie w systemach Arpasing, VCV, CVVC i VCCV. DiffSinger V2.4 Marten obsługuje język japoński, angielski i polski, deklarowany zakres A2–E5 oraz parametry TENC, VELC i GENC. Wsparcie Asaxi pozostaje planowane i eksperymentalne.",
-      "processEN": "The library includes multipitch English and Japanese voicebanks using Arpasing, VCV, CVVC, and VCCV. DiffSinger V2.4 Marten supports Japanese, English, and Polish, with a stated A2–E5 range and TENC, VELC, and GENC parameters. Asaxi support remains planned and experimental.",
-      "creditsPL": "Dane i etykiety DiffSinger: wik_wav. Trening modelu i wsparcie wielomówcze: PixPrucer.",
-      "creditsEN": "DiffSinger data and labels: wik_wav. Model training and multispeaker support: PixPrucer.",
-      "cover": {
-        "kind": "group",
-        "items": [
-          {
-            "kind": "image",
-            "src": "assets/media/lem/lem-v4-utau-civet-transparent.webp",
-            "ratio": "1/2",
-            "fit": "contain",
-            "altPL": "Pełnopostaciowa forma Civet postaci Lem: smukła antropomorficzna cyweta w sportowym stroju, z długim ogonem.",
-            "altEN": "Full-body Lem Civet form: a slim anthropomorphic civet in sportswear with a long tail.",
-            "hasTransparency": true,
-            "viewerBackground": "light",
-            "objectPosition": "45.1% 15.3%"
-          },
-          {
-            "kind": "image",
-            "src": "assets/media/lem/lem-v4-utau-quoll-transparent.webp",
-            "ratio": "1/2",
-            "fit": "contain",
-            "altPL": "Pełnopostaciowa forma Quoll postaci Lem: cętkowany antropomorficzny niełaz o masywnej sylwetce.",
-            "altEN": "Full-body Lem Quoll form: a spotted anthropomorphic quoll with a stocky build.",
-            "hasTransparency": true,
-            "viewerBackground": "light"
-          },
-          {
-            "kind": "image",
-            "src": "assets/media/lem/lem-v4-utau-phascogale-transparent.webp",
-            "ratio": "1/2",
-            "fit": "contain",
-            "altPL": "Pełnopostaciowa forma Phascogale postaci Lem: niewysoka sylwetka z dużymi uszami i kokardą na ogonie.",
-            "altEN": "Full-body Lem Phascogale form: a short figure with large ears and a ribbon tied around the tail.",
-            "hasTransparency": true,
-            "viewerBackground": "light"
-          }
-        ],
-        "ratio": "16/8"
-      },
-      "hero": {
-        "kind": "image",
-        "src": "assets/media/lem/lem-three-forms-hero.webp",
-        "ratio": "2/1",
-        "fit": "contain",
-        "altPL": "Trzy pełnopostaciowe formy Lem: Civet, Quoll i Phascogale, ustawione obok siebie.",
-        "altEN": "Three full-body Lem forms—Civet, Quoll, and Phascogale—arranged side by side.",
-        "hasTransparency": true,
-        "noPadding": true,
-        "mobileRatio": "2/1",
-        "viewerBackground": "light",
-        "objectPosition": "49.8% 33.6%"
-      },
-      "thumbnail": {
-        "kind": "image",
-        "src": "assets/media/lem/lem-three-forms-thumbnail.webp",
-        "ratio": "4/3",
-        "fit": "cover",
-        "altPL": "Trzy pełnopostaciowe formy Lem: Civet, Quoll i Phascogale, ustawione obok siebie.",
-        "altEN": "Three full-body Lem forms—Civet, Quoll, and Phascogale—arranged side by side.",
-        "hasTransparency": true,
-        "noPadding": true,
-        "viewerBackground": "light",
-        "objectPosition": "76% 31.8%"
-      },
-      "related": [
-        "lozenge-t",
-        "gaijin-no-mittsu-no-kuusou"
-      ],
-      "detailSequenceIds": [
-        "lem-01-civet-identity",
-        "lem-02-quoll-identity",
-        "lem-03-phascogale-identity",
-        "feat-lem-v4bi-audio",
-        "lem-07-civet-sideview",
-        "lem-08-quoll-sideview",
-        "lem-09-phascogale-sideview",
-        "lem-10-mongoose-transparent",
-        "lem-11-mongoose-illustration",
-        "lem-12-v3-weasel-illustration",
-        "lem-14-phascogale-camera",
-        "lem-15-opaque-application",
-        "character-art-08-lem-wardrobe-turnaround",
-        "character-art-09-lem-base-turnaround",
-        "character-art-10-lem-sleeping"
-      ],
-      "statementPL": "",
-      "statementEN": "",
-      "heroLineHeight": 1.02
-    },
-    {
-      "draft": false,
+      "editorialPL": "Lozenge T. rozwija fikcyjny świat poprzez język, pismo i narzędzia, które pozwalają z niego korzystać. Pabaka nie jest wyłącznie zestawem znaków: łączy reguły języka Asaxi z krojem pisma, dokumentacją i działającymi interfejsami przeglądarkowymi.",
+      "editorialEN": "Lozenge T. develops a fictional world through language, script, and tools that make it usable. Pabaka is more than a set of glyphs: it connects the rules of Asaxi with type design, documentation, and working browser interfaces.",
       "id": "lozenge-t",
       "detailMediaSize": "standard",
       "titlePL": "Lozenge T.",
@@ -592,6 +489,123 @@ window.PORTFOLIO_DATA = {
     },
     {
       "draft": false,
+      "editorialPL": "Lem jest równocześnie systemem postaci i rodziną narzędzi głosowych. Zmiennokształtne formy porządkują różne warianty wokalne, a ilustracja, dokumentacja i dane fonetyczne budują jedną tożsamość działającą w wielu językach i środowiskach syntezy.",
+      "editorialEN": "Lem is both a character system and a family of voice tools. Shapeshifting forms organise distinct vocal variants, while illustration, documentation, and phonetic data build one identity that operates across languages and synthesis environments.",
+      "id": "lem",
+      "detailMediaSize": "compact",
+      "heroLineHeightPL": 1.02,
+      "heroLineHeightEN": 1.2,
+      "titlePL": "Lem — synteza głosu i system \npostaci",
+      "titleEN": "Lem — voice synthesis and character system",
+      "summaryPL": "Modularny system postaci i rodzina bezpłatnych głosów dla OpenUTAU, UTAU i DiffSinger, rozwijane jako jedna zmienna tożsamość.",
+      "summaryEN": "A modular character system and family of free voices for OpenUTAU, UTAU, and DiffSinger, developed as one variable identity.",
+      "overviewPL": "Lem (Lem.ma / 澪夢レム) łączy wielojęzyczne biblioteki głosu z modułową, zmiennokształtną postacią. Warianty wokalne otrzymują odrębne formy — Civet, Quoll, Phascogale, Mongoose, Weasel i Marten — pozostając częścią jednego systemu.",
+      "overviewEN": "Lem (Lem.ma / 澪夢レム) combines multilingual voice libraries with a modular shapeshifting character. Vocal variants take distinct forms—Civet, Quoll, Phascogale, Mongoose, Weasel, and Marten—while remaining part of one system.",
+      "yearPL": "",
+      "yearEN": "",
+      "disciplinesPL": "system postaci, ilustracja, synteza głosu",
+      "disciplinesEN": "character system, illustration, voice synthesis",
+      "formatPL": "biblioteki głosu, model DiffSinger, identyfikacja i dokumentacja",
+      "formatEN": "voicebanks, DiffSinger model, identity, and documentation",
+      "rolePL": "projekt postaci i systemu wizualnego, ilustracja, nagrania, etykietowanie fonetyczne, konfiguracja, dokumentacja, strojenie i ewaluacja",
+      "roleEN": "character and visual-system design, illustration, recording, phonetic labelling, configuration, documentation, tuning, and evaluation",
+      "processHeadingPL": "Głos, dane i warianty postaci.",
+      "processHeadingEN": "Voice, data, and character variants.",
+      "processPL": "Biblioteka obejmuje wielotonowe głosy angielskie i japońskie w systemach Arpasing, VCV, CVVC i VCCV. DiffSinger V2.4 Marten obsługuje język japoński, angielski i polski, deklarowany zakres A2–E5 oraz parametry TENC, VELC i GENC. Wsparcie Asaxi pozostaje planowane i eksperymentalne.",
+      "processEN": "The library includes multipitch English and Japanese voicebanks using Arpasing, VCV, CVVC, and VCCV. DiffSinger V2.4 Marten supports Japanese, English, and Polish, with a stated A2–E5 range and TENC, VELC, and GENC parameters. Asaxi support remains planned and experimental.",
+      "creditsPL": "Dane i etykiety DiffSinger: wik_wav. Trening modelu i wsparcie wielomówcze: PixPrucer.",
+      "creditsEN": "DiffSinger data and labels: wik_wav. Model training and multispeaker support: PixPrucer.",
+      "cover": {
+        "kind": "group",
+        "items": [
+          {
+            "kind": "image",
+            "src": "assets/media/lem/lem-v4-utau-civet-transparent.webp",
+            "ratio": "1/2",
+            "fit": "contain",
+            "altPL": "Pełnopostaciowa forma Civet postaci Lem: smukła antropomorficzna cyweta w sportowym stroju, z długim ogonem.",
+            "altEN": "Full-body Lem Civet form: a slim anthropomorphic civet in sportswear with a long tail.",
+            "hasTransparency": true,
+            "viewerBackground": "light",
+            "objectPosition": "45.1% 15.3%"
+          },
+          {
+            "kind": "image",
+            "src": "assets/media/lem/lem-v4-utau-quoll-transparent.webp",
+            "ratio": "1/2",
+            "fit": "contain",
+            "altPL": "Pełnopostaciowa forma Quoll postaci Lem: cętkowany antropomorficzny niełaz o masywnej sylwetce.",
+            "altEN": "Full-body Lem Quoll form: a spotted anthropomorphic quoll with a stocky build.",
+            "hasTransparency": true,
+            "viewerBackground": "light"
+          },
+          {
+            "kind": "image",
+            "src": "assets/media/lem/lem-v4-utau-phascogale-transparent.webp",
+            "ratio": "1/2",
+            "fit": "contain",
+            "altPL": "Pełnopostaciowa forma Phascogale postaci Lem: niewysoka sylwetka z dużymi uszami i kokardą na ogonie.",
+            "altEN": "Full-body Lem Phascogale form: a short figure with large ears and a ribbon tied around the tail.",
+            "hasTransparency": true,
+            "viewerBackground": "light"
+          }
+        ],
+        "ratio": "16/8"
+      },
+      "hero": {
+        "kind": "image",
+        "src": "assets/media/lem/lem-three-forms-hero.webp",
+        "ratio": "2/1",
+        "fit": "contain",
+        "altPL": "Trzy pełnopostaciowe formy Lem: Civet, Quoll i Phascogale, ustawione obok siebie.",
+        "altEN": "Three full-body Lem forms—Civet, Quoll, and Phascogale—arranged side by side.",
+        "hasTransparency": true,
+        "noPadding": true,
+        "mobileRatio": "2/1",
+        "viewerBackground": "light",
+        "objectPosition": "49.8% 33.6%"
+      },
+      "thumbnail": {
+        "kind": "image",
+        "src": "assets/media/lem/lem-three-forms-thumbnail.webp",
+        "ratio": "4/3",
+        "fit": "cover",
+        "altPL": "Trzy pełnopostaciowe formy Lem: Civet, Quoll i Phascogale, ustawione obok siebie.",
+        "altEN": "Three full-body Lem forms—Civet, Quoll, and Phascogale—arranged side by side.",
+        "hasTransparency": true,
+        "noPadding": true,
+        "viewerBackground": "light",
+        "objectPosition": "76% 31.8%"
+      },
+      "related": [
+        "lozenge-t",
+        "gaijin-no-mittsu-no-kuusou"
+      ],
+      "detailSequenceIds": [
+        "lem-01-civet-identity",
+        "lem-02-quoll-identity",
+        "lem-03-phascogale-identity",
+        "feat-lem-v4bi-audio",
+        "lem-07-civet-sideview",
+        "lem-08-quoll-sideview",
+        "lem-09-phascogale-sideview",
+        "lem-10-mongoose-transparent",
+        "lem-11-mongoose-illustration",
+        "lem-12-v3-weasel-illustration",
+        "lem-14-phascogale-camera",
+        "lem-15-opaque-application",
+        "character-art-08-lem-wardrobe-turnaround",
+        "character-art-09-lem-base-turnaround",
+        "character-art-10-lem-sleeping"
+      ],
+      "statementPL": "",
+      "statementEN": "",
+      "heroLineHeight": 1.02
+    },
+    {
+      "draft": false,
+      "editorialPL": "Okładka przekłada osobisty, literacki tytuł na uporządkowany układ typograficzny. Projekt prowadzi wzrok między tytułem, nazwiskiem autora i obrazem, zachowując czytelność w druku oraz rozpoznawalność w małej skali.",
+      "editorialEN": "The cover translates a personal, literary title into a structured typographic composition. It guides the eye between the title, the author’s name, and the image while remaining legible in print and recognisable at a small scale.",
       "id": "book-cover",
       "detailMediaSize": "standard",
       "titlePL": "Książka, której nie napisałem",
@@ -672,6 +686,8 @@ window.PORTFOLIO_DATA = {
     },
     {
       "draft": false,
+      "editorialPL": "",
+      "editorialEN": "",
       "id": "character-art",
       "detailMediaSize": "compact",
       "titlePL": "Postaci - ilustracje",
@@ -769,6 +785,8 @@ window.PORTFOLIO_DATA = {
     },
     {
       "draft": false,
+      "editorialPL": "",
+      "editorialEN": "",
       "id": "cover-art",
       "detailMediaSize": "standard",
       "titlePL": "Okładki",
@@ -854,6 +872,8 @@ window.PORTFOLIO_DATA = {
     },
     {
       "draft": false,
+      "editorialPL": "",
+      "editorialEN": "",
       "id": "small-design-projects",
       "detailMediaSize": "compact",
       "titlePL": "Mniejsze projekty",
@@ -913,6 +933,8 @@ window.PORTFOLIO_DATA = {
     },
     {
       "draft": false,
+      "editorialPL": "WIN / DOWS łączy rozmowę z modelem językowym z fizycznym śladem skanografii. ASCII art staje się materiałem redakcyjnym, który jest powtarzany, zniekształcany i składany w publikację badającą relację między tekstem, obrazem i narzędziem.",
+      "editorialEN": "WIN / DOWS combines a conversation with a language model and the physical trace of scanography. ASCII art becomes editorial material that is repeated, distorted, and composed into a publication examining the relation between text, image, and tool.",
       "id": "windows-zine",
       "detailMediaSize": "standard",
       "titlePL": "WIN / DOWS",
@@ -5449,5 +5471,6 @@ window.PORTFOLIO_DATA = {
       "captionEN": "Still from the original 3D animation.",
       "project": "dissonance-perspective"
     }
-  ]
+  ],
+  "updates": []
 };

@@ -3,7 +3,7 @@
   "$id": "portfolio-site.schema.json",
   "title": "Portfolio site settings",
   "type": "object",
-  "required": ["schemaVersion", "origin", "profile", "navigation", "copy", "home", "pages", "footer"],
+  "required": ["schemaVersion", "origin", "profile", "navigation", "copy", "home", "pages", "activity", "footer"],
   "properties": {
     "schemaVersion": { "const": 1 },
     "origin": { "type": "string", "format": "uri", "pattern": "^https://" },
@@ -12,6 +12,14 @@
     "copy": { "type": "object" },
     "home": { "type": "object", "properties": { "heroLineHeight": { "type": "number", "minimum": 0.8, "maximum": 1.4, "default": 1.02 } } },
     "pages": { "type": "object" },
+    "activity": {
+      "type": "object",
+      "required": ["eyebrowPL", "eyebrowEN", "headingPL", "headingEN", "introPL", "introEN", "itemsPerPage", "emptyPL", "emptyEN"],
+      "properties": {
+        "featuredUpdateId": { "type": "string" },
+        "itemsPerPage": { "type": "integer", "minimum": 1, "maximum": 50 }
+      }
+    },
     "footer": { "type": "object" }
   }
 }

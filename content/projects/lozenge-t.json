@@ -1,9 +1,11 @@
 {
   "schemaVersion": 1,
   "recordType": "project",
-  "order": 6,
+  "order": 5,
   "published": true,
   "draft": false,
+  "editorialPL": "Lozenge T. rozwija fikcyjny świat poprzez język, pismo i narzędzia, które pozwalają z niego korzystać. Pabaka nie jest wyłącznie zestawem znaków: łączy reguły języka Asaxi z krojem pisma, dokumentacją i działającymi interfejsami przeglądarkowymi.",
+  "editorialEN": "Lozenge T. develops a fictional world through language, script, and tools that make it usable. Pabaka is more than a set of glyphs: it connects the rules of Asaxi with type design, documentation, and working browser interfaces.",
   "pageCode": "P.07",
   "pageLabelPL": "PROJEKT KURATORSKI",
   "pageLabelEN": "CURATED PROJECT",

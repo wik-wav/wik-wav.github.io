@@ -7,7 +7,8 @@ export const CONTENT_ROOT = path.join(PROJECT_ROOT, "content");
 export const RECORD_FOLDERS = Object.freeze({
   project: "projects",
   collection: "collections",
-  work: "works"
+  work: "works",
+  update: "updates"
 });
 export const DETAIL_MEDIA_SIZES = Object.freeze(["compact", "standard", "large", "full"]);
 export const VIDEO_PROVIDERS = Object.freeze(["youtube", "vimeo", "soundcloud", "bandcamp"]);
@@ -105,7 +106,8 @@ export async function loadContent(root = PROJECT_ROOT) {
   const projects = await readRecords("projects", root);
   const collections = await readRecords("collections", root);
   const works = await readRecords("works", root);
-  return { site, registry, projects, collections, works };
+  const updates = await readRecords("updates", root);
+  return { site, registry, projects, collections, works, updates };
 }
 
 function addIssue(target, pathName, code, message) {
@@ -246,6 +248,43 @@ function validateVideo(work, pathName, target, mediaFiles) {
   if (work.videoWarningPL || work.videoWarningEN) requiredPair(work, "videoWarning", pathName, target);
 }
 
+function validateTags(tags, pathName, target, noun = "record") {
+  if (!Array.isArray(tags)) return addIssue(target, pathName, "invalid-tags", `${noun} tags must be an array.`);
+  if (tags.length > 32) addIssue(target, pathName, "too-many-tags", `${noun} can use at most 32 tags.`);
+  const seen = new Set();
+  tags.forEach((tag, index) => {
+    if (typeof tag !== "string" || tag.length > 48 || !slugPattern.test(tag)) addIssue(target, `${pathName}[${index}]`, "invalid-tag", "Tags use lowercase letters, digits, and single hyphens only, up to 48 characters.");
+    if (seen.has(tag)) addIssue(target, `${pathName}[${index}]`, "duplicate-tag", `Tag ${tag} is listed more than once.`);
+    seen.add(tag);
+  });
+}
+
+function validateUpdateBlock(block, pathName, target, mediaFiles) {
+  if (!block || typeof block !== "object") return addIssue(target, pathName, "invalid-update-block", "Update blocks must be objects.");
+  if (!slugPattern.test(String(block.id || ""))) addIssue(target, `${pathName}.id`, "invalid-block-id", "Block IDs use lowercase letters, digits, and hyphens only.");
+  if (block.kind === "text") {
+    if (block.headingPL || block.headingEN) requiredPair(block, "heading", pathName, target);
+    requiredPair(block, "body", pathName, target);
+    return;
+  }
+  if (block.kind === "media") {
+    validateMedia(block.media, `${pathName}.media`, target, mediaFiles);
+    if (block.captionPL || block.captionEN) requiredPair(block, "caption", pathName, target);
+    return;
+  }
+  if (block.kind === "embed") {
+    requiredPair(block, "title", pathName, target);
+    if (block.summaryPL || block.summaryEN) requiredPair(block, "summary", pathName, target);
+    validateVideo({ mediaType: "video", video: block.embed }, `${pathName}.embed`, target, mediaFiles);
+    return;
+  }
+  if (block.kind === "link") {
+    validateExternalLinks([{ labelPL: block.labelPL, labelEN: block.labelEN, href: block.href }], pathName, target);
+    return;
+  }
+  addIssue(target, `${pathName}.kind`, "invalid-update-block-kind", "Update blocks must be text, media, embed, or link.");
+}
+
 function validateSite(site, errors) {
   if (site.schemaVersion !== 1) addIssue(errors, "site.schemaVersion", "schema-version", "Unsupported site schema version.");
   try {
@@ -276,9 +315,20 @@ function validateSite(site, errors) {
       requiredPair(discipline, "text", `site.home.disciplines[${index}]`, errors);
     }
   }
-  for (const [key, page] of Object.entries(site.pages || {})) {
+  for (const key of ["home", "portfolio", "projects", "activity"]) {
+    const page = site.pages?.[key];
+    if (!page || typeof page !== "object") {
+      addIssue(errors, `site.pages.${key}`, "missing-page-settings", `Page settings for ${key} are required.`);
+      continue;
+    }
     requiredPair(page, "title", `site.pages.${key}`, errors);
     requiredPair(page, "description", `site.pages.${key}`, errors);
+  }
+  const activity = site.activity;
+  if (!activity || typeof activity !== "object") addIssue(errors, "site.activity", "missing-activity", "Activity page settings are required.");
+  else {
+    for (const key of ["eyebrow", "heading", "intro", "empty"]) requiredPair(activity, key, "site.activity", errors);
+    if (!Number.isInteger(activity.itemsPerPage) || activity.itemsPerPage < 1 || activity.itemsPerPage > 50) addIssue(errors, "site.activity.itemsPerPage", "invalid-page-size", "Activity page size must be an integer from 1 to 50.");
   }
   if (site.footer) requiredPair(site.footer, "heading", "site.footer", errors);
 }
@@ -304,7 +354,7 @@ export async function validateContent(bundle, { root = PROJECT_ROOT, checkFiles 
     if (registry.has(key)) addIssue(errors, here, "duplicate-registry-entry", `Published ID ${key} is registered more than once.`);
     else registry.set(key, entry);
   }
-  for (const [kind, records] of [["project", bundle.projects], ["collection", bundle.collections], ["work", bundle.works]]) {
+  for (const [kind, records] of [["project", bundle.projects], ["collection", bundle.collections], ["work", bundle.works], ["update", bundle.updates || []]]) {
     const orders = new Set();
     records.forEach((record, index) => {
       const here = `${RECORD_FOLDERS[kind]}[${index}]`;
@@ -331,6 +381,11 @@ export async function validateContent(bundle, { root = PROJECT_ROOT, checkFiles 
   const workById = new Map(bundle.works.map(record => [record.id, record]));
   const containerOrders = new Set();
   const isPublic = record => record?.published === true && record?.draft !== true;
+  if (bundle.site.activity?.featuredUpdateId) {
+    const featured = (bundle.updates || []).find(record => record.id === bundle.site.activity.featuredUpdateId);
+    if (!featured) addIssue(errors, "site.activity.featuredUpdateId", "missing-reference", `Featured update ${bundle.site.activity.featuredUpdateId} does not exist.`);
+    else if (!isPublic(featured)) addIssue(errors, "site.activity.featuredUpdateId", "unpublished-reference", "The featured update must be published and not a draft.");
+  }
   const seoTitles = new Map();
   const seoDescriptions = new Map();
 
@@ -356,6 +411,7 @@ export async function validateContent(bundle, { root = PROJECT_ROOT, checkFiles 
       const heroLineHeight = record[key] ?? record.heroLineHeight ?? 1.12;
       if (typeof heroLineHeight !== "number" || !Number.isFinite(heroLineHeight) || heroLineHeight < 0.8 || heroLineHeight > 1.4) addIssue(target, `${here}.${key}`, "invalid-heading-spacing", `Main heading line spacing (${language}) must be a number between 0.8 and 1.4.`);
     }
+    if (record.editorialPL || record.editorialEN) requiredPair(record, "editorial", here, target);
     for (const key of ["cover", "hero", "thumbnail"]) validateMedia(record[key], `${here}.${key}`, target, mediaFiles);
     if (!record.seo || typeof record.seo !== "object") addIssue(target, `${here}.seo`, "missing-seo", "Route SEO settings are required.");
     else {
@@ -413,21 +469,37 @@ export async function validateContent(bundle, { root = PROJECT_ROOT, checkFiles 
       requiredPair(work, "summary", here, target);
       requiredPair(work, "alt", here, target);
     }
-    if (!Array.isArray(work.types)) addIssue(target, `${here}.types`, "invalid-tags", "Work tags must be an array.");
-    else {
-      if (work.types.length > 32) addIssue(target, `${here}.types`, "too-many-tags", "A work can use at most 32 tags.");
-      const seenTags = new Set();
-      work.types.forEach((tag, tagIndex) => {
-        if (typeof tag !== "string" || tag.length > 48 || !slugPattern.test(tag)) addIssue(target, `${here}.types[${tagIndex}]`, "invalid-tag", "Tags use lowercase letters, digits, and single hyphens only, up to 48 characters.");
-        if (seenTags.has(tag)) addIssue(target, `${here}.types[${tagIndex}]`, "duplicate-tag", `Tag ${tag} is listed more than once.`);
-        seenTags.add(tag);
-      });
-    }
+    validateTags(work.types, `${here}.types`, target, "Work");
     requiredPair(work, "caption", here, target);
     if (!["image", "video"].includes(work.mediaType)) addIssue(target, `${here}.mediaType`, "invalid-media-type", "Work media type must be image or video.");
     validateMedia(work.cover, `${here}.cover`, target, mediaFiles);
     validateVideo(work, here, target, mediaFiles);
     validateExternalLinks(work.externalLinks, `${here}.externalLinks`, target);
+  });
+
+  (bundle.updates || []).forEach((update, index) => {
+    const here = `updates[${index}]`;
+    const target = update.draft ? warnings : errors;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(update.date || "")) || Number.isNaN(Date.parse(`${update.date}T00:00:00Z`))) addIssue(target, `${here}.date`, "invalid-date", "Updates need a valid date in YYYY-MM-DD format.");
+    validateTags(update.types, `${here}.types`, target, "Update");
+    const projectIds = Array.isArray(update.projectIds) ? update.projectIds : [];
+    if (!Array.isArray(update.projectIds)) addIssue(target, `${here}.projectIds`, "invalid-references", "Related projects must be an array.");
+    const seenProjects = new Set();
+    for (const id of projectIds) {
+      if (seenProjects.has(id)) addIssue(target, `${here}.projectIds`, "duplicate-reference", `Project ${id} is listed more than once.`);
+      else seenProjects.add(id);
+      if (!containerIds.has(id)) addIssue(target, `${here}.projectIds`, "missing-reference", `Related project ${id} does not exist.`);
+      else if (isPublic(update) && !isPublic(containerById.get(id))) addIssue(target, `${here}.projectIds`, "unpublished-reference", `Published update ${update.id} cannot reference unpublished project ${id}.`);
+    }
+    if (!Array.isArray(update.blocks) || update.blocks.length < 1) addIssue(target, `${here}.blocks`, "missing-update-block", "An update needs at least one content block.");
+    else {
+      const blockIds = new Set();
+      update.blocks.forEach((block, blockIndex) => {
+        if (blockIds.has(block?.id)) addIssue(target, `${here}.blocks[${blockIndex}].id`, "duplicate-block-id", `Block ID ${block.id} is used more than once.`);
+        else blockIds.add(block?.id);
+        validateUpdateBlock(block, `${here}.blocks[${blockIndex}]`, target, mediaFiles);
+      });
+    }
   });
 
   if (checkFiles) {
@@ -447,7 +519,7 @@ export async function validateContent(bundle, { root = PROJECT_ROOT, checkFiles 
       }
     }
   }
-  return { valid: errors.length === 0, errors, warnings, counts: { projects: bundle.projects.length, collections: bundle.collections.length, works: bundle.works.length, media: mediaFiles.size } };
+  return { valid: errors.length === 0, errors, warnings, counts: { projects: bundle.projects.length, collections: bundle.collections.length, works: bundle.works.length, updates: (bundle.updates || []).length, media: mediaFiles.size } };
 }
 
 export function referencesFor(bundle, type, id) {
@@ -462,10 +534,15 @@ export function referencesFor(bundle, type, id) {
       if (work.collections?.includes(id)) references.push({ type: "work", id: work.id, field: "collections" });
     });
     if (bundle.site.home?.degreeProjectIds?.includes(id)) references.push({ type: "site", id: "site", field: "home.degreeProjectIds" });
+    (bundle.updates || []).forEach(update => {
+      if (update.projectIds?.includes(id)) references.push({ type: "update", id: update.id, field: "projectIds" });
+    });
   } else if (type === "work") {
     containers.forEach(record => {
       if (record.detailSequenceIds?.includes(id)) references.push({ type: record.recordType, id: record.id, field: "detailSequenceIds" });
     });
+  } else if (type === "update" && bundle.site.activity?.featuredUpdateId === id) {
+    references.push({ type: "site", id: "site", field: "activity.featuredUpdateId" });
   }
   return references;
 }
@@ -491,6 +568,7 @@ export async function uniqueId(desired, bundle, { root = PROJECT_ROOT } = {}) {
     ...bundle.projects,
     ...bundle.collections,
     ...bundle.works,
+    ...(bundle.updates || []),
     ...(bundle.registry?.published || []),
     ...archived
   ].map(record => record.id));

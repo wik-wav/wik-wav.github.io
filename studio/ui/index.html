@@ -21,11 +21,12 @@
   <main class="app-grid">
     <aside class="library" aria-label="Content library">
       <button class="site-settings" type="button" data-open-site><span>Global</span><strong>Site, home & footer</strong></button>
-      <section><div class="library-heading"><h2>Projects</h2><button type="button" data-create="project" aria-label="Create project">+</button></div><ol data-list="projects"></ol></section>
+      <section><div class="library-heading"><h2>Projects + collections</h2><button type="button" data-create="project" aria-label="Create project">+</button></div><p class="order-help">Drag the handle, use the arrows, or type a position.</p><p class="sr-only" data-order-status aria-live="polite"></p><ol class="container-order-list" data-list="projects" aria-label="Project and collection order"></ol></section>
+      <section><div class="library-heading"><h2>Activity updates <span class="library-count" data-update-count aria-live="polite"></span></h2><button type="button" data-create="update" aria-label="Create activity update">+</button></div><ol class="updates-list" data-list="updates" aria-label="Activity updates"></ol></section>
       <section class="works-browser-section"><div class="library-heading"><h2>Works <span class="library-count" data-work-count aria-live="polite"></span></h2><button type="button" data-create="work" aria-label="Create work">+</button></div><label class="search"><span>Search works, IDs or projects</span><input type="search" data-work-search></label><ol class="works-list" data-list="works" aria-label="Visual works browser"></ol><details class="archived-works" data-archived-works><summary>Archived works <span class="library-count" data-archive-count aria-live="polite"></span></summary><ol data-list="archived-works" aria-label="Archived works"></ol></details></section>
     </aside>
     <section class="editor" aria-live="polite">
-      <div class="empty-editor" data-empty><p class="overline">STRUCTURED CONTENT</p><h2>Choose an item to edit.</h2><p>Projects, artworks, captions, crop settings and SEO all live here. Source files are generated automatically when you save.</p></div>
+      <div class="empty-editor" data-empty><p class="overline">STRUCTURED CONTENT</p><h2>Choose an item to edit.</h2><p>Projects, activity updates, artworks, captions, crop settings and SEO all live here. Source files are generated automatically when you save.</p></div>
       <form data-editor hidden></form>
     </section>
     <aside class="preview-panel">
