@@ -248,6 +248,37 @@ function validateVideo(work, pathName, target, mediaFiles) {
   if (work.videoWarningPL || work.videoWarningEN) requiredPair(work, "videoWarning", pathName, target);
 }
 
+function validHttpsUrl(value) {
+  try {
+    const parsed = new URL(String(value || ""));
+    return parsed.protocol === "https:" && Boolean(parsed.hostname) && !parsed.username && !parsed.password;
+  } catch {
+    return false;
+  }
+}
+
+function validateSocialLinks(profile, target) {
+  if (!profile || typeof profile !== "object") return;
+  // An omitted property is intentionally supported for legacy content. An empty
+  // array, on the other hand, means that no social links should be rendered.
+  if (profile.socialLinks === undefined) {
+    if (profile.linkedIn != null && !validHttpsUrl(profile.linkedIn)) addIssue(target, "site.profile.linkedIn", "invalid-social-link", "Legacy LinkedIn URL must be a valid HTTPS URL.");
+    return;
+  }
+  if (!Array.isArray(profile.socialLinks)) return addIssue(target, "site.profile.socialLinks", "invalid-social-links", "Social links must be an array.");
+  if (profile.socialLinks.length > 32) addIssue(target, "site.profile.socialLinks", "too-many-social-links", "Use at most 32 social links.");
+  const ids = new Set();
+  profile.socialLinks.forEach((link, index) => {
+    const here = `site.profile.socialLinks[${index}]`;
+    if (!link || typeof link !== "object") return addIssue(target, here, "invalid-social-link", "Social links must be objects.");
+    if (!slugPattern.test(String(link.id || ""))) addIssue(target, `${here}.id`, "invalid-social-link-id", "Social-link IDs use lowercase letters, digits, and single hyphens only.");
+    else if (ids.has(link.id)) addIssue(target, `${here}.id`, "duplicate-social-link-id", "Each social-link ID must be unique.");
+    ids.add(link.id);
+    requiredPair(link, "label", here, target);
+    if (!validHttpsUrl(link.href)) addIssue(target, `${here}.href`, "invalid-social-link", "Social links must use valid HTTPS URLs without credentials.");
+  });
+}
+
 function validateTags(tags, pathName, target, noun = "record") {
   if (!Array.isArray(tags)) return addIssue(target, pathName, "invalid-tags", `${noun} tags must be an array.`);
   if (tags.length > 32) addIssue(target, pathName, "too-many-tags", `${noun} can use at most 32 tags.`);
@@ -292,6 +323,7 @@ function validateSite(site, errors) {
     if (origin.protocol !== "https:" || origin.origin !== site.origin) throw new Error("invalid origin");
   } catch { addIssue(errors, "site.origin", "invalid-origin", "The public site origin must be an HTTPS origin without a path."); }
   if (!site.profile || !nonEmpty(site.profile.name) || !nonEmpty(site.profile.email)) addIssue(errors, "site.profile", "missing-profile", "Profile name and email are required.");
+  else validateSocialLinks(site.profile, errors);
   for (const [index, item] of (site.navigation || []).entries()) {
     requiredPair(item, "label", `site.navigation[${index}]`, errors);
     if (!nonEmpty(item.id) || !nonEmpty(item.href) || item.href.includes("..") || item.href.includes("\\") || /^(?:[a-z]+:|\/\/)/i.test(item.href)) addIssue(errors, `site.navigation[${index}]`, "invalid-navigation", "Navigation items need a stable id and a safe local route or fragment.");

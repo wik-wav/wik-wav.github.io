@@ -872,67 +872,6 @@ window.PORTFOLIO_DATA = {
     },
     {
       "draft": false,
-      "editorialPL": "",
-      "editorialEN": "",
-      "id": "small-design-projects",
-      "detailMediaSize": "compact",
-      "titlePL": "Mniejsze projekty",
-      "titleEN": "Small Design Projects",
-      "summaryPL": "Mniejsze realizacje z zakresu ikon, identyfikacji wizualnej i grafiki użytkowej.",
-      "summaryEN": "A collection of smaller icon, visual-identity, and applied-design projects.",
-      "overviewPL": "Zbiór krótkich realizacji odpowiadających na konkretne zastosowania — od ikon interfejsowych po samodzielne elementy identyfikacji.",
-      "overviewEN": "Focused responses to specific design needs, from interface-scale icons to standalone identity elements.",
-      "yearPL": "",
-      "yearEN": "",
-      "disciplinesPL": "projekt ikony, identyfikacja wizualna",
-      "disciplinesEN": "icon design, visual identity",
-      "formatPL": "kolekcja mniejszych realizacji",
-      "formatEN": "collection of small design works",
-      "rolePL": "koncepcja i projekt graficzny",
-      "roleEN": "concept and graphic design",
-      "processHeadingPL": "Skala, funkcja i czytelność.",
-      "processHeadingEN": "Scale, function, and legibility.",
-      "processPL": "Każda realizacja odpowiada na określone zastosowanie, skalę i kontekst użycia.",
-      "processEN": "Each work responds to a defined application, scale, and context of use.",
-      "creditsPL": "Projekt graficzny: Wiktor Sielaszuk.",
-      "creditsEN": "Graphic design: Wiktor Sielaszuk.",
-      "cover": {
-        "kind": "image",
-        "src": "assets/media/small-design-projects/voice-model-icon.webp",
-        "ratio": "1/1",
-        "fit": "contain",
-        "altPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
-        "altEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif.",
-        "hasTransparency": false
-      },
-      "hero": {
-        "kind": "image",
-        "src": "assets/media/small-design-projects/voice-model-icon.webp",
-        "ratio": "2/1",
-        "fit": "cover",
-        "altPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
-        "altEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif.",
-        "hasTransparency": false
-      },
-      "thumbnail": {
-        "kind": "image",
-        "src": "assets/media/small-design-projects/voice-model-icon.webp",
-        "ratio": "4/3",
-        "fit": "cover",
-        "altPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
-        "altEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif.",
-        "hasTransparency": false
-      },
-      "related": [
-        "lem",
-        "lozenge-t"
-      ],
-      "detailSequenceIds": [
-        "small-design-projects-voice-model-icon"
-      ]
-    },
-    {
-      "draft": false,
       "editorialPL": "WIN / DOWS łączy rozmowę z modelem językowym z fizycznym śladem skanografii. ASCII art staje się materiałem redakcyjnym, który jest powtarzany, zniekształcany i składany w publikację badającą relację między tekstem, obrazem i narzędziem.",
       "editorialEN": "WIN / DOWS combines a conversation with a language model and the physical trace of scanography. ASCII art becomes editorial material that is repeated, distorted, and composed into a publication examining the relation between text, image, and tool.",
       "id": "windows-zine",
@@ -1029,6 +968,67 @@ window.PORTFOLIO_DATA = {
       "related": [
         "para-analog-on",
         "book-cover"
+      ]
+    },
+    {
+      "draft": false,
+      "editorialPL": "",
+      "editorialEN": "",
+      "id": "small-design-projects",
+      "detailMediaSize": "compact",
+      "titlePL": "Mniejsze projekty",
+      "titleEN": "Small Design Projects",
+      "summaryPL": "Mniejsze realizacje z zakresu ikon, identyfikacji wizualnej i grafiki użytkowej.",
+      "summaryEN": "A collection of smaller icon, visual-identity, and applied-design projects.",
+      "overviewPL": "Zbiór krótkich realizacji odpowiadających na konkretne zastosowania — od ikon interfejsowych po samodzielne elementy identyfikacji.",
+      "overviewEN": "Focused responses to specific design needs, from interface-scale icons to standalone identity elements.",
+      "yearPL": "",
+      "yearEN": "",
+      "disciplinesPL": "projekt ikony, identyfikacja wizualna",
+      "disciplinesEN": "icon design, visual identity",
+      "formatPL": "kolekcja mniejszych realizacji",
+      "formatEN": "collection of small design works",
+      "rolePL": "koncepcja i projekt graficzny",
+      "roleEN": "concept and graphic design",
+      "processHeadingPL": "Skala, funkcja i czytelność.",
+      "processHeadingEN": "Scale, function, and legibility.",
+      "processPL": "Każda realizacja odpowiada na określone zastosowanie, skalę i kontekst użycia.",
+      "processEN": "Each work responds to a defined application, scale, and context of use.",
+      "creditsPL": "Projekt graficzny: Wiktor Sielaszuk.",
+      "creditsEN": "Graphic design: Wiktor Sielaszuk.",
+      "cover": {
+        "kind": "image",
+        "src": "assets/media/small-design-projects/voice-model-icon.webp",
+        "ratio": "1/1",
+        "fit": "contain",
+        "altPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
+        "altEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif.",
+        "hasTransparency": false
+      },
+      "hero": {
+        "kind": "image",
+        "src": "assets/media/small-design-projects/voice-model-icon.webp",
+        "ratio": "2/1",
+        "fit": "cover",
+        "altPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
+        "altEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif.",
+        "hasTransparency": false
+      },
+      "thumbnail": {
+        "kind": "image",
+        "src": "assets/media/small-design-projects/voice-model-icon.webp",
+        "ratio": "4/3",
+        "fit": "cover",
+        "altPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
+        "altEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif.",
+        "hasTransparency": false
+      },
+      "related": [
+        "lem",
+        "lozenge-t"
+      ],
+      "detailSequenceIds": [
+        "small-design-projects-voice-model-icon"
       ]
     }
   ],

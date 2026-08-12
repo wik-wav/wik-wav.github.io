@@ -1136,6 +1136,17 @@ test("does not push history when the current numbered page is clicked", async ()
   }
 });
 
+test("smoothly reveals the new Portfolio artwork page after explicit pagination", async () => {
+  const portfolio = await read("assets/js/portfolio.js");
+  assert.match(portfolio, /function scrollGalleryPageIntoView\(\)/);
+  assert.match(portfolio, /header\?\.classList\.remove\("is-hidden"\)/);
+  assert.match(portfolio, /gallery\.getBoundingClientRect\(\)\.top - headerHeight - 24/);
+  assert.match(portfolio, /matchMedia\("\(prefers-reduced-motion: reduce\)"\)\.matches \? "auto" : "smooth"/);
+  assert.match(portfolio, /window\.scrollTo\(\{ top: target, behavior \}\)/);
+  assert.match(portfolio, /update\(\{ historyMode: "push", focusTarget: "\[data-pagination-range\]" \}\);\s*scrollGalleryPageIntoView\(\);/);
+  assert.doesNotMatch(portfolio.match(/window\.addEventListener\("popstate"[\s\S]*?\n  \}\);/)?.[0] || "", /scrollGalleryPageIntoView/);
+});
+
 test("carries only shared size between Portfolio and Projects", async () => {
   const portfolio = await read("assets/js/portfolio.js");
   const projects = await read("assets/js/projects.js");

@@ -7,7 +7,29 @@
   "properties": {
     "schemaVersion": { "const": 1 },
     "origin": { "type": "string", "format": "uri", "pattern": "^https://" },
-    "profile": { "type": "object", "required": ["name", "email"], "properties": { "name": { "type": "string" }, "email": { "type": "string" }, "linkedIn": { "type": "string" } },
+    "profile": {
+      "type": "object",
+      "required": ["name", "email"],
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "linkedIn": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "socialLinks": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "object",
+            "required": ["id", "labelPL", "labelEN", "href"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+              "labelPL": { "type": "string" },
+              "labelEN": { "type": "string" },
+              "href": { "type": "string", "format": "uri", "pattern": "^https://" }
+            }
+          }
+        }
+      }
+    },
     "navigation": { "type": "array", "items": { "type": "object", "required": ["id", "href", "labelPL", "labelEN"] } },
     "copy": { "type": "object" },
     "home": { "type": "object", "properties": { "heroLineHeight": { "type": "number", "minimum": 0.8, "maximum": 1.4, "default": 1.02 } } },

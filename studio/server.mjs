@@ -83,6 +83,7 @@ function listSummaries(bundle) {
       project: record.project || "",
       mediaType: record.mediaType || "image",
       videoProvider: record.video?.provider || "",
+      types: Array.isArray(record.types) ? record.types : [],
       galleryVisible: record.galleryVisible !== false,
       detailOnly: record.detailOnly === true,
       coverPreview: summaryMedia(record.cover)

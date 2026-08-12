@@ -1,7 +1,18 @@
 (() => {
   const token = document.querySelector('meta[name="studio-token"]').content;
   const previewOrigin = document.querySelector('meta[name="preview-origin"]').content;
-  const state = { bootstrap: null, type: null, id: null, record: null, revision: null, mediaKey: "cover", mediaItemIndex: 0, mediaUploadMode: "replace", updateBlockIndex: 0, dirty: false, createType: null, archiveTarget: null, typographyTarget: null, orderBusy: false, draggedContainer: null };
+  const state = {
+    bootstrap: null, type: null, id: null, record: null, revision: null,
+    mediaKey: "cover", mediaItemIndex: 0, mediaUploadMode: "replace", updateBlockIndex: 0,
+    dirty: false, createType: null, archiveTarget: null, typographyTarget: null,
+    orderBusy: false, draggedContainer: null,
+    managerOpen: false, managerType: "containers", managerReturnFocus: null,
+    managerViews: {
+      containers: { query:"", status:"all", scope:"all", sort:"order", page:1, per:25 },
+      updates: { query:"", status:"all", scope:"all", sort:"newest", page:1, per:25 },
+      works: { query:"", status:"all", scope:"all", sort:"order", page:1, per:25 }
+    }
+  };
   const $ = selector => document.querySelector(selector);
   const esc = value => String(value == null ? "" : value).replace(/[&<>"']/g, character => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[character]);
 
@@ -52,6 +63,38 @@
   const titleOf = item => item.titlePL || item.titleEN || item.id;
   const searchText = value => String(value || "").replace(/[\u00a0\u2060]/g," ").toLowerCase();
   const allContainers = () => state.bootstrap.summaries.projects.concat(state.bootstrap.summaries.collections);
+  const SIDEBAR_PROJECT_LIMIT = 5;
+  const SIDEBAR_UPDATE_LIMIT = 5;
+  const SIDEBAR_WORK_LIMIT = 5;
+  const MANAGER_PER_VALUES = [25, 50, 100];
+  const stored = (key, fallback = null) => { try { const value = localStorage.getItem(key); return value == null ? fallback : value; } catch { return fallback; } };
+  const store = (key, value) => { try { localStorage.setItem(key, String(value)); } catch {} };
+  const clamp = (value, minimum, maximum) => Math.min(maximum, Math.max(minimum, value));
+  const statusOf = item => item.draft ? "draft" : item.published ? "published" : "private";
+  const selectedFirst = (items, limit, predicate) => {
+    const visible = items.slice(0, limit);
+    const selected = items.find(predicate);
+    if (selected && !visible.includes(selected)) return [selected, ...visible.slice(0, Math.max(0, limit - 1))];
+    return visible;
+  };
+  function restoreManagerPreferences() {
+    try {
+      const saved = JSON.parse(stored("portfolio:studio:manager", "{}"));
+      if (["containers","updates","works"].includes(saved.type)) state.managerType = saved.type;
+      for (const type of ["containers","updates","works"]) {
+        const value = saved.views?.[type];
+        if (!value || typeof value !== "object") continue;
+        const target = state.managerViews[type];
+        if (typeof value.query === "string") target.query = value.query.slice(0,200);
+        for (const key of ["status","scope","sort"]) if (typeof value[key] === "string") target[key] = value[key];
+        if (MANAGER_PER_VALUES.includes(Number(value.per))) target.per = Number(value.per);
+        if (Number.isInteger(Number(value.page)) && Number(value.page) > 0) target.page = Number(value.page);
+      }
+    } catch {}
+  }
+  function persistManagerPreferences() {
+    store("portfolio:studio:manager",JSON.stringify({ type:state.managerType, views:state.managerViews }));
+  }
 
   function previewPath(type, record) {
     if (type === "site") return "/";
@@ -82,18 +125,20 @@
   function renderLibrary() {
     const query = searchText($("[data-work-search]").value.trim());
     const containersForList = allContainers().slice().sort((a, b) => Number(a.order) - Number(b.order) || a.id.localeCompare(b.id));
-    $('[data-list="projects"]').innerHTML = containersForList.map(item => {
-      const type = item.recordType;
-      const index = containersForList.findIndex(entry => entry.recordType === type && entry.id === item.id);
-      const selected = state.type === type && state.id === item.id;
-      const disabled = state.orderBusy ? " disabled" : "";
-      const label = type === "collection" ? "COLLECTION" : "PROJECT";
-      return '<li class="container-order-item" data-container-type="' + esc(type) + '" data-container-id="' + esc(item.id) + '"><button type="button" class="drag-handle" draggable="' + (!state.orderBusy) + '" aria-label="Drag to reorder ' + esc(titleOf(item)) + '" title="Drag to reorder"' + disabled + '>⠿</button><button type="button" class="library-item" data-open="' + esc(type) + '" data-id="' + esc(item.id) + '" aria-current="' + selected + '"><strong>' + esc(titleOf(item)) + "</strong><small>" + label + " · " + esc(item.id) + (item.draft ? " · DRAFT" : "") + '</small></button><label class="position-control"><span class="sr-only">Position for ' + esc(titleOf(item)) + '</span><input type="number" min="1" max="' + containersForList.length + '" value="' + (index + 1) + '" inputmode="numeric" data-position data-type="' + esc(type) + '" data-id="' + esc(item.id) + '"' + disabled + '></label><span class="order-buttons always-visible"><button type="button" data-container-move="up" data-type="' + esc(type) + '" data-id="' + esc(item.id) + '" aria-label="Move ' + esc(titleOf(item)) + ' up"' + (index === 0 || state.orderBusy ? " disabled" : "") + '>↑</button><button type="button" data-container-move="down" data-type="' + esc(type) + '" data-id="' + esc(item.id) + '" aria-label="Move ' + esc(titleOf(item)) + ' down"' + (index === containersForList.length - 1 || state.orderBusy ? " disabled" : "") + ">↓</button></span></li>";
+    $("[data-project-count]").textContent = String(containersForList.length);
+    $("[data-show-more='containers']").hidden = containersForList.length <= SIDEBAR_PROJECT_LIMIT;
+    const quickContainers = selectedFirst(containersForList, SIDEBAR_PROJECT_LIMIT, item => state.type === item.recordType && state.id === item.id);
+    $('[data-list="projects"]').innerHTML = quickContainers.map(item => {
+      const selected = state.type === item.recordType && state.id === item.id;
+      const label = item.recordType === "collection" ? "COLLECTION" : "PROJECT";
+      return '<li><button type="button" class="library-item" data-open="' + esc(item.recordType) + '" data-id="' + esc(item.id) + '" aria-current="' + selected + '"><strong>' + esc(titleOf(item)) + '</strong><small>' + label + ' · ' + esc(item.id) + (item.draft ? ' · DRAFT' : '') + '</small></button></li>';
     }).join("");
 
     const updates = (state.bootstrap.summaries.updates || []).slice().sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")) || Number(a.order) - Number(b.order) || a.id.localeCompare(b.id));
     $("[data-update-count]").textContent = String(updates.length);
-    $('[data-list="updates"]').innerHTML = updates.length ? updates.map(item => {
+    $("[data-show-more='updates']").hidden = updates.length <= SIDEBAR_UPDATE_LIMIT;
+    const quickUpdates = selectedFirst(updates, SIDEBAR_UPDATE_LIMIT, item => state.type === "update" && state.id === item.id);
+    $('[data-list="updates"]').innerHTML = quickUpdates.length ? quickUpdates.map(item => {
       const selected = state.type === "update" && state.id === item.id;
       const badges = [item.draft ? "DRAFT" : "", !item.published && !item.draft ? "PRIVATE" : ""].filter(Boolean);
       return '<li><button type="button" class="library-item" data-open="update" data-id="' + esc(item.id) + '" aria-current="' + selected + '"><strong>' + esc(titleOf(item)) + '</strong><small>' + esc(item.date || "No date") + (badges.length ? " · " + esc(badges.join(" · ")) : "") + '</small></button></li>';
@@ -101,11 +146,13 @@
 
     const allWorks = state.bootstrap.summaries.works;
     const containers = new Map(allContainers().map(item => [item.id, item]));
-    const works = allWorks.filter(item => {
+    const matchingWorks = allWorks.filter(item => {
       const owner = containers.get(item.project);
       return !query || searchText([titleOf(item), item.id, owner ? titleOf(owner) : item.project].join(" ")).includes(query);
     });
-    $("[data-work-count]").textContent = works.length === allWorks.length ? String(allWorks.length) : works.length + " / " + allWorks.length;
+    $("[data-work-count]").textContent = matchingWorks.length === allWorks.length ? String(allWorks.length) : matchingWorks.length + " / " + allWorks.length;
+    $("[data-show-more='works']").hidden = matchingWorks.length <= SIDEBAR_WORK_LIMIT;
+    const works = selectedFirst(matchingWorks, SIDEBAR_WORK_LIMIT, item => state.type === "work" && state.id === item.id);
     $('[data-list="works"]').innerHTML = works.map(item => {
       const selected = state.type === "work" && state.id === item.id;
       const sourceIndex = allWorks.findIndex(work => work.id === item.id);
@@ -128,10 +175,196 @@
     const archived = state.bootstrap.archives?.works || [];
     $("[data-archive-count]").textContent = String(archived.length);
     $("[data-archived-works]").hidden = archived.length === 0;
-    $('[data-list="archived-works"]').innerHTML = archived.map(item => {
+    $("[data-show-more='archives']").hidden = archived.length <= 5;
+    $('[data-list="archived-works"]').innerHTML = archived.slice(0, 5).map(item => {
       const date = item.archivedAt ? new Date(item.archivedAt).toLocaleDateString() : "Date unavailable";
       return '<li><span class="archived-work-copy"><strong>' + esc(titleOf(item)) + '</strong><small>' + esc(item.id) + " · " + esc(date) + (item.published ? " · PUBLISHED ID RESERVED" : "") + '</small></span><button type="button" class="archive-delete-trigger" data-delete-archive="' + esc(item.id) + '" data-revision="' + esc(item.revision) + '" aria-label="Permanently delete archived record ' + esc(titleOf(item)) + '">Delete…</button></li>';
     }).join("");
+    renderManager();
+  }
+
+  function managerView() {
+    return state.managerViews[state.managerType];
+  }
+  function managerSource(type = state.managerType) {
+    if (type === "containers") return allContainers().slice();
+    if (type === "updates") return (state.bootstrap.summaries.updates || []).slice();
+    return state.bootstrap.summaries.works.slice();
+  }
+  function managerStatusOptions() {
+    return [["all","All statuses"],["published","Published"],["draft","Drafts"],["private","Private"]].concat(state.managerType === "works" ? [["archived","Archived"]] : []);
+  }
+  function managerScopeOptions() {
+    if (state.managerType === "containers") return [["all","Projects + collections"],["project","Projects only"],["collection","Collections only"]];
+    if (state.managerType === "updates") {
+      const tags = Array.from(new Set((state.bootstrap.summaries.updates || []).flatMap(item => item.types || []))).sort((a,b) => a.localeCompare(b,"en"));
+      return [["all","All update types"], ...tags.map(tag => [tag,tag])];
+    }
+    const containers = allContainers().slice().sort((a,b) => titleOf(a).localeCompare(titleOf(b),"pl"));
+    return [["all","All projects"],["unassigned","Unassigned"], ...containers.map(item => [item.id,titleOf(item)])];
+  }
+  function managerSortOptions() {
+    if (state.managerType === "containers") return [["order","Manual order"],["title","Title A–Z"],["status","Status"]];
+    if (state.managerType === "updates") return [["newest","Newest first"],["oldest","Oldest first"],["title","Title A–Z"]];
+    return [["order","Manual order"],["title","Title A–Z"],["project","Project"],["status","Status"]];
+  }
+  function managerCanReorder() {
+    const view = managerView();
+    return view.sort === "order" && view.status === "all" && view.scope === "all" && !view.query.trim();
+  }
+  function setSelectOptions(select, options, selected) {
+    select.innerHTML = options.map(([value,label]) => '<option value="' + esc(value) + '"' + (value === selected ? ' selected' : '') + '>' + esc(label) + '</option>').join("");
+    if (![...select.options].some(option => option.value === selected)) select.value = options[0]?.[0] || "";
+  }
+  function paginationTokens(current, total) {
+    if (total <= 7) return Array.from({length:total},(_,index) => index + 1);
+    const tokens = [1];
+    const start = Math.max(2,current - 1);
+    const end = Math.min(total - 1,current + 1);
+    if (start > 2) tokens.push("gap-left");
+    for (let page=start; page<=end; page += 1) tokens.push(page);
+    if (end < total - 1) tokens.push("gap-right");
+    tokens.push(total);
+    return tokens;
+  }
+  function managerFilteredItems() {
+    const view = managerView();
+    if (state.managerType === "works" && view.status === "archived") {
+      return (state.bootstrap.archives?.works || []).filter(item => !view.query || searchText([titleOf(item),item.id].join(" ")).includes(searchText(view.query)));
+    }
+    const containers = new Map(allContainers().map(item => [item.id,item]));
+    const query = searchText(view.query);
+    const items = managerSource().filter(item => {
+      const owner = containers.get(item.project);
+      const haystack = searchText([titleOf(item),item.id,item.project,owner && titleOf(owner),(item.types || []).join(" ")].filter(Boolean).join(" "));
+      if (query && !haystack.includes(query)) return false;
+      if (view.status !== "all" && statusOf(item) !== view.status) return false;
+      if (view.scope !== "all") {
+        if (state.managerType === "containers" && item.recordType !== view.scope) return false;
+        if (state.managerType === "updates" && !(item.types || []).includes(view.scope)) return false;
+        if (state.managerType === "works" && (view.scope === "unassigned" ? Boolean(item.project) : item.project !== view.scope)) return false;
+      }
+      return true;
+    });
+    const byTitle = (a,b) => titleOf(a).localeCompare(titleOf(b),"pl",{sensitivity:"base"}) || a.id.localeCompare(b.id);
+    const byOrder = (a,b) => Number(a.order) - Number(b.order) || a.id.localeCompare(b.id);
+    if (view.sort === "title") items.sort(byTitle);
+    else if (view.sort === "status") items.sort((a,b) => statusOf(a).localeCompare(statusOf(b)) || byTitle(a,b));
+    else if (view.sort === "project") items.sort((a,b) => titleOf(containers.get(a.project) || {titlePL:a.project}).localeCompare(titleOf(containers.get(b.project) || {titlePL:b.project}),"pl") || byTitle(a,b));
+    else if (view.sort === "newest") items.sort((a,b) => String(b.date || "").localeCompare(String(a.date || "")) || byOrder(a,b));
+    else if (view.sort === "oldest") items.sort((a,b) => String(a.date || "").localeCompare(String(b.date || "")) || byOrder(a,b));
+    else items.sort(byOrder);
+    return items;
+  }
+  function managerStatusBadge(item) {
+    const status = statusOf(item);
+    return '<span class="manager-status is-' + status + '">' + status.toUpperCase() + '</span>';
+  }
+  function managerThumbnail(item) {
+    const preview = item.coverPreview;
+    if (!preview) return '<span class="manager-thumb manager-thumb-empty" aria-hidden="true">—</span>';
+    const fit = preview.fit === "cover" ? "cover" : "contain";
+    const x = clamp(Number(preview.focalPoint?.x) || .5,0,1) * 100;
+    const y = clamp(Number(preview.focalPoint?.y) || .5,0,1) * 100;
+    return '<span class="manager-thumb' + (preview.viewerBackground === "dark" ? ' dark' : '') + '" style="--thumb-fit:' + fit + ';--thumb-position:' + x + '% ' + y + '%"><img src="' + esc(previewOrigin + '/' + preview.src) + '" alt="" loading="lazy" decoding="async"></span>';
+  }
+  function renderManagerRow(item, absoluteIndex) {
+    if (state.managerType === "containers") {
+      const ordered = orderedContainerItems();
+      const globalIndex = ordered.findIndex(entry => entry.recordType === item.recordType && entry.id === item.id);
+      const canReorder = managerCanReorder() && !state.orderBusy;
+      const disabled = canReorder ? "" : " disabled";
+      const reorderHint = canReorder ? "" : ' title="Clear search and filters and select Manual order to reorder"';
+      return '<li class="manager-row manager-container-row container-order-item' + (canReorder ? '' : ' is-order-locked') + '" data-container-type="' + esc(item.recordType) + '" data-container-id="' + esc(item.id) + '"><button type="button" class="drag-handle" draggable="' + canReorder + '" aria-label="Drag to reorder ' + esc(titleOf(item)) + '"' + disabled + reorderHint + '>⠿</button><span class="manager-order">' + String(globalIndex + 1).padStart(2,"0") + '</span><button type="button" class="library-item manager-item-title" data-open="' + esc(item.recordType) + '" data-id="' + esc(item.id) + '"><strong>' + esc(titleOf(item)) + '</strong><small>' + esc(item.id) + '</small></button><span class="manager-kind">' + (item.recordType === "collection" ? "COLLECTION" : "PROJECT") + '</span>' + managerStatusBadge(item) + '<label class="position-control manager-position"><span class="sr-only">Position for ' + esc(titleOf(item)) + '</span><input type="number" min="1" max="' + ordered.length + '" value="' + (globalIndex + 1) + '" inputmode="numeric" data-position data-type="' + esc(item.recordType) + '" data-id="' + esc(item.id) + '"' + disabled + reorderHint + '></label><span class="order-buttons always-visible"><button type="button" data-container-move="up" data-type="' + esc(item.recordType) + '" data-id="' + esc(item.id) + '" aria-label="Move ' + esc(titleOf(item)) + ' up"' + (globalIndex <= 0 || !canReorder ? " disabled" : "") + reorderHint + '>↑</button><button type="button" data-container-move="down" data-type="' + esc(item.recordType) + '" data-id="' + esc(item.id) + '" aria-label="Move ' + esc(titleOf(item)) + ' down"' + (globalIndex >= ordered.length - 1 || !canReorder ? " disabled" : "") + reorderHint + '>↓</button></span></li>';
+    }
+    if (state.managerType === "updates") {
+      return '<li class="manager-row manager-update-row"><span class="manager-order">' + String(absoluteIndex + 1).padStart(2,"0") + '</span><button type="button" class="manager-item-title" data-open="update" data-id="' + esc(item.id) + '"><strong>' + esc(titleOf(item)) + '</strong><small>' + esc(item.id) + '</small></button><time datetime="' + esc(item.date || "") + '">' + esc(item.date || "No date") + '</time><span class="manager-tags">' + esc((item.types || []).join(", ") || "—") + '</span>' + managerStatusBadge(item) + '<button type="button" class="manager-edit" data-open="update" data-id="' + esc(item.id) + '">Edit</button></li>';
+    }
+    if (managerView().status === "archived") {
+      const date = item.archivedAt ? new Date(item.archivedAt).toLocaleDateString() : "Date unavailable";
+      return '<li class="manager-row manager-archive-row"><span class="manager-order">' + String(absoluteIndex + 1).padStart(2,"0") + '</span><span class="manager-item-title"><strong>' + esc(titleOf(item)) + '</strong><small>' + esc(item.id) + '</small></span><time>' + esc(date) + '</time><span class="manager-kind">ARCHIVED</span><span></span><button type="button" class="archive-delete-trigger" data-delete-archive="' + esc(item.id) + '" data-revision="' + esc(item.revision) + '">Delete…</button></li>';
+    }
+    const owner = allContainers().find(container => container.id === item.project);
+    const mediaKind = item.mediaType === "video" ? (["soundcloud","bandcamp"].includes(item.videoProvider) ? "AUDIO" : "VIDEO") : "IMAGE";
+    const orderedWorks = state.bootstrap.summaries.works;
+    const globalIndex = orderedWorks.findIndex(work => work.id === item.id);
+    const canReorder = managerCanReorder() && !state.orderBusy;
+    const reorderHint = canReorder ? "" : ' title="Clear search and filters and select Manual order to reorder"';
+    return '<li class="manager-row manager-work-row">' + managerThumbnail(item) + '<span class="manager-order">' + String(Number(item.order) || absoluteIndex + 1).padStart(2,"0") + '</span><button type="button" class="manager-item-title" data-open="work" data-id="' + esc(item.id) + '"><strong>' + esc(titleOf(item)) + '</strong><small>' + esc(item.id) + '</small></button><span class="manager-owner">' + esc(owner ? titleOf(owner) : item.project || "Unassigned") + '</span><span class="manager-kind">' + mediaKind + '</span>' + managerStatusBadge(item) + '<span class="order-buttons always-visible manager-work-order"><button type="button" data-move="up" data-type="work" data-id="' + esc(item.id) + '" aria-label="Move ' + esc(titleOf(item)) + ' up"' + (globalIndex <= 0 || !canReorder ? " disabled" : "") + reorderHint + '>↑</button><button type="button" data-move="down" data-type="work" data-id="' + esc(item.id) + '" aria-label="Move ' + esc(titleOf(item)) + ' down"' + (globalIndex >= orderedWorks.length - 1 || !canReorder ? " disabled" : "") + reorderHint + '>↓</button></span><button type="button" class="manager-edit" data-open="work" data-id="' + esc(item.id) + '">Edit</button></li>';
+  }
+  function renderManager() {
+    if (!state.bootstrap) return;
+    const root = $("[data-manager]");
+    const grid = $(".app-grid");
+    root.hidden = !state.managerOpen;
+    grid.classList.toggle("manager-open",state.managerOpen);
+    $("[data-editor]").closest(".editor").hidden = state.managerOpen;
+    $(".preview-panel").hidden = state.managerOpen;
+    if (state.managerOpen) $(".preview-panel").classList.remove("is-open");
+    $("[data-manager-count='containers']").textContent = String(allContainers().length);
+    $("[data-manager-count='updates']").textContent = String((state.bootstrap.summaries.updates || []).length);
+    $("[data-manager-count='works']").textContent = String(state.bootstrap.summaries.works.length);
+    if (!state.managerOpen) return;
+
+    const view = managerView();
+    const labels = { containers:"Projects + collections", updates:"Activity updates", works:"Works" };
+    $("[data-manager-title]").textContent = labels[state.managerType];
+    $("[data-manager-create]").textContent = state.managerType === "containers" ? "Create project" : state.managerType === "updates" ? "Create update" : "Create work";
+    $("[data-manager-create]").dataset.create = state.managerType === "containers" ? "project" : state.managerType === "updates" ? "update" : "work";
+    document.querySelectorAll("[data-manager-type]").forEach(button => button.setAttribute("aria-current",String(button.dataset.managerType === state.managerType)));
+    $("[data-manager-query]").value = view.query;
+    setSelectOptions($("[data-manager-status]"),managerStatusOptions(),view.status);
+    view.status = $("[data-manager-status]").value;
+    $("[data-manager-scope-label]").textContent = state.managerType === "containers" ? "Kind" : state.managerType === "updates" ? "Type" : "Project";
+    setSelectOptions($("[data-manager-scope]"),managerScopeOptions(),view.scope);
+    view.scope = $("[data-manager-scope]").value;
+    setSelectOptions($("[data-manager-sort]"),managerSortOptions(),view.sort);
+    view.sort = $("[data-manager-sort]").value;
+    $("[data-manager-per]").value = String(view.per);
+
+    const filtered = managerFilteredItems();
+    const pageCount = Math.max(1,Math.ceil(filtered.length / view.per));
+    view.page = clamp(view.page,1,pageCount);
+    const start = (view.page - 1) * view.per;
+    const pageItems = filtered.slice(start,start + view.per);
+    $("[data-manager-list]").innerHTML = pageItems.length ? pageItems.map((item,index) => renderManagerRow(item,start + index)).join("") : '<li class="manager-empty"><strong>No matching items.</strong><span>Clear a filter or create new content.</span></li>';
+    const first = filtered.length ? start + 1 : 0;
+    const last = Math.min(start + view.per,filtered.length);
+    $("[data-manager-range]").textContent = 'Showing ' + first + '–' + last + ' of ' + filtered.length;
+    const totalCopy = filtered.length === managerSource().length ? filtered.length + ' total' : filtered.length + ' matching · ' + managerSource().length + ' total';
+    const orderCopy = ["containers","works"].includes(state.managerType) && view.sort === "order" && !managerCanReorder() ? " · clear search and filters to reorder" : "";
+    $("[data-manager-summary]").textContent = totalCopy + orderCopy;
+    $("[data-manager-pagination]").innerHTML = pageCount <= 1 ? '' : paginationTokens(view.page,pageCount).map(token => typeof token === "number" ? '<button type="button" data-manager-page="' + token + '"' + (token === view.page ? ' aria-current="page"' : '') + '>' + token + '</button>' : '<span aria-hidden="true">…</span>').join("");
+  }
+
+  function openManager(type, options = {}) {
+    state.managerType = ["containers","updates","works"].includes(type) ? type : "works";
+    state.managerOpen = true;
+    if (options.status) {
+      state.managerViews[state.managerType].status = options.status;
+      state.managerViews[state.managerType].page = 1;
+    }
+    persistManagerPreferences();
+    renderManager();
+    $("[data-manager-query]").focus();
+  }
+  function closeManager() {
+    state.managerOpen = false;
+    renderManager();
+    const returnFocus = state.managerReturnFocus;
+    state.managerReturnFocus = null;
+    (returnFocus?.isConnected ? returnFocus : state.record ? $("[data-editor]") : $("[data-empty]"))?.focus?.();
+  }
+  function setPreviewDrawer(open) {
+    const panel = $(".preview-panel");
+    if (open && state.managerOpen) {
+      state.managerOpen = false;
+      renderManager();
+    }
+    panel.hidden = false;
+    panel.classList.toggle("is-open",Boolean(open));
+    if (open) panel.querySelector("[data-preview-close]")?.focus();
+    else $("[data-preview-toggle]")?.focus();
   }
 
   function fallbackMedia() {
@@ -228,6 +461,22 @@
     return '<fieldset><legend>Home-page project list</legend><ol class="sequence-list">' + rows + '</ol><div class="sequence-picker"><select data-home-project-select><option value="">Choose a project…</option>' + available.map(item => '<option value="' + esc(item.id) + '">' + esc(titleOf(item)) + '</option>').join("") + '</select><button type="button" class="button secondary" data-home-project-add>Add</button></div></fieldset>';
   }
 
+  function renderSocialLinks(record) {
+    const profile = record.profile || (record.profile = { name:"", email:"" });
+    if (!Array.isArray(profile.socialLinks)) {
+      profile.socialLinks = profile.socialLinks === undefined && profile.linkedIn
+        ? [{ id:"linkedin", labelPL:"LinkedIn", labelEN:"LinkedIn", href:profile.linkedIn }]
+        : [];
+    }
+    const links = profile.socialLinks;
+    const rows = links.map((link,index) => '<div class="repeat-row"><div class="field-grid three">' +
+      field("profile.socialLinks." + index + ".labelPL","Link label ﾂｷ PL",link.labelPL || "") +
+      field("profile.socialLinks." + index + ".labelEN","Link label ﾂｷ EN",link.labelEN || "") +
+      field("profile.socialLinks." + index + ".href","HTTPS URL",link.href || "https://",{type:"url"}) +
+      '</div><div class="repeat-actions"><button type="button" data-social-move="up" data-index="' + index + '"' + (index === 0 ? " disabled" : "") + '>Move up</button><button type="button" data-social-move="down" data-index="' + index + '"' + (index === links.length - 1 ? " disabled" : "") + '>Move down</button><button type="button" data-social-remove data-index="' + index + '">Remove</button></div></div>').join("");
+    return '<fieldset><legend>Social links</legend><p class="muted">These links appear in the public contact footer and in the Person SEO data. Leave this list empty to show no social links.</p>' + (rows || '<p class="muted">No social links configured.</p>') + '<button type="button" class="button secondary" data-social-add>Add HTTPS social link</button></fieldset>';
+  }
+
   function renderUpdateBlocks(record) {
     const blocks = Array.isArray(record.blocks) ? record.blocks : [];
     state.updateBlockIndex = Math.max(0, Math.min(Math.max(0, blocks.length - 1), Number(state.updateBlockIndex) || 0));
@@ -290,7 +539,8 @@
     const activity = record.activity || {};
     const updateOptions = [["","No featured update"]].concat((state.bootstrap.summaries.updates || []).filter(item => item.published && !item.draft).map(item => [item.id,(item.date ? item.date + " · " : "") + titleOf(item)]));
     return '<div class="editor-head"><div><p class="overline">GLOBAL SITE CONTENT</p><h2>' + esc(record.profile.name) + "</h2></div></div>" +
-      '<fieldset><legend>Profile & public origin</legend><div class="field-grid">' + field("origin","Public site origin",record.origin) + field("profile.name","Name",record.profile.name) + field("profile.email","Email",record.profile.email,{type:"email"}) + field("profile.linkedIn","LinkedIn URL",record.profile.linkedIn) + "</div></fieldset>" +
+      '<fieldset><legend>Profile & public origin</legend><div class="field-grid">' + field("origin","Public site origin",record.origin) + field("profile.name","Name",record.profile.name) + field("profile.email","Email",record.profile.email,{type:"email"}) + "</div></fieldset>" +
+      renderSocialLinks(record) +
       renderNavigation(record) +
       '<fieldset><legend>Home page</legend><div class="field-grid">' + pair("home.eyebrow","Eyebrow",home) + home.heroLines.map((line,index) => field("home.heroLines." + index + ".pl","Headline " + (index + 1) + " · PL",line.pl) + field("home.heroLines." + index + ".en","Headline " + (index + 1) + " · EN",line.en)).join("") + field("home.heroLineHeight","Hero headline line spacing (0.80–1.40)",home.heroLineHeight ?? 1.02,{type:"number",min:0.8,max:1.4,step:0.01}) + pair("home.intro","Introduction",home,{area:true}) + pair("home.disciplinesHeading","Disciplines heading",home,{area:true}) + pair("home.disciplinesIntro","Disciplines introduction",home,{area:true}) + home.disciplines.map((item,index) => field("home.disciplines." + index + ".titlePL","Discipline " + (index + 1) + " title · PL",item.titlePL) + field("home.disciplines." + index + ".titleEN","Discipline " + (index + 1) + " title · EN",item.titleEN) + field("home.disciplines." + index + ".textPL","Discipline " + (index + 1) + " text · PL",item.textPL,{area:true}) + field("home.disciplines." + index + ".textEN","Discipline " + (index + 1) + " text · EN",item.textEN,{area:true})).join("") + "</div></fieldset>" +
       renderHomeProjects(record) +
@@ -620,6 +870,16 @@
     form.querySelectorAll("[data-link-remove]").forEach(button => button.addEventListener("click",() => { state.record = collectForm(); state.record.externalLinks.splice(Number(button.dataset.index),1); renderEditor(); markDirty(); }));
     const addLink = form.querySelector("[data-link-add]");
     if (addLink) addLink.addEventListener("click",() => { state.record = collectForm(); state.record.externalLinks = state.record.externalLinks || []; state.record.externalLinks.push({labelPL:"",labelEN:"",href:"https://"}); renderEditor(); markDirty(); });
+    form.querySelectorAll("[data-social-move]").forEach(button => button.addEventListener("click",() => {
+      state.record = collectForm(); const links = state.record.profile.socialLinks || []; const index = Number(button.dataset.index); const next = button.dataset.socialMove === "up" ? index - 1 : index + 1; [links[index],links[next]] = [links[next],links[index]]; renderEditor(); markDirty();
+    }));
+    form.querySelectorAll("[data-social-remove]").forEach(button => button.addEventListener("click",() => {
+      state.record = collectForm(); state.record.profile.socialLinks.splice(Number(button.dataset.index),1); renderEditor(); markDirty();
+    }));
+    const addSocial = form.querySelector("[data-social-add]");
+    if (addSocial) addSocial.addEventListener("click",() => {
+      state.record = collectForm(); const links = state.record.profile.socialLinks || (state.record.profile.socialLinks = []); const used = new Set(links.map(link => link.id)); let index = links.length + 1; while (used.has("social-" + index)) index += 1; links.push({id:"social-" + index,labelPL:"",labelEN:"",href:"https://"}); renderEditor(); markDirty();
+    });
     form.querySelectorAll("[data-nav-move]").forEach(button => button.addEventListener("click",() => { state.record = collectForm(); const index = Number(button.dataset.index); const next = button.dataset.navMove === "up" ? index - 1 : index + 1; [state.record.navigation[index],state.record.navigation[next]] = [state.record.navigation[next],state.record.navigation[index]]; renderEditor(); markDirty(); }));
     form.querySelectorAll("[data-nav-remove]").forEach(button => button.addEventListener("click",() => { state.record = collectForm(); state.record.navigation.splice(Number(button.dataset.index),1); renderEditor(); markDirty(); }));
     const addNav = form.querySelector("[data-nav-add]");
@@ -745,6 +1005,7 @@
   async function openEntity(type,id) {
     if (state.dirty && !confirm("Discard unsaved changes?")) return;
     const payload = type === "site" ? await api("/api/site") : await api("/api/entities/" + type + "/" + encodeURIComponent(id));
+    state.managerOpen = false;
     state.type = type;
     state.id = id;
     state.record = payload.record;
@@ -778,14 +1039,22 @@
     } catch (error) { showError(error); }
   }
   async function reorderWork(id,direction) {
+    if (state.orderBusy) return;
+    if (state.dirty) {
+      $("[data-save-state]").textContent = "Save or discard editor changes before reordering works.";
+      return;
+    }
     const list = state.bootstrap.summaries.works;
     const index = list.findIndex(item => item.id === id);
     const next = direction === "up" ? index - 1 : index + 1;
     if (next < 0 || next >= list.length) return;
     const ids = list.map(item => item.id);
     [ids[index],ids[next]] = [ids[next],ids[index]];
+    state.orderBusy = true;
+    renderLibrary();
     try { await api("/api/order/work",{ method:"PUT",body:{ids} }); await refreshBootstrap(); }
     catch (error) { showError(error); }
+    finally { state.orderBusy = false; renderLibrary(); }
   }
 
   const containerIdentity = item => item.recordType + ":" + item.id;
@@ -869,6 +1138,54 @@
     document.querySelectorAll(".container-order-item").forEach(item => item.classList.remove("is-dragging", "drop-before", "drop-after"));
   }
 
+  const libraryWidthLimits = () => ({ minimum:220, maximum:Math.max(220,Math.min(520,window.innerWidth - (window.innerWidth > 1150 ? 826 : 446))) });
+  function applyLibraryWidth(value, persist = false) {
+    const separator = $("[data-library-resizer]");
+    if (!separator) return;
+    const limits = libraryWidthLimits();
+    const width = clamp(Number(value) || 280,limits.minimum,limits.maximum);
+    document.documentElement.style.setProperty("--studio-library-width",width + "px");
+    separator.setAttribute("aria-valuemin",String(limits.minimum));
+    separator.setAttribute("aria-valuemax",String(limits.maximum));
+    separator.setAttribute("aria-valuenow",String(Math.round(width)));
+    separator.setAttribute("aria-valuetext",Math.round(width) + " pixels");
+    if (persist) store("portfolio:studio:library-width",Math.round(width));
+  }
+  function initLibraryResizer() {
+    const separator = $("[data-library-resizer]");
+    if (!separator) return;
+    applyLibraryWidth(Number(stored("portfolio:studio:library-width",280)));
+    let active = false;
+    const move = event => { if (active) applyLibraryWidth(event.clientX); };
+    const stop = event => {
+      if (!active) return;
+      active = false;
+      separator.classList.remove("is-resizing");
+      applyLibraryWidth(Number(separator.getAttribute("aria-valuenow")),true);
+      if (separator.hasPointerCapture?.(event.pointerId)) separator.releasePointerCapture(event.pointerId);
+    };
+    separator.addEventListener("pointerdown",event => {
+      if (matchMedia("(max-width:760px)").matches) return;
+      active = true;
+      separator.classList.add("is-resizing");
+      separator.setPointerCapture?.(event.pointerId);
+      event.preventDefault();
+    });
+    separator.addEventListener("pointermove",move);
+    separator.addEventListener("pointerup",stop);
+    separator.addEventListener("pointercancel",stop);
+    separator.addEventListener("dblclick",() => applyLibraryWidth(280,true));
+    separator.addEventListener("keydown",event => {
+      const current = Number(separator.getAttribute("aria-valuenow")) || 280;
+      const limits = libraryWidthLimits();
+      const step = event.shiftKey ? 40 : 10;
+      const next = event.key === "ArrowLeft" ? current - step : event.key === "ArrowRight" ? current + step : event.key === "Home" ? limits.minimum : event.key === "End" ? limits.maximum : null;
+      if (next == null) return;
+      event.preventDefault();
+      applyLibraryWidth(next,true);
+    });
+  }
+
   document.addEventListener("input",event => autoGrowTextarea(event.target));
   document.addEventListener("change",event => {
     const position = event.target.closest("[data-position]");
@@ -944,9 +1261,38 @@
     }
     const deleteArchive = event.target.closest("[data-delete-archive]");
     if (deleteArchive) openArchivedDeleteDialog(deleteArchive.dataset.deleteArchive,deleteArchive.dataset.revision);
+    const manage = event.target.closest("[data-manage]");
+    if (manage) {
+      state.managerReturnFocus = manage;
+      openManager(manage.dataset.manage,{ status:manage.dataset.managerInitialStatus });
+    }
+    const managerType = event.target.closest("[data-manager-type]");
+    if (managerType) {
+      state.managerType = managerType.dataset.managerType;
+      persistManagerPreferences();
+      renderManager();
+      $("[data-manager-query]").focus();
+    }
+    const managerPage = event.target.closest("[data-manager-page]");
+    if (managerPage) { managerView().page = Number(managerPage.dataset.managerPage); persistManagerPreferences(); renderManager(); $("[data-manager-list]").focus(); }
+    if (event.target.closest("[data-manager-close]")) closeManager();
   });
   $("[data-open-site]").addEventListener("click",() => openEntity("site","site"));
+  $("[data-preview-toggle]").addEventListener("click",() => setPreviewDrawer(true));
+  $("[data-preview-close]").addEventListener("click",() => setPreviewDrawer(false));
   $("[data-work-search]").addEventListener("input",renderLibrary);
+  let managerSearchTimer = 0;
+  $("[data-manager-query]").addEventListener("input",event => {
+    managerView().query = event.target.value;
+    managerView().page = 1;
+    persistManagerPreferences();
+    clearTimeout(managerSearchTimer);
+    managerSearchTimer = setTimeout(renderManager,120);
+  });
+  $("[data-manager-status]").addEventListener("change",event => { managerView().status = event.target.value; managerView().page = 1; persistManagerPreferences(); renderManager(); });
+  $("[data-manager-scope]").addEventListener("change",event => { managerView().scope = event.target.value; managerView().page = 1; persistManagerPreferences(); renderManager(); });
+  $("[data-manager-sort]").addEventListener("change",event => { managerView().sort = event.target.value; managerView().page = 1; persistManagerPreferences(); renderManager(); });
+  $("[data-manager-per]").addEventListener("change",event => { const per=Number(event.target.value); managerView().per = MANAGER_PER_VALUES.includes(per) ? per : 25; managerView().page = 1; persistManagerPreferences(); renderManager(); });
   $("[data-dialog-cancel]").addEventListener("click",() => $("[data-create-dialog]").close());
   $("[data-dialog-submit]").addEventListener("click",event => {
     event.preventDefault();
@@ -971,6 +1317,14 @@
       renderDiagnostics(result.validation);
     } catch (error) { showError(error); }
   });
-  window.addEventListener("resize",() => window.requestAnimationFrame(() => autoGrowTextareas($("[data-editor]"))));
+  window.addEventListener("resize",() => window.requestAnimationFrame(() => { autoGrowTextareas($("[data-editor]")); applyLibraryWidth(Number($("[data-library-resizer]")?.getAttribute("aria-valuenow")) || 280); }));
+  window.addEventListener("beforeunload",event => { if (!state.dirty) return; event.preventDefault(); event.returnValue = ""; });
+  document.addEventListener("keydown",event => {
+    if (event.key !== "Escape") return;
+    if ($(".preview-panel").classList.contains("is-open")) setPreviewDrawer(false);
+    else if (state.managerOpen) closeManager();
+  });
+  restoreManagerPreferences();
+  initLibraryResizer();
   refreshBootstrap().then(() => { $("[data-save-state]").textContent = "Ready"; }).catch(showError);
 })();

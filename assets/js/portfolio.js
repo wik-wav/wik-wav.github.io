@@ -216,6 +216,17 @@
     queueMicrotask(() => document.querySelector(selector)?.focus({ preventScroll: true }));
   }
 
+  function scrollGalleryPageIntoView() {
+    const header = document.querySelector("[data-site-header]");
+    // A manual page change is a new reading context, so make the first row
+    // visible without leaving it beneath the sticky site header.
+    header?.classList.remove("is-hidden");
+    const headerHeight = header?.getBoundingClientRect().height || 0;
+    const target = Math.max(0, window.scrollY + gallery.getBoundingClientRect().top - headerHeight - 24);
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    window.scrollTo({ top: target, behavior });
+  }
+
   function applyTaxonomyVisibility() {
     gallery.querySelectorAll("[data-work-taxonomy]").forEach(element => { element.hidden = !display.tagsVisible; });
   }
@@ -310,6 +321,7 @@
     if (targetPage === display.page) return;
     display.page = targetPage;
     update({ historyMode: "push", focusTarget: "[data-pagination-range]" });
+    scrollGalleryPageIntoView();
   });
 
   filterRoot.addEventListener("click", event => {

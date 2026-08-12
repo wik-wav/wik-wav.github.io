@@ -82,6 +82,26 @@ test("validation rejects unsafe fields, invalid URLs, ratios, focal points and m
   for (const code of ["invalid-ratio","invalid-focal-point","invalid-media-path","invalid-link","invalid-transparency","unsafe-field"]) assert.ok(result.errors.some(issue => issue.code === code),code);
 });
 
+test("profile social links are bilingual HTTPS records with a deliberate empty-state and legacy fallback", async () => {
+  const bundle = await loadContent(root);
+  assert.equal((await validateContent(bundle,{root,checkFiles:false})).valid,true);
+  assert.deepEqual(bundle.site.profile.socialLinks.map(link => link.id),["linkedin","github"]);
+
+  bundle.site.profile.socialLinks = [];
+  assert.equal((await validateContent(bundle,{root,checkFiles:false})).valid,true);
+
+  delete bundle.site.profile.socialLinks;
+  assert.equal((await validateContent(bundle,{root,checkFiles:false})).valid,true);
+
+  bundle.site.profile.socialLinks = [
+    { id:"social",labelPL:"Społeczność",labelEN:"Social",href:"http://example.com" },
+    { id:"social",labelPL:"Drugi",labelEN:"Second",href:"https://user:pass@example.com" }
+  ];
+  const invalid = await validateContent(bundle,{root,checkFiles:false});
+  assert.ok(invalid.errors.some(issue => issue.code === "invalid-social-link"));
+  assert.ok(invalid.errors.some(issue => issue.code === "duplicate-social-link-id"));
+});
+
 test("embed allowlist accepts SoundCloud and Bandcamp while rejecting lookalike hosts", async () => {
   const bundle = await loadContent(root);
   const work = bundle.works[0];
@@ -239,7 +259,7 @@ test("media imports use argument arrays, preserve external masters, and apply th
 test("Studio UI exposes structured bilingual, sequence, crop, fit, background, media and publish controls", async () => {
   const app = await readFile(path.join(root,"studio/ui/app.js"),"utf8");
   const vite = await readFile(path.join(root,"vite.config.ts"),"utf8");
-  for (const marker of ["detailSequenceIds","focalPoint","Neutral light","Neutral dark","SoundCloud","Bandcamp","video.embedSize","video.bandcampType","video.transcript","seo.description","home.heroLines","Build ready · Git unchanged","data-media-item","media.disclosureKind","externalLinks.","data-nav-add","data-home-project-add","pages."]) assert.ok(app.includes(marker),marker);
+  for (const marker of ["detailSequenceIds","focalPoint","Neutral light","Neutral dark","SoundCloud","Bandcamp","video.embedSize","video.bandcampType","video.transcript","seo.description","home.heroLines","Build ready · Git unchanged","data-media-item","media.disclosureKind","externalLinks.","data-nav-add","data-home-project-add","pages.","profile.socialLinks.","data-social-add","data-social-remove","data-social-move","Social links"]) assert.ok(app.includes(marker),marker);
   assert.doesNotMatch(app,/<iframe[^>]*name="html"/i);
   assert.match(app,/event\.target\.name === "published"[\s\S]*draft\.checked = false/);
   assert.match(app,/event\.target\.name === "draft"[\s\S]*published\.checked = false/);
@@ -349,12 +369,12 @@ test("Studio provides a visual, searchable works browser without an intrusive pr
   assert.match(server,/function summaryMedia\(media\)/);
   assert.match(server,/coverPreview:\s*summaryMedia\(record\.cover\)/);
   assert.match(html,/data-work-count[^>]*aria-live="polite"/);
-  assert.match(html,/data-list="works"[^>]*aria-label="Visual works browser"/);
+  assert.match(html,/data-list="works"[^>]*aria-label="Quick works browser"/);
   assert.doesNotMatch(html,/data-list="collections"|data-create="collection"/);
   assert.match(html,/data-list="archived-works"/);
   assert.match(html,/data-delete-archive-dialog/);
   assert.match(app,/allContainers\(\).*sort/);
-  assert.match(app,/const type = item\.recordType/);
+  assert.match(app,/item\.recordType === "collection"/);
   assert.match(app,/data-tag-select/);
   assert.match(app,/data-tag-new/);
   assert.match(app,/data-tag-remove/);
@@ -367,6 +387,36 @@ test("Studio provides a visual, searchable works browser without an intrusive pr
   assert.match(app,/titleOf\(owner\)/);
   assert.match(css,/\.works-list\{[^}]*display:grid[^}]*repeat\(2,/);
   assert.match(css,/\.work-browser-item:focus-visible/);
+  assert.match(html,/role="separator"[^>]*data-library-resizer/);
+  assert.match(html,/data-manager[^>]*aria-labelledby="manager-title"/);
+  assert.match(html,/data-manager-type="containers"/);
+  assert.match(html,/data-manager-type="updates"/);
+  assert.match(html,/data-manager-type="works"/);
+  assert.match(app,/SIDEBAR_PROJECT_LIMIT = 5/);
+  assert.match(app,/SIDEBAR_UPDATE_LIMIT = 5/);
+  assert.match(app,/SIDEBAR_WORK_LIMIT = 5/);
+  assert.match(html,/data-show-more="containers"[^>]*hidden/);
+  assert.match(html,/data-show-more="updates"[^>]*hidden/);
+  assert.match(html,/data-show-more="works"[^>]*hidden/);
+  assert.match(html,/data-show-more="archives"[^>]*hidden/);
+  assert.match(app,/MANAGER_PER_VALUES = \[25, 50, 100\]/);
+  assert.match(app,/function paginationTokens\(/);
+  assert.match(app,/function managerFilteredItems\(/);
+  assert.match(app,/function managerCanReorder\(/);
+  assert.match(app,/view\.sort === "order"[\s\S]*view\.status === "all"[\s\S]*view\.scope === "all"/);
+  assert.match(app,/portfolio:studio:manager/);
+  assert.match(app,/managerSearchTimer = setTimeout\(renderManager,120\)/);
+  assert.match(app,/function initLibraryResizer\(/);
+  assert.match(app,/event\.key === "ArrowLeft"/);
+  assert.match(app,/event\.key === "ArrowRight"/);
+  assert.match(app,/localStorage\.setItem/);
+  assert.match(app,/beforeunload/);
+  assert.match(html,/data-preview-toggle/);
+  assert.match(html,/data-preview-close/);
+  assert.match(html,/data-manager-list[^>]*tabindex="-1"/);
+  assert.match(css,/--studio-library-width:280px/);
+  assert.match(css,/\.app-grid\.manager-open/);
+  assert.match(css,/@media\(max-width:760px\)[\s\S]*\.library-resizer\{display:none\}/);
   assert.doesNotMatch(generator,/STUDIO PREVIEW · NOT PUBLIC|studio-preview-banner|data-studio-preview/);
   assert.doesNotMatch(publicCss,/studio-preview-banner|data-studio-preview/);
   assert.match(portfolio,/const previewMode = location\.pathname\.includes\("\/studio-preview\/"\)/);
@@ -383,4 +433,18 @@ test("public media rendering exposes authored transcript, credit, and background
   assert.match(core,/video-transcript/);
   assert.match(core,/video-credits/);
   assert.match(viewer,/authoredBackground\(item\.cover\) \|\| preferredViewerBackground/);
+});
+
+test("public footer and Person SEO derive social links from configured profile data", async () => {
+  const core = await readFile(path.join(root,"assets/js/core.js"),"utf8");
+  const vite = await readFile(path.join(root,"vite.config.ts"),"utf8");
+  const schema = await readFile(path.join(root,"content/schemas/site.schema.json"),"utf8");
+  assert.match(core,/function configuredSocialLinks\(/);
+  assert.match(core,/profile\.socialLinks === undefined/);
+  assert.match(core,/target="_blank" rel="me noopener noreferrer"/);
+  assert.match(core,/function safeSocialHref\(/);
+  assert.match(vite,/const configuredSameAs = \(\) =>/);
+  assert.match(vite,/socialLinks/);
+  assert.doesNotMatch(vite,/sameAs:\s*\["https:\/\/github\.com\/wik-wav",\s*"https:\/\/www\.linkedin\.com/);
+  assert.match(schema,/"socialLinks"/);
 });

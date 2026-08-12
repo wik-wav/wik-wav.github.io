@@ -8,6 +8,9 @@ const projectRoot = import.meta.dirname;
 const generatedManifest = JSON.parse(readFileSync(resolve(projectRoot, "generated/site-manifest.json"), "utf8")) as {
   routes: Array<{ name: string; file: string }>;
 };
+const siteSettings = JSON.parse(readFileSync(resolve(projectRoot, "content/site.json"), "utf8")) as {
+  profile?: { name?: string; email?: string; linkedIn?: string; socialLinks?: Array<{ href?: string }> };
+};
 const htmlEscape = (value: string) => value.replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]!);
 const routeForFile = (filename: string) => {
   const file = relative(projectRoot, filename).replaceAll("\\", "/").replace(/^\.\//, "");
@@ -15,9 +18,28 @@ const routeForFile = (filename: string) => {
   return `/${file.replace(/index\.html$/, "")}`;
 };
 
+const validSocialUrl = (value: unknown) => {
+  try {
+    const parsed = new URL(String(value || ""));
+    return parsed.protocol === "https:" && Boolean(parsed.hostname) && !parsed.username && !parsed.password ? parsed.href : "";
+  } catch {
+    return "";
+  }
+};
+const configuredSameAs = () => {
+  const profile = siteSettings.profile || {};
+  const source = Array.isArray(profile.socialLinks)
+    ? profile.socialLinks
+    : profile.socialLinks === undefined
+      ? [{ href: profile.linkedIn || "https://www.linkedin.com/in/wiktor-sielaszuk" }]
+      : [];
+  return [...new Set(source.map(link => validSocialUrl(link?.href)).filter(Boolean))];
+};
+
 const jsonLd = (route: string) => {
   const meta = routeMetadata[route];
-  const person = { "@type": "Person", "@id": `${ORIGIN}/#person`, name: "Wiktor Sielaszuk", url: `${ORIGIN}/`, email: "mailto:wiktor.sielaszuk.22@gmail.com", sameAs: ["https://github.com/wik-wav", "https://www.linkedin.com/in/wiktor-sielaszuk"] };
+  const profile = siteSettings.profile || {};
+  const person = { "@type": "Person", "@id": `${ORIGIN}/#person`, name: profile.name || "Wiktor Sielaszuk", url: `${ORIGIN}/`, email: `mailto:${profile.email || "wiktor.sielaszuk.22@gmail.com"}`, ...(configuredSameAs().length ? { sameAs: configuredSameAs() } : {}) };
   if (route === "/") return { "@context": "https://schema.org", "@graph": [person, { "@type": "WebSite", "@id": `${ORIGIN}/#website`, name: "Wiktor Sielaszuk — portfolio", url: `${ORIGIN}/`, inLanguage: ["pl", "en"], author: { "@id": `${ORIGIN}/#person` } }] };
   if (route === "/portfolio/" || route === "/projects/") return { "@context": "https://schema.org", "@type": "CollectionPage", name: meta.titlePL, description: meta.descriptionPL, url: `${ORIGIN}${route}`, inLanguage: ["pl", "en"], author: { "@id": `${ORIGIN}/#person` }, mainEntity: { "@type": "ItemList", itemListElement: projectRoutes.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: routeMetadata[item].titlePL.replace(" — Wiktor Sielaszuk", ""), url: `${ORIGIN}${item}` })) } };
   if (route === "/activity/") return { "@context": "https://schema.org", "@type": "CollectionPage", name: meta.titlePL, description: meta.descriptionPL, url: `${ORIGIN}${route}`, inLanguage: ["pl", "en"], author: { "@id": `${ORIGIN}/#person` } };

@@ -112,15 +112,6 @@ export const routeMetadata: Record<string, RouteMeta> = {
     "imageAltPL": "Kwadratowa abstrakcyjna okładka w granacie i miedzianym różu z pionowym japońskim napisem.",
     "imageAltEN": "Square abstract cover in navy and copper-pink with vertical Japanese lettering."
   },
-  "/projects/small-design-projects/": {
-    "titlePL": "Mniejsze projekty — Wiktor Sielaszuk",
-    "titleEN": "Small Design Projects — Wiktor Sielaszuk",
-    "descriptionPL": "Mniejsze realizacje z zakresu ikon, identyfikacji wizualnej i grafiki użytkowej.",
-    "descriptionEN": "A collection of smaller icon, visual-identity, and applied-design projects.",
-    "image": "assets/media/small-design-projects/voice-model-icon.webp",
-    "imageAltPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
-    "imageAltEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif."
-  },
   "/projects/windows-zine/": {
     "titlePL": "WIN / DOWS — Wiktor Sielaszuk",
     "titleEN": "WIN / DOWS — Wiktor Sielaszuk",
@@ -130,6 +121,15 @@ export const routeMetadata: Record<string, RouteMeta> = {
     "imageAltPL": "Mockup zina WIN / DOWS na szklanym stole, pokazujący okładkę i rozkładówkę.",
     "imageAltEN": "WIN / DOWS zine mockup on a glass table, showing the cover and an open spread.",
     "year": "2023"
+  },
+  "/projects/small-design-projects/": {
+    "titlePL": "Mniejsze projekty — Wiktor Sielaszuk",
+    "titleEN": "Small Design Projects — Wiktor Sielaszuk",
+    "descriptionPL": "Mniejsze realizacje z zakresu ikon, identyfikacji wizualnej i grafiki użytkowej.",
+    "descriptionEN": "A collection of smaller icon, visual-identity, and applied-design projects.",
+    "image": "assets/media/small-design-projects/voice-model-icon.webp",
+    "imageAltPL": "Geometryczny portret w błękicie i różu na niebiesko-magentowym tle, z ciemnym zakrzywionym motywem.",
+    "imageAltEN": "Geometric portrait in cyan and pink on a blue-and-magenta background, with a dark curved motif."
   }
 };
 export const canonicalRoutes = Object.keys(routeMetadata);

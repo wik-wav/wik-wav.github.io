@@ -14,6 +14,7 @@
     <div><p class="overline">LOCAL CONTENT TOOL</p><h1>Portfolio Studio</h1></div>
     <div class="header-actions">
       <span class="save-state" data-save-state aria-live="polite">Loading…</span>
+      <button type="button" class="button secondary preview-toggle" data-preview-toggle>Preview</button>
       <button type="button" class="button secondary" data-validate>Validate</button>
       <button type="button" class="button" data-publish>Build for publishing</button>
     </div>
@@ -21,16 +22,37 @@
   <main class="app-grid">
     <aside class="library" aria-label="Content library">
       <button class="site-settings" type="button" data-open-site><span>Global</span><strong>Site, home & footer</strong></button>
-      <section><div class="library-heading"><h2>Projects + collections</h2><button type="button" data-create="project" aria-label="Create project">+</button></div><p class="order-help">Drag the handle, use the arrows, or type a position.</p><p class="sr-only" data-order-status aria-live="polite"></p><ol class="container-order-list" data-list="projects" aria-label="Project and collection order"></ol></section>
-      <section><div class="library-heading"><h2>Activity updates <span class="library-count" data-update-count aria-live="polite"></span></h2><button type="button" data-create="update" aria-label="Create activity update">+</button></div><ol class="updates-list" data-list="updates" aria-label="Activity updates"></ol></section>
-      <section class="works-browser-section"><div class="library-heading"><h2>Works <span class="library-count" data-work-count aria-live="polite"></span></h2><button type="button" data-create="work" aria-label="Create work">+</button></div><label class="search"><span>Search works, IDs or projects</span><input type="search" data-work-search></label><ol class="works-list" data-list="works" aria-label="Visual works browser"></ol><details class="archived-works" data-archived-works><summary>Archived works <span class="library-count" data-archive-count aria-live="polite"></span></summary><ol data-list="archived-works" aria-label="Archived works"></ol></details></section>
+      <section><div class="library-heading"><h2>Projects + collections <span class="library-count" data-project-count></span></h2><span class="library-heading-actions"><button type="button" data-manage="containers">Manage</button><button type="button" data-create="project" aria-label="Create project">+</button></span></div><p class="order-help">Quick access · full ordering is available in Manage.</p><p class="sr-only" data-order-status aria-live="polite"></p><ol class="container-order-list" data-list="projects" aria-label="Recent projects and collections"></ol><button type="button" class="library-more" data-manage="containers" data-show-more="containers" hidden>Show more</button></section>
+      <section><div class="library-heading"><h2>Activity updates <span class="library-count" data-update-count aria-live="polite"></span></h2><span class="library-heading-actions"><button type="button" data-manage="updates">Manage</button><button type="button" data-create="update" aria-label="Create activity update">+</button></span></div><ol class="updates-list" data-list="updates" aria-label="Recent activity updates"></ol><button type="button" class="library-more" data-manage="updates" data-show-more="updates" hidden>Show more</button></section>
+      <section class="works-browser-section"><div class="library-heading"><h2>Works <span class="library-count" data-work-count aria-live="polite"></span></h2><span class="library-heading-actions"><button type="button" data-manage="works">Manage</button><button type="button" data-create="work" aria-label="Create work">+</button></span></div><label class="search"><span>Quick find</span><input type="search" data-work-search placeholder="Title, ID or project"></label><ol class="works-list" data-list="works" aria-label="Quick works browser"></ol><button type="button" class="library-more" data-manage="works" data-show-more="works" hidden>Show more</button><details class="archived-works" data-archived-works><summary>Archived works <span class="library-count" data-archive-count aria-live="polite"></span></summary><ol data-list="archived-works" aria-label="Recent archived works"></ol><button type="button" class="library-more" data-manage="works" data-manager-initial-status="archived" data-show-more="archives" hidden>Show more</button></details></section>
     </aside>
-    <section class="editor" aria-live="polite">
+    <div class="library-resizer" role="separator" aria-orientation="vertical" aria-label="Resize content library" aria-valuemin="220" aria-valuemax="520" tabindex="0" data-library-resizer title="Drag to resize · double-click to reset"></div>
+    <section class="content-manager" data-manager hidden aria-labelledby="manager-title">
+      <header class="manager-head">
+        <div><p class="overline">CONTENT LIBRARY</p><h2 id="manager-title" data-manager-title>Manage content</h2><p class="muted" data-manager-summary></p></div>
+        <div class="manager-head-actions"><button type="button" class="button secondary" data-manager-create>Create</button><button type="button" class="button secondary" data-manager-close>Return to editor</button></div>
+      </header>
+      <nav class="manager-tabs" aria-label="Content type">
+        <button type="button" data-manager-type="containers">Projects <span data-manager-count="containers"></span></button>
+        <button type="button" data-manager-type="updates">Activity <span data-manager-count="updates"></span></button>
+        <button type="button" data-manager-type="works">Works <span data-manager-count="works"></span></button>
+      </nav>
+      <div class="manager-toolbar">
+        <label class="field manager-search"><span>Search</span><input type="search" data-manager-query placeholder="Title or stable ID"></label>
+        <label class="field"><span>Status</span><select data-manager-status><option value="all">All statuses</option><option value="published">Published</option><option value="draft">Drafts</option><option value="private">Private</option></select></label>
+        <label class="field"><span data-manager-scope-label>Group</span><select data-manager-scope></select></label>
+        <label class="field"><span>Sort</span><select data-manager-sort></select></label>
+        <label class="field"><span>Rows</span><select data-manager-per><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label>
+      </div>
+      <div class="manager-table-wrap"><ol class="manager-list" data-manager-list aria-label="Managed content" tabindex="-1"></ol></div>
+      <footer class="manager-footer"><p data-manager-range></p><nav class="manager-pagination" data-manager-pagination aria-label="Manager pages"></nav></footer>
+    </section>
+    <section class="editor">
       <div class="empty-editor" data-empty><p class="overline">STRUCTURED CONTENT</p><h2>Choose an item to edit.</h2><p>Projects, activity updates, artworks, captions, crop settings and SEO all live here. Source files are generated automatically when you save.</p></div>
       <form data-editor hidden></form>
     </section>
     <aside class="preview-panel">
-      <div class="preview-head"><div><p class="overline">LIVE PREVIEW</p><h2 data-preview-title>Site</h2></div><a class="button secondary" data-preview-open href="__PREVIEW_ORIGIN__" target="_blank" rel="noopener">Open tab</a></div>
+      <div class="preview-head"><div><p class="overline">LIVE PREVIEW</p><h2 data-preview-title>Site</h2></div><span class="preview-head-actions"><a class="button secondary" data-preview-open href="__PREVIEW_ORIGIN__" target="_blank" rel="noopener">Open tab</a><button type="button" class="button secondary preview-close" data-preview-close>Close</button></span></div>
       <iframe data-preview src="__PREVIEW_ORIGIN__" title="Live portfolio preview"></iframe>
       <section class="diagnostics"><h2>Checks</h2><div data-diagnostics><p class="muted">Validation results will appear here.</p></div></section>
     </aside>

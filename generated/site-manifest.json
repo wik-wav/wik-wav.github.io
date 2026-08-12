@@ -77,16 +77,16 @@
       "recordType": "collection"
     },
     {
-      "name": "small-design-projects",
-      "route": "/projects/small-design-projects/",
-      "file": "projects/small-design-projects/index.html",
-      "recordType": "collection"
-    },
-    {
       "name": "windows-zine",
       "route": "/projects/windows-zine/",
       "file": "projects/windows-zine/index.html",
       "recordType": "project"
+    },
+    {
+      "name": "small-design-projects",
+      "route": "/projects/small-design-projects/",
+      "file": "projects/small-design-projects/index.html",
+      "recordType": "collection"
     }
   ]
 }

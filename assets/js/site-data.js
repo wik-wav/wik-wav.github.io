@@ -5,7 +5,21 @@ window.PORTFOLIO_SITE = {
   "profile": {
     "name": "Wiktor Sielaszuk",
     "email": "wiktor.sielaszuk.22@gmail.com",
-    "linkedIn": "https://www.linkedin.com/in/wiktor-sielaszuk"
+    "linkedIn": "https://www.linkedin.com/in/wiktor-sielaszuk",
+    "socialLinks": [
+      {
+        "id": "linkedin",
+        "labelPL": "LinkedIn",
+        "labelEN": "LinkedIn",
+        "href": "https://www.linkedin.com/in/wiktor-sielaszuk"
+      },
+      {
+        "id": "github",
+        "labelPL": "GitHub",
+        "labelEN": "GitHub",
+        "href": "https://github.com/wik-wav"
+      }
+    ]
   },
   "navigation": [
     {

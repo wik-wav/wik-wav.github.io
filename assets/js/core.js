@@ -71,6 +71,33 @@
     }).join("");
   }
 
+  function safeSocialHref(value) {
+    try {
+      const href = new URL(String(value || ""));
+      return href.protocol === "https:" && href.hostname && !href.username && !href.password ? href.href : "";
+    } catch {
+      return "";
+    }
+  }
+
+  function configuredSocialLinks() {
+    const profile = site.profile || {};
+    // Only older content without the socialLinks property receives the legacy
+    // LinkedIn fallback. An explicit empty array deliberately renders nothing.
+    const source = Array.isArray(profile.socialLinks)
+      ? profile.socialLinks
+      : profile.socialLinks === undefined
+        ? [{ id: "linkedin", labelPL: "LinkedIn", labelEN: "LinkedIn", href: profile.linkedIn || "https://www.linkedin.com/in/wiktor-sielaszuk" }]
+        : [];
+    return source
+      .map((link, index) => ({
+        id: String(link?.id || `social-${index + 1}`),
+        label: state.lang === "pl" ? link?.labelPL : link?.labelEN,
+        href: safeSocialHref(link?.href)
+      }))
+      .filter(link => link.href && String(link.label || "").trim());
+  }
+
   function renderChrome() {
     const header = document.querySelector("[data-site-header]");
     const footer = document.querySelector("[data-site-footer]");
@@ -99,7 +126,7 @@
             <div><p class="section-code">C.01 / ${t("nav.contact")}</p><h2 data-copy="footer.title">${t("footer.title")}</h2></div>
             <div class="footer-links">
               <a href="mailto:${esc(site.profile?.email || "wiktor.sielaszuk.22@gmail.com")}">${esc(site.profile?.email || "wiktor.sielaszuk.22@gmail.com")}</a>
-              <a href="${esc(site.profile?.linkedIn || "https://www.linkedin.com/in/wiktor-sielaszuk")}" rel="me">LinkedIn</a>
+              ${configuredSocialLinks().map(link => `<a href="${esc(link.href)}" target="_blank" rel="me noopener noreferrer">${esc(link.label)}</a>`).join("")}
               <a href="${url("portfolio/index.html")}" data-copy="nav.portfolio">${t("nav.portfolio")}</a>
               <a href="${url("projects/index.html")}" data-copy="nav.projects">${t("nav.projects")}</a>
               <a href="${url("activity/index.html")}" data-copy="nav.activity">${t("nav.activity")}</a>
@@ -395,5 +422,5 @@
   });
   applyCopy();
 
-  window.Portfolio = { state, t, text, field, esc, singleLine, url, setLanguage, makeMedia, makeVideo, makeWorkMedia, mediaDisclosure, mediaHasTransparency, mediaBadgeForItem, preferredMediaBadge, projectById, projectName, projectHref, labelFor, videoUrl, paginationTokens, renderPaginationTokens };
+  window.Portfolio = { state, t, text, field, esc, singleLine, url, setLanguage, makeMedia, makeVideo, makeWorkMedia, mediaDisclosure, mediaHasTransparency, mediaBadgeForItem, preferredMediaBadge, projectById, projectName, projectHref, labelFor, videoUrl, paginationTokens, renderPaginationTokens, configuredSocialLinks };
 })();
