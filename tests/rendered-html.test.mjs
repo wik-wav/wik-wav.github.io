@@ -264,16 +264,22 @@ test("uses semantic, responsive hooks for the three degree projects", async () =
 });
 
 test("lets each project control its main heading line spacing independently by language", async () => {
-  const latentne = await read("projects/latentne/index.html");
-  const lem = await read("projects/lem/index.html");
-  const gaijin = await read("projects/gaijin-no-mittsu-no-kuusou/index.html");
   const css = await read("assets/css/site.css");
   const core = await read("assets/js/core.js");
   const projectSchema = JSON.parse(await read("content/schemas/project.schema.json"));
   const collectionSchema = JSON.parse(await read("content/schemas/collection.schema.json"));
-  assert.match(latentne, /class="page-shell project-hero" style="--project-hero-line-height-pl:1\.12;--project-hero-line-height-en:1\.12"/);
-  assert.match(lem, /class="page-shell project-hero" style="--project-hero-line-height-pl:1\.4;--project-hero-line-height-en:1\.4"/);
-  assert.match(gaijin, /class="page-shell project-hero" style="--project-hero-line-height-pl:1\.3;--project-hero-line-height-en:1\.3"/);
+  const defaultPL = projectSchema.properties.heroLineHeightPL.default;
+  const defaultEN = projectSchema.properties.heroLineHeightEN.default;
+  for (const slug of ["latentne", "lem", "gaijin-no-mittsu-no-kuusou"]) {
+    const html = await read(`projects/${slug}/index.html`);
+    const record = JSON.parse(await read(`content/projects/${slug}.json`));
+    const lineHeightPL = record.heroLineHeightPL ?? record.heroLineHeight ?? defaultPL;
+    const lineHeightEN = record.heroLineHeightEN ?? record.heroLineHeight ?? defaultEN;
+    assert.ok(
+      html.includes(`class="page-shell project-hero" style="--project-hero-line-height-pl:${lineHeightPL};--project-hero-line-height-en:${lineHeightEN}"`),
+      `${slug} renders its authored PL and EN heading spacing`,
+    );
+  }
   assert.match(css, /\.project-hero h1\s*\{[^}]*line-height:\s*var\(--project-hero-line-height-pl,\s*1\.12\)/);
   assert.match(css, /html\[lang="en"\] \.project-hero h1\s*\{[^}]*line-height:\s*var\(--project-hero-line-height-en,\s*var\(--project-hero-line-height-pl,\s*1\.12\)\)/);
   assert.match(core, /portfolio-preview-heading-spacing/);
